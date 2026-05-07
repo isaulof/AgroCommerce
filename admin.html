@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroCommerce — Painel Administrativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="m-nav">
+  <div class="m-nav-inner">
+    <a href="index.html" class="m-nav-back"><i class="fa-solid fa-arrow-left"></i> Início</a>
+    <a href="marketplace.html" class="m-nav-logo">
+      <div class="mark"><i class="fa-solid fa-seedling"></i></div>
+      AGRO<span>COMMERCE</span>
+    </a>
+    <div class="m-nav-actions">
+      <a href="carrinho.html" class="nav-cart-btn" aria-label="Carrinho">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="m-nav-user-btn" id="navUserBtn">
+        <span id="navUserAvatar"></span>
+        <span id="navUserName">Entrar</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:.6rem;color:rgba(255,255,255,.4)"></i>
+      </button>
+    </div>
+    <button class="m-nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+  <h1 class="admin-title"><i class="fa-solid fa-shield-halved" style="color:var(--gold-500)"></i> Painel Administrativo</h1>
+  <p class="admin-subtitle">Gestão da plataforma AgroCommerce — dados simulados para demonstração.</p>
+
+  <!-- Stats -->
+  <div class="admin-stats" id="adminStats"></div>
+
+  <!-- Lojas -->
+  <div class="admin-section reveal">
+    <div class="admin-section-header">
+      <h2 class="admin-section-title"><i class="fa-solid fa-store" style="color:var(--green-600)"></i> Lojas Verificadas</h2>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Loja</th>
+            <th>Segmento</th>
+            <th>Proprietário</th>
+            <th>Rating</th>
+            <th>Reviews</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="storesTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Produtos -->
+  <div class="admin-section reveal">
+    <div class="admin-section-header">
+      <h2 class="admin-section-title"><i class="fa-solid fa-box" style="color:var(--gold-500)"></i> Produtos Ativos</h2>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Loja</th>
+            <th>Preço</th>
+            <th>Estoque</th>
+            <th>Avaliação</th>
+          </tr>
+        </thead>
+        <tbody id="productsTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Usuários -->
+  <div class="admin-section reveal">
+    <div class="admin-section-header">
+      <h2 class="admin-section-title"><i class="fa-solid fa-users" style="color:var(--green-600)"></i> Usuários</h2>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Cidade</th>
+            <th>Verificado</th>
+            <th>Desde</th>
+          </tr>
+        </thead>
+        <tbody id="usersTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Avaliações recentes -->
+  <div class="admin-section reveal">
+    <div class="admin-section-header">
+      <h2 class="admin-section-title"><i class="fa-solid fa-star" style="color:var(--gold-500)"></i> Avaliações Recentes</h2>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Comprador</th>
+            <th>Nota</th>
+            <th>Comentário</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody id="reviewsTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Manutenção -->
+  <div class="admin-section reveal">
+    <div class="admin-section-header">
+      <h2 class="admin-section-title"><i class="fa-solid fa-rotate" style="color:var(--red-500)"></i> Manutenção</h2>
+    </div>
+    <div style="padding:20px 24px">
+      <p style="font-size:.875rem;color:var(--gray-600);margin-bottom:16px">
+        Reinicializa todos os dados mock para o estado original. Útil antes de apresentações.
+      </p>
+      <button class="btn btn-danger btn-sm" id="btnReset">
+        <i class="fa-solid fa-rotate"></i> Resetar Dados Mock
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroCommerce &mdash; Todos os direitos reservados.</p>
+    <a href="index.html" class="m-footer-link">Voltar ao site</a>
+  </div>
+</footer>
+
+<!-- Modal Login -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Selecionar Perfil</div>
+        <div class="modal-subtitle">Escolha com qual perfil deseja entrar</div>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

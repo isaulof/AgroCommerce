@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroCommerce — Loja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="m-nav">
+  <div class="m-nav-inner">
+    <a href="index.html" class="m-nav-back"><i class="fa-solid fa-arrow-left"></i> Início</a>
+    <a href="marketplace.html" class="m-nav-logo">
+      <div class="mark"><i class="fa-solid fa-seedling"></i></div>
+      AGRO<span>COMMERCE</span>
+    </a>
+    <div class="m-nav-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" id="navSearch" placeholder="Buscar produtos...">
+      <button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="m-nav-actions">
+      <a href="carrinho.html" class="nav-cart-btn" aria-label="Carrinho">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="m-nav-user-btn" id="navUserBtn">
+        <span id="navUserAvatar"></span>
+        <span id="navUserName">Entrar</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:.6rem;color:rgba(255,255,255,.4)"></i>
+      </button>
+    </div>
+    <button class="m-nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- CONTEÚDO DA LOJA -->
+<div class="loja-wrap">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="marketplace.html">Marketplace</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <span id="breadcrumbLoja">—</span>
+  </div>
+
+  <!-- HEADER DA LOJA (renderizado via JS) -->
+  <div class="loja-header reveal" id="lojaHeader"></div>
+
+  <!-- FILTRO POR CATEGORIA -->
+  <div class="filter-bar" style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-lg);margin-bottom:16px;">
+    <div class="filter-bar-inner">
+      <div class="filter-pills" id="storeCategoryPills">
+        <button class="filter-pill active" data-cat="all"><i class="fa-solid fa-border-all"></i> Todos</button>
+        <button class="filter-pill" data-cat="racao"><i class="fa-solid fa-cow"></i> Ração</button>
+        <button class="filter-pill" data-cat="adubo"><i class="fa-solid fa-flask"></i> Adubos</button>
+        <button class="filter-pill" data-cat="defensivo"><i class="fa-solid fa-shield"></i> Defensivos</button>
+        <button class="filter-pill" data-cat="medicamento"><i class="fa-solid fa-syringe"></i> Medicamentos</button>
+        <button class="filter-pill" data-cat="sementes"><i class="fa-solid fa-seedling"></i> Sementes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- META E GRID -->
+  <div class="feed-meta">
+    <span class="feed-meta-count" id="feedCount"></span>
+  </div>
+  <div class="feed-grid" id="feedGrid"></div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroCommerce &mdash; Todos os direitos reservados.</p>
+    <a href="index.html" class="m-footer-link">Voltar ao site</a>
+  </div>
+</footer>
+
+<!-- MODAL DE LOGIN -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Selecionar Perfil</div>
+        <div class="modal-subtitle">Escolha com qual perfil deseja entrar</div>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+</body>
+</html>

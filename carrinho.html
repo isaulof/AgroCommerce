@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroCommerce — Carrinho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <style>
+    .cart-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 2rem) 1.5rem 4rem;
+    }
+    .cart-page-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+    }
+    .cart-page-title span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-left: .5rem;
+    }
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      transition: box-shadow .2s;
+    }
+    .cart-item:hover { box-shadow: var(--shadow); }
+    .cart-item-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      flex-shrink: 0;
+      background: var(--border);
+    }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-store {
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--brand-light);
+      margin-bottom: .2rem;
+    }
+    .cart-item-title {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .cart-item-price {
+      font-family: var(--font-display);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .cart-item-unit {
+      font-size: .75rem;
+      color: var(--text-secondary);
+      margin-left: .25rem;
+    }
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-shrink: 0;
+    }
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .cart-qty-btn {
+      width: 34px;
+      height: 34px;
+      border: none;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      transition: background .15s, color .15s;
+    }
+    .cart-qty-btn:hover { background: var(--brand); color: #fff; }
+    .cart-qty-num {
+      min-width: 36px;
+      text-align: center;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+      padding: 0 .25rem;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      line-height: 34px;
+      user-select: none;
+    }
+    .cart-item-remove {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .cart-item-remove:hover { background: #ffebee; color: #e53935; border-color: #e53935; }
+    .cart-summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+    }
+    .cart-summary-title {
+      font-family: var(--font-display);
+      font-size: .85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .9rem;
+      color: var(--text-secondary);
+      margin-bottom: .75rem;
+    }
+    .cart-summary-row.total {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      padding-top: .75rem;
+      border-top: 1px solid var(--border);
+      margin-top: .25rem;
+    }
+    .cart-summary-row.total span:last-child {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--brand-light);
+    }
+    .cart-summary-actions {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-top: 1.25rem;
+    }
+    .cart-summary-free {
+      font-size: .78rem;
+      color: #43a047;
+      font-weight: 600;
+    }
+    .cart-empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary);
+    }
+    .cart-empty i {
+      font-size: 3.5rem;
+      color: var(--border);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .cart-empty h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+    .cart-empty p {
+      font-size: .9rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .cart-grid {
+        grid-template-columns: 1fr;
+      }
+      .cart-summary { position: static; }
+      .cart-item {
+        flex-wrap: wrap;
+      }
+      .cart-item-controls {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+    @media (max-width: 480px) {
+      .cart-item-img { width: 64px; height: 64px; }
+      .cart-item-title { font-size: .88rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="m-nav">
+  <div class="m-nav-inner">
+    <a href="marketplace.html" class="m-nav-back"><i class="fa-solid fa-arrow-left"></i> Marketplace</a>
+    <a href="marketplace.html" class="m-nav-logo">
+      <div class="mark"><i class="fa-solid fa-seedling"></i></div>
+      AGRO<span>COMMERCE</span>
+    </a>
+    <div class="m-nav-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" id="navSearch" placeholder="Buscar produtos...">
+      <button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="m-nav-actions">
+      <a href="carrinho.html" class="nav-cart-btn" aria-label="Carrinho">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="m-nav-user-btn" id="navUserBtn">
+        <span id="navUserAvatar"></span>
+        <span id="navUserName">Entrar</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:.6rem;color:rgba(255,255,255,.4)"></i>
+      </button>
+    </div>
+    <button class="m-nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="cart-wrap">
+
+  <h1 class="cart-page-title">
+    <i class="fa-solid fa-cart-shopping" style="color:var(--brand-light);margin-right:.5rem"></i>Carrinho
+    <span id="cartCount"></span>
+  </h1>
+
+  <!-- Estado vazio -->
+  <div class="cart-empty" id="cartEmpty" style="display:none">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <h2>Seu carrinho está vazio</h2>
+    <p>Adicione produtos do marketplace para começar sua compra.</p>
+    <a href="marketplace.html" class="btn btn-primary btn-md">
+      <i class="fa-solid fa-store"></i> Continuar comprando
+    </a>
+  </div>
+
+  <!-- Grid com itens -->
+  <div class="cart-grid" id="cartGrid">
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-summary" id="cartSummary">
+      <div class="cart-summary-title"><i class="fa-solid fa-receipt" style="margin-right:.4rem"></i>Resumo do pedido</div>
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="summarySubtotal">R$ 0,00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Frete</span>
+        <span class="cart-summary-free"><i class="fa-solid fa-truck" style="margin-right:.3rem"></i>Grátis</span>
+      </div>
+      <div class="cart-summary-row total">
+        <span>Total</span>
+        <span id="summaryTotal">R$ 0,00</span>
+      </div>
+      <div class="cart-summary-actions">
+        <button class="btn btn-gold btn-lg btn-full" id="checkoutBtn">
+          <i class="fa-solid fa-lock"></i> Finalizar Compra
+        </button>
+        <a href="marketplace.html" class="btn btn-ghost btn-md btn-full">
+          <i class="fa-solid fa-arrow-left"></i> Continuar comprando
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroCommerce &mdash; Todos os direitos reservados.</p>
+    <a href="index.html" class="m-footer-link">Voltar ao site</a>
+  </div>
+</footer>
+
+<!-- Modal Login -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Selecionar Perfil</div>
+        <div class="modal-subtitle">Escolha com qual perfil deseja entrar</div>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

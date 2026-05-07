@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AgroComerce — Logo versão clara (fundo branco / apresentações / impressão) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 64" width="296" height="64"
+     role="img" aria-label="AgroComerce">
+  <title>AgroComerce</title>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- ── MARCA ────────────────────────────────────── -->
+  <rect x="0" y="8" width="48" height="48" rx="10" fill="#2E7D32"/>
+  <rect x="0" y="8" width="48" height="22" rx="10" fill="rgba(255,255,255,.07)"/>
+
+  <line x1="24" y1="52" x2="24" y2="24"
+    stroke="rgba(255,255,255,.9)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M24 40 C21 37 12 31 12 21 C17 20 24 27 24 39 Z"
+    fill="rgba(255,255,255,.9)"/>
+  <path d="M24 34 C27 31 36 25 36 15 C31 14 24 21 24 33 Z"
+    fill="rgba(255,255,255,.9)"/>
+
+  <!-- ── TEXTO ──────────────────────────────────── -->
+  <!-- AGRO — escuro -->
+  <text x="64" y="43"
+    font-family="'Montserrat', 'Arial Black', Arial, sans-serif"
+    font-weight="900"
+    font-size="27"
+    fill="#111827"
+    letter-spacing="-0.8"
+    textLength="76"
+    lengthAdjust="spacingAndGlyphs">AGRO</text>
+
+  <!-- COMERCE — verde escuro -->
+  <text x="148" y="43"
+    font-family="'Montserrat', 'Arial Black', Arial, sans-serif"
+    font-weight="900"
+    font-size="27"
+    fill="#2E7D32"
+    letter-spacing="-0.8"
+    textLength="144"
+    lengthAdjust="spacingAndGlyphs">COMERCE</text>
+</svg>

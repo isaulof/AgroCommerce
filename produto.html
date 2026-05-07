@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroCommerce — Produto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <style>
+    .detail-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 2rem) 1.5rem 4rem;
+    }
+    .gallery-fav-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+      transition: transform .2s, box-shadow .2s;
+      z-index: 2;
+    }
+    .gallery-fav-btn:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+    .gallery-fav-btn .fa-heart { color: #e53935; }
+    .gallery-fav-btn .fa-regular { color: #9e9e9e; }
+    .detail-gallery { position: relative; }
+    .gallery-main { position: relative; }
+    .gallery-main img {
+      width: 100%;
+      aspect-ratio: 7/5;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      display: block;
+      cursor: zoom-in;
+      transition: opacity .18s;
+    }
+    .gallery-main img:hover { opacity: .93; }
+    .gallery-zoom-hint {
+      position: absolute;
+      bottom: .6rem;
+      left: .6rem;
+      background: rgba(0,0,0,.45);
+      color: #fff;
+      font-size: .65rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px);
+    }
+    /* ── Lightbox ─────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 8px 48px rgba(0,0,0,.6);
+      transition: transform .25s ease, opacity .22s;
+      user-select: none;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.4rem;
+      background: rgba(255,255,255,.12);
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .18s;
+      backdrop-filter: blur(6px);
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,.25); }
+    .lightbox-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,.1);
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .18s;
+      backdrop-filter: blur(6px);
+    }
+    .lightbox-arrow:hover { background: rgba(255,255,255,.25); }
+    .lightbox-arrow.lb-prev { left: 1.2rem; }
+    .lightbox-arrow.lb-next { right: 1.2rem; }
+    .lightbox-arrow[hidden] { display: none; }
+    .lightbox-counter {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.6);
+      font-size: .75rem;
+      letter-spacing: .06em;
+    }
+    .lightbox-dots {
+      position: fixed;
+      bottom: 2.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+    .lightbox-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.3);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background .2s, transform .2s;
+    }
+    .lightbox-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+    .gallery-thumbs {
+      display: flex;
+      gap: .5rem;
+      margin-top: .75rem;
+      flex-wrap: wrap;
+    }
+    .gallery-thumb {
+      width: 72px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: .65;
+      transition: opacity .2s, border-color .2s;
+    }
+    .gallery-thumb.active,
+    .gallery-thumb:hover {
+      opacity: 1;
+      border-color: var(--brand);
+    }
+    .detail-section {
+      margin-top: 2rem;
+    }
+    .detail-section h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-description {
+      font-size: .95rem;
+      line-height: 1.8;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+    .detail-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+    }
+    .detail-spec {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .75rem 1rem;
+    }
+    .detail-spec-label {
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-secondary);
+      margin-bottom: .25rem;
+    }
+    .detail-spec-value {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .detail-spec-value a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .detail-spec-value a:hover { text-decoration: underline; }
+    .rating-summary {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .rating-summary .big-num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+    .rating-summary-meta {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+    .rating-summary-meta .stars { color: var(--gold); font-size: .95rem; }
+    .rating-summary-meta span { font-size: .82rem; color: var(--text-secondary); }
+    .rating-bars { flex: 1; display: flex; flex-direction: column; gap: .4rem; }
+    .rating-bar-row {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .8rem;
+    }
+    .rating-bar-label { width: 24px; text-align: right; color: var(--text-secondary); font-weight: 600; }
+    .rating-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .rating-bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 99px;
+      transition: width .6s ease;
+    }
+    .rating-bar-count { width: 24px; color: var(--text-secondary); font-size: .75rem; }
+    .reviews-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem; }
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .review-card-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: .75rem;
+    }
+    .review-card-meta { display: flex; flex-direction: column; gap: .2rem; flex: 1; }
+    .review-card-name { font-weight: 600; font-size: .9rem; color: var(--text); }
+    .review-card-date { font-size: .78rem; color: var(--text-secondary); }
+    .review-card-text { font-size: .9rem; line-height: 1.65; color: var(--text); }
+    .review-card .stars { color: var(--gold); font-size: .8rem; }
+    .no-reviews {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: .9rem;
+    }
+    .review-form-wrap {
+      margin-top: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+    .review-form-wrap h4 {
+      font-family: var(--font-display);
+      font-size: .9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+    .star-input { display: flex; gap: .25rem; margin-bottom: 1rem; }
+    .star-input button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--border);
+      transition: color .15s, transform .15s;
+      padding: 0 .1rem;
+    }
+    .star-input button:hover,
+    .star-input button.active { color: var(--gold); transform: scale(1.15); }
+    .review-form-wrap textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: .75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: .9rem;
+      resize: vertical;
+      box-sizing: border-box;
+      transition: border-color .2s;
+    }
+    .review-form-wrap textarea:focus { outline: none; border-color: var(--brand); }
+    .price-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .price-box-price {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: .25rem;
+    }
+    .price-box-unit { font-size: .82rem; color: var(--text-secondary); margin-bottom: 1rem; }
+    .price-box-stock { font-size: .82rem; color: var(--text-secondary); margin-bottom: 1rem; }
+    .price-box-qty {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+    .price-box-qty label { font-size: .85rem; font-weight: 600; color: var(--text); }
+    .price-box-qty input[type=number] {
+      width: 72px;
+      padding: .5rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: .95rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .price-box-qty input[type=number]:focus { outline: none; border-color: var(--brand); }
+    .price-box-qty input[type=number]::-webkit-inner-spin-button { -webkit-appearance: auto; }
+    .price-box-actions { display: flex; flex-direction: column; gap: .75rem; }
+    .seller-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+    .seller-box-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .seller-box-info { flex: 1; }
+    .seller-box-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .3rem;
+    }
+    .seller-box-name a { color: inherit; text-decoration: none; }
+    .seller-box-name a:hover { color: var(--brand); }
+    .seller-box-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-bottom: .5rem;
+    }
+    .seller-box-meta .stars { color: var(--gold); font-size: .78rem; }
+    .seller-box-meta span { font-size: .78rem; color: var(--text-secondary); }
+    .seller-box-stats {
+      display: flex;
+      gap: 1rem;
+      padding: .75rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .seller-box-stat { display: flex; flex-direction: column; align-items: center; gap: .15rem; flex: 1; }
+    .seller-box-stat strong { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--text); }
+    .seller-box-stat span { font-size: .7rem; color: var(--text-secondary); text-align: center; }
+    .seller-box-bio { font-size: .83rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1rem; }
+    .detail-panel { position: sticky; top: calc(var(--nav-h) + 1rem); }
+    @media (max-width: 768px) {
+      .detail-specs { grid-template-columns: 1fr; }
+      .rating-summary { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .detail-panel { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="m-nav">
+  <div class="m-nav-inner">
+    <a href="marketplace.html" class="m-nav-back"><i class="fa-solid fa-arrow-left"></i> Marketplace</a>
+    <a href="marketplace.html" class="m-nav-logo">
+      <div class="mark"><i class="fa-solid fa-seedling"></i></div>
+      AGRO<span>COMMERCE</span>
+    </a>
+    <div class="m-nav-search">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" id="navSearch" placeholder="Buscar produtos...">
+      <button class="search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="m-nav-actions">
+      <a href="carrinho.html" class="nav-cart-btn" aria-label="Carrinho">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="m-nav-user-btn" id="navUserBtn">
+        <span id="navUserAvatar"></span>
+        <span id="navUserName">Entrar</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:.6rem;color:rgba(255,255,255,.4)"></i>
+      </button>
+    </div>
+    <button class="m-nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="detail-wrap">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+    <a href="marketplace.html">Marketplace</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <a href="marketplace.html" id="breadCrumbCat">Categoria</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <span id="breadCrumbTitle">Produto</span>
+  </nav>
+
+  <!-- Grid principal -->
+  <div class="detail-grid">
+
+    <!-- ── Esquerda ── -->
+    <div>
+      <!-- Galeria -->
+      <div class="detail-gallery">
+        <div class="gallery-main">
+          <img id="galleryMain" src="" alt="Produto" title="Clique para ampliar">
+          <span class="gallery-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Clique para ampliar</span>
+          <button class="gallery-fav-btn" id="favBtn" aria-label="Favoritar">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+      </div>
+
+      <!-- Descrição -->
+      <div class="detail-section reveal">
+        <h3><i class="fa-solid fa-align-left" style="margin-right:.4rem;color:var(--brand-light)"></i>Descrição</h3>
+        <div class="detail-description" id="productDesc"></div>
+      </div>
+
+      <!-- Especificações -->
+      <div class="detail-section reveal">
+        <h3><i class="fa-solid fa-list-check" style="margin-right:.4rem;color:var(--brand-light)"></i>Especificações</h3>
+        <div class="detail-specs" id="productSpecs"></div>
+      </div>
+
+      <!-- Avaliações -->
+      <div class="detail-section reveal" id="reviewsSection">
+        <h3><i class="fa-solid fa-star" style="margin-right:.4rem;color:var(--gold)"></i>Avaliações</h3>
+
+        <div class="rating-summary" id="ratingSummary"></div>
+
+        <div class="reviews-list" id="reviewsList"></div>
+
+        <!-- Formulário de avaliação -->
+        <div class="review-form-wrap" id="reviewFormWrap">
+          <h4><i class="fa-solid fa-pen" style="margin-right:.4rem"></i>Deixar avaliação</h4>
+          <div class="star-input" id="starInput">
+            <button type="button" data-v="1"><i class="fa-solid fa-star"></i></button>
+            <button type="button" data-v="2"><i class="fa-solid fa-star"></i></button>
+            <button type="button" data-v="3"><i class="fa-solid fa-star"></i></button>
+            <button type="button" data-v="4"><i class="fa-solid fa-star"></i></button>
+            <button type="button" data-v="5"><i class="fa-solid fa-star"></i></button>
+          </div>
+          <textarea id="reviewComment" placeholder="Conte sua experiência com este produto..."></textarea>
+          <button class="btn btn-primary btn-md" id="submitReview" style="margin-top:.75rem">
+            <i class="fa-solid fa-paper-plane"></i> Enviar avaliação
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Direita (painel sticky) ── -->
+    <div class="detail-panel">
+
+      <!-- Price Box -->
+      <div class="price-box">
+        <div class="price-box-price" id="pbPrice"></div>
+        <div class="price-box-unit" id="pbUnit"></div>
+        <div class="price-box-stock" id="pbStock"></div>
+        <div class="price-box-qty">
+          <label for="qtyInput">Quantidade:</label>
+          <input type="number" id="qtyInput" min="1" value="1">
+        </div>
+        <div class="price-box-actions">
+          <button class="btn btn-gold btn-lg btn-full" id="addCartBtn">
+            <i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho
+          </button>
+          <a href="carrinho.html" class="btn btn-outline btn-lg btn-full">
+            <i class="fa-solid fa-cart-shopping"></i> Ver Carrinho
+          </a>
+        </div>
+      </div>
+
+      <!-- Seller Box -->
+      <div class="seller-box" id="sellerBox"></div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroCommerce &mdash; Todos os direitos reservados.</p>
+    <a href="index.html" class="m-footer-link">Voltar ao site</a>
+  </div>
+</footer>
+
+<!-- Modal Login -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Selecionar Perfil</div>
+        <div class="modal-subtitle">Escolha com qual perfil deseja entrar</div>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualizar foto">
+  <button class="lightbox-close" id="lbClose" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+  <button class="lightbox-arrow lb-prev" id="lbPrev" aria-label="Foto anterior"><i class="fa-solid fa-chevron-left"></i></button>
+  <img class="lightbox-img" id="lbImg" src="" alt="Foto ampliada do produto">
+  <button class="lightbox-arrow lb-next" id="lbNext" aria-label="Próxima foto"><i class="fa-solid fa-chevron-right"></i></button>
+  <div class="lightbox-dots" id="lbDots"></div>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/product.js"></script>
+</body>
+</html>

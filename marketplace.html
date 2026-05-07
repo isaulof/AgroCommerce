@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroCommerce — Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-links">
+      <a href="index.html" class="topbar-link"><i class="fa-solid fa-house"></i> Site Institucional</a>
+      <span class="topbar-sep">|</span>
+      <a href="lojista.html" class="topbar-link">Central do Vendedor Agro</a>
+      <span class="topbar-sep">|</span>
+      <a href="admin.html" class="topbar-link">Admin</a>
+    </div>
+    <div class="topbar-links">
+      <a href="#" class="topbar-link"><i class="fa-solid fa-mobile-screen"></i> Baixe o App</a>
+      <span class="topbar-sep">|</span>
+      <a href="#" class="topbar-link"><i class="fa-brands fa-instagram"></i> Siga-nos</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER PRINCIPAL -->
+<header class="shopee-header">
+  <div class="shopee-header-inner">
+    <a href="marketplace.html" class="shopee-logo">
+      <div class="shopee-logo-mark"><i class="fa-solid fa-seedling"></i></div>
+      <div class="shopee-logo-text">AGRO<span>COMMERCE</span></div>
+    </a>
+
+    <div class="shopee-search-wrap">
+      <div class="shopee-search">
+        <input type="text" id="navSearch" class="shopee-search-input" placeholder="Buscar em todo o marketplace agro...">
+        <button class="shopee-search-clear" id="searchClear"><i class="fa-solid fa-xmark"></i></button>
+        <button class="shopee-search-btn" id="searchBtn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="search-btn-text">Buscar</span>
+        </button>
+      </div>
+      <div class="shopee-search-tags">
+        <span>Mais buscados:</span>
+        <a class="search-tag" data-q="ração">Ração Animal</a>
+        <a class="search-tag" data-q="NPK">Fertilizante NPK</a>
+        <a class="search-tag" data-q="soja">Sementes de Soja</a>
+        <a class="search-tag" data-q="herbicida">Herbicida</a>
+        <a class="search-tag" data-q="vitamina">Vitamina Animal</a>
+      </div>
+    </div>
+
+    <div class="shopee-header-actions">
+      <a href="carrinho.html" class="shopee-cart" aria-label="Carrinho">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+        <span class="shopee-cart-label">Carrinho</span>
+      </a>
+      <a href="perfil.html" class="shopee-profile-link">
+        <i class="fa-solid fa-user"></i>
+        <span class="shopee-cart-label">Perfil</span>
+      </a>
+      <button class="shopee-user-btn" id="navUserBtn">
+        <span id="navUserAvatar"></span>
+        <span id="navUserName">Entrar</span>
+        <i class="fa-solid fa-chevron-down shopee-chevron"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO: CARROSSEL + BANNERS LATERAIS -->
+<section class="hero-section">
+  <div class="hero-grid">
+
+    <!-- Carrossel principal -->
+    <div class="hero-carousel">
+      <div class="hero-carousel-track" id="carouselTrack">
+
+        <div class="hero-slide" style="background:linear-gradient(to right,rgba(10,40,10,0.78) 0%,rgba(10,40,10,0.45) 55%,rgba(10,40,10,0.10) 100%),url('banners_img/banner_1.png') center/cover no-repeat">
+          <div class="hero-slide-content">
+            <span class="hero-slide-badge">Safra 2026</span>
+            <h2>Prepare sua<br>lavoura agora</h2>
+            <p>Insumos e defensivos direto de fornecedores verificados em Mato Grosso</p>
+            <a href="#feedSection" class="hero-slide-btn">Ver Ofertas <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="hero-slide" style="background:linear-gradient(to right,rgba(5,20,60,0.80) 0%,rgba(5,20,60,0.45) 55%,rgba(5,20,60,0.10) 100%),url('banners_img/banner_2.png') center/cover no-repeat">
+          <div class="hero-slide-content">
+            <span class="hero-slide-badge">Verificados</span>
+            <h2>Fornecedores<br>com CNPJ</h2>
+            <p>Compre com segurança total de lojas certificadas e auditadas pela AgroCommerce</p>
+            <a href="#feedSection" class="hero-slide-btn">Explorar Lojas <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="hero-slide" style="background:linear-gradient(to right,rgba(30,5,60,0.80) 0%,rgba(30,5,60,0.45) 55%,rgba(30,5,60,0.10) 100%),url('banners_img/banner_3.png') center/cover no-repeat">
+          <div class="hero-slide-content">
+            <span class="hero-slide-badge">Pecuária</span>
+            <h2>Saúde do seu<br>rebanho em dia</h2>
+            <p>Medicamentos veterinários, ração premium e suplementos para seu gado</p>
+            <a href="#feedSection" class="hero-slide-btn">Comprar Agora <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Slide anterior">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="carousel-arrow carousel-next" id="carouselNext" aria-label="Próximo slide">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <div class="carousel-dots" id="carouselDots">
+        <button class="carousel-dot active" data-idx="0"></button>
+        <button class="carousel-dot" data-idx="1"></button>
+        <button class="carousel-dot" data-idx="2"></button>
+      </div>
+    </div>
+
+    <!-- Banners laterais -->
+    <div class="hero-side">
+      <a class="hero-side-banner" data-cat="adubo" style="background:linear-gradient(to right,rgba(10,40,10,0.82) 0%,rgba(10,40,10,0.35) 100%),url('banners_img/banner_lateral_1.png') center/cover no-repeat">
+        <div class="hero-side-content">
+          <span class="hero-side-badge">Top</span>
+          <strong>Adubos &<br>Fertilizantes</strong>
+          <small>NPK, Calcário e mais</small>
+        </div>
+      </a>
+      <a class="hero-side-banner" data-cat="defensivo" style="background:linear-gradient(to right,rgba(80,5,5,0.75) 0%,rgba(80,5,5,0.15) 100%),url('banners_img/banner_lateral_2.png') center/cover no-repeat">
+        <div class="hero-side-content">
+          <span class="hero-side-badge">Oferta</span>
+          <strong>Defensivos<br>Agrícolas</strong>
+          <small>Herbicidas e fungicidas</small>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- GRADE DE CATEGORIAS -->
+<section class="category-section">
+  <div class="category-section-inner">
+    <div class="category-grid">
+      <a class="category-item" data-cat="racao">
+        <div class="category-icon" style="background:#e8f5e9;color:#2e7d32"><i class="fa-solid fa-cow"></i></div>
+        <span>Ração Animal</span>
+      </a>
+      <a class="category-item" data-cat="adubo">
+        <div class="category-icon" style="background:#e3f2fd;color:#1565c0"><i class="fa-solid fa-flask"></i></div>
+        <span>Fertilizantes</span>
+      </a>
+      <a class="category-item" data-cat="defensivo">
+        <div class="category-icon" style="background:#fff3e0;color:#e65100"><i class="fa-solid fa-shield"></i></div>
+        <span>Defensivos</span>
+      </a>
+      <a class="category-item" data-cat="medicamento">
+        <div class="category-icon" style="background:#fce4ec;color:#c62828"><i class="fa-solid fa-syringe"></i></div>
+        <span>Veterinária</span>
+      </a>
+      <a class="category-item" data-cat="sementes">
+        <div class="category-icon" style="background:#e0f2f1;color:#00695c"><i class="fa-solid fa-seedling"></i></div>
+        <span>Sementes</span>
+      </a>
+      <a class="category-item" data-cat="all">
+        <div class="category-icon" style="background:#f3e5f5;color:#6a1b9a"><i class="fa-solid fa-border-all"></i></div>
+        <span>Ver Todos</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LOJAS VERIFICADAS -->
+<div class="stores-strip">
+  <div class="stores-strip-inner">
+    <div class="stores-strip-title"><i class="fa-solid fa-store" style="margin-right:6px"></i>Lojas Verificadas</div>
+    <div class="stores-row" id="storesRow"></div>
+  </div>
+</div>
+
+<!-- OFERTAS RELÂMPAGO -->
+<section class="flash-sale-section">
+  <div class="flash-sale-inner">
+    <div class="flash-sale-header">
+      <div class="flash-sale-title-wrap">
+        <i class="fa-solid fa-bolt" style="color:var(--gold-500,#FFB300)"></i>
+        <span class="flash-sale-title">Ofertas Relâmpago</span>
+        <span class="flash-sale-dot">·</span>
+        <span class="flash-sale-sub">Safra 2026</span>
+      </div>
+      <div class="flash-timer-wrap">
+        <span class="flash-timer-label">Termina em</span>
+        <div class="flash-sale-timer">
+          <div class="flash-timer-block"><span id="timerH">04</span><small>h</small></div>
+          <div class="flash-timer-sep">:</div>
+          <div class="flash-timer-block"><span id="timerM">32</span><small>m</small></div>
+          <div class="flash-timer-sep">:</div>
+          <div class="flash-timer-block"><span id="timerS">15</span><small>s</small></div>
+        </div>
+      </div>
+      <a href="#feedSection" class="flash-see-all">Ver tudo <i class="fa-solid fa-angle-right"></i></a>
+    </div>
+    <div class="flash-sale-products" id="flashProducts"></div>
+  </div>
+</section>
+
+<!-- FEED DE PRODUTOS -->
+<div id="feedSection">
+
+  <div class="filter-bar">
+    <div class="filter-bar-inner">
+      <div class="filter-pills">
+        <button class="filter-pill active" data-cat="all"><i class="fa-solid fa-border-all"></i> Todos</button>
+        <button class="filter-pill" data-cat="racao"><i class="fa-solid fa-cow"></i> Ração</button>
+        <button class="filter-pill" data-cat="adubo"><i class="fa-solid fa-flask"></i> Adubos</button>
+        <button class="filter-pill" data-cat="defensivo"><i class="fa-solid fa-shield"></i> Defensivos</button>
+        <button class="filter-pill" data-cat="medicamento"><i class="fa-solid fa-syringe"></i> Medicamentos</button>
+        <button class="filter-pill" data-cat="sementes"><i class="fa-solid fa-seedling"></i> Sementes</button>
+      </div>
+      <div class="filter-right">
+        <select class="filter-sort" id="filterSort" aria-label="Ordenar">
+          <option value="recent">Mais recentes</option>
+          <option value="price_asc">Menor preço</option>
+          <option value="price_desc">Maior preço</option>
+          <option value="rating">Mais avaliados</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-inner">
+      <i class="fa-solid fa-compass"></i> Descobertas do Dia
+    </div>
+  </div>
+
+  <div class="feed-content">
+    <div class="feed-meta">
+      <span class="feed-meta-count" id="feedCount"></span>
+    </div>
+    <div class="feed-grid" id="feedGrid"></div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroCommerce &mdash; Todos os direitos reservados.</p>
+    <a href="index.html" class="m-footer-link">Voltar ao site</a>
+  </div>
+</footer>
+
+<!-- MODAL DE LOGIN -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Selecionar Perfil</div>
+        <div class="modal-subtitle">Escolha com qual perfil deseja entrar</div>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/catalog.js"></script>
+</body>
+</html>

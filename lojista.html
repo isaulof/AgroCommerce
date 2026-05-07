@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroCommerce — Painel do Lojista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="m-nav">
+  <div class="m-nav-inner">
+    <a href="marketplace.html" class="m-nav-back"><i class="fa-solid fa-arrow-left"></i> Marketplace</a>
+    <a href="marketplace.html" class="m-nav-logo">
+      <div class="mark"><i class="fa-solid fa-seedling"></i></div>
+      AGRO<span>COMMERCE</span>
+    </a>
+    <div class="m-nav-actions">
+      <a href="carrinho.html" class="nav-cart-btn" aria-label="Carrinho">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="m-nav-user-btn" id="navUserBtn">
+        <span id="navUserAvatar"></span>
+        <span id="navUserName">Entrar</span>
+        <i class="fa-solid fa-chevron-down" style="font-size:.6rem;color:rgba(255,255,255,.4)"></i>
+      </button>
+    </div>
+    <button class="m-nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="lojista-wrap">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="marketplace.html">Marketplace</a>
+    <i class="fa-solid fa-chevron-right" style="font-size:.6rem;color:var(--gray-400)"></i>
+    <span>Painel do Lojista</span>
+  </div>
+
+  <div id="lojistaContent">
+    <!-- Renderizado via JS -->
+  </div>
+</div>
+
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroCommerce &mdash; Todos os direitos reservados.</p>
+    <a href="index.html" class="m-footer-link">Voltar ao site</a>
+  </div>
+</footer>
+
+<!-- Modal Login -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Selecionar Perfil</div>
+        <div class="modal-subtitle">Escolha com qual perfil deseja entrar</div>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<!-- Modal Produto -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="productModalTitle">Novo Produto</div>
+      </div>
+      <button class="modal-close" id="productModalClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form class="product-form" id="productForm" style="padding:0 24px 24px" onsubmit="return false">
+      <input type="hidden" id="pfProductId">
+      <div class="form-group">
+        <label for="pfTitle">Título <span style="color:var(--red-500)">*</span></label>
+        <input type="text" id="pfTitle" placeholder="Nome do produto">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pfCategory">Categoria <span style="color:var(--red-500)">*</span></label>
+          <select id="pfCategory">
+            <option value="">Selecione...</option>
+            <option value="racao">Ração Animal</option>
+            <option value="adubo">Adubos & Fertilizantes</option>
+            <option value="defensivo">Defensivos Agrícolas</option>
+            <option value="medicamento">Medicamentos Vet.</option>
+            <option value="sementes">Sementes</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pfUnit">Unidade <span style="color:var(--red-500)">*</span></label>
+          <input type="text" id="pfUnit" placeholder="ex: saco 50kg, litro">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pfPrice">Preço (R$) <span style="color:var(--red-500)">*</span></label>
+          <input type="number" id="pfPrice" placeholder="0,00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label for="pfStock">Estoque <span style="color:var(--red-500)">*</span></label>
+          <input type="number" id="pfStock" placeholder="0" min="0">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pfDesc">Descrição</label>
+        <textarea id="pfDesc" rows="4" placeholder="Descreva o produto, especificações, garantias..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
+        <button type="button" class="btn btn-ghost btn-md" id="btnProductCancel">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-md" id="btnProductSave">
+          <i class="fa-solid fa-floppy-disk"></i> Salvar Produto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/lojista.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AgroComerce — Marca isolada (favicon, ícone, perfil de redes sociais) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-label="AgroComerce">
+  <title>AgroComerce</title>
+
+  <!-- Fundo quadrado arredondado -->
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="#2E7D32"/>
+  <!-- Realce topo -->
+  <rect x="0" y="0" width="64" height="30" rx="14" fill="rgba(255,255,255,.07)"/>
+
+  <!-- Caule -->
+  <line x1="32" y1="56" x2="32" y2="22"
+    stroke="rgba(255,255,255,.9)" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Folha esquerda -->
+  <path d="M32 42 C28 38 16 30 16 18 C22 17 32 25 32 41 Z"
+    fill="rgba(255,255,255,.9)"/>
+
+  <!-- Folha direita -->
+  <path d="M32 35 C36 31 48 23 48 11 C42 10 32 18 32 34 Z"
+    fill="rgba(255,255,255,.9)"/>
+</svg>

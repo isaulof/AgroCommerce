@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="marca.svg">
+  <title>AgroComerce — Anúncio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <style>
+    .detail-wrap { padding-top: calc(var(--nav-h) + 24px); }
+    .views-badge { display:inline-flex; align-items:center; gap:5px; font-size:.75rem; color:var(--gray-400); }
+    .report-link { font-size:.75rem; color:var(--gray-400); cursor:pointer; display:inline-flex; align-items:center; gap:4px; }
+    .report-link:hover { color:var(--red-500); }
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav class="m-nav" role="navigation">
+  <div class="m-nav-inner">
+    <a href="marketplace.html" class="m-nav-back"><i class="fa-solid fa-arrow-left"></i> Marketplace</a>
+    <a href="marketplace.html" class="m-nav-logo">
+      <div class="mark"><i class="fa-solid fa-seedling"></i></div>
+      AGRO<span>COMERCE</span>
+    </a>
+    <div class="m-nav-search" style="display:none"></div>
+    <div class="m-nav-actions">
+      <button class="m-nav-user-btn" id="navUserBtn">
+        <span id="navUserAvatar">—</span>
+        <span id="navUserName" style="font-size:.8rem">Entrar</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- DETAIL WRAP -->
+<div class="detail-wrap">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Navegação de contexto">
+      <a href="index.html">Início</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <a href="marketplace.html">Marketplace</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span id="breadcrumbCat">Categoria</span>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span id="breadcrumbTitle" style="color:var(--gray-700);font-weight:500">Anúncio</span>
+    </nav>
+
+    <!-- MAIN GRID -->
+    <div class="detail-grid" id="detailGrid">
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <!-- Gallery -->
+        <div class="detail-gallery" id="gallery">
+          <div class="gallery-main"><img id="galleryMain" src="" alt="Produto"></div>
+          <div class="gallery-thumbs" id="galleryThumbs"></div>
+        </div>
+
+        <!-- Description -->
+        <div class="detail-section reveal">
+          <h3>Descrição</h3>
+          <p class="detail-description" id="detailDescription"></p>
+        </div>
+
+        <!-- Specs -->
+        <div class="detail-section reveal">
+          <h3>Especificações</h3>
+          <div class="detail-specs" id="detailSpecs"></div>
+        </div>
+
+        <!-- Location -->
+        <div class="detail-section reveal" style="display:flex;align-items:center;justify-content:space-between">
+          <div class="detail-location" id="detailLocation"></div>
+          <button class="report-link" id="btnReport" title="Denunciar anúncio">
+            <i class="fa-solid fa-flag"></i> Denunciar
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN (panel) -->
+      <aside class="detail-panel" id="detailPanel">
+
+        <!-- Price Box -->
+        <div class="price-box" id="priceBox">
+          <div class="price-box-price" id="boxPrice">—</div>
+          <div class="price-box-unit" id="boxUnit"></div>
+          <div class="price-box-qty" id="boxQty"></div>
+          <div class="price-box-actions">
+            <button class="btn btn-gold btn-lg btn-full" id="btnChat">
+              <i class="fa-solid fa-comment"></i> Conversar com Vendedor
+            </button>
+            <button class="btn btn-outline btn-md btn-full" id="btnFav">
+              <i class="fa-regular fa-heart"></i> Salvar nos favoritos
+            </button>
+          </div>
+          <div id="viewsRow" style="margin-top:12px;text-align:center"></div>
+        </div>
+
+        <!-- Seller Box -->
+        <div class="seller-box" id="sellerBox">
+          <div class="seller-box-header">
+            <span id="sellerAvatar" class="avatar avatar-md"></span>
+            <div class="seller-box-info">
+              <div class="seller-box-name" id="sellerName"></div>
+              <div class="seller-box-meta" id="sellerMeta"></div>
+            </div>
+          </div>
+          <p class="seller-box-bio" id="sellerBio"></p>
+          <div class="seller-box-stats" id="sellerStats"></div>
+          <div style="display:flex;gap:8px;margin-top:14px">
+            <a href="#" class="btn btn-ghost btn-sm btn-full" id="btnViewProfile">
+              <i class="fa-solid fa-user"></i> Ver Perfil
+            </a>
+          </div>
+        </div>
+
+        <!-- Chat Box -->
+        <div class="chat-box" id="chatBox" style="display:none">
+          <div class="chat-header">
+            <button class="chat-header-back btn-ghost" id="btnChatBack" style="background:none;border:none;padding:4px;border-radius:6px;color:var(--gray-400)" title="Voltar">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="chat-header-info">
+              <div class="chat-header-name" id="chatPartnerName">—</div>
+              <div class="chat-header-product" id="chatProductTitle">—</div>
+            </div>
+            <span id="chatPartnerAvatar" class="avatar avatar-sm"></span>
+          </div>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-footer">
+            <div id="chatDealActions" class="chat-actions" style="display:none"></div>
+            <div class="chat-input-row">
+              <textarea id="chatInput" placeholder="Escreva sua mensagem..." rows="1" maxlength="500"></textarea>
+              <button class="chat-send" id="chatSend" aria-label="Enviar">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="m-footer">
+  <div class="m-footer-inner">
+    <div class="m-footer-logo">AGRO<span>COMERCE</span></div>
+    <p class="m-footer-copy">&copy; 2026 AgroComerce &mdash; Projeto Acadêmico</p>
+    <a href="admin.html" class="m-footer-link"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+  </div>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title">Entrar como</h2>
+        <p class="modal-subtitle">Escolha um perfil para continuar</p>
+      </div>
+      <button class="modal-close" id="loginClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="user-list" id="loginUserList"></div>
+  </div>
+</div>
+
+<!-- DEAL MODAL -->
+<div class="modal-overlay" id="dealModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title">Propor Fechamento</h2>
+        <p class="modal-subtitle">Defina os termos finais da negociação</p>
+      </div>
+      <button class="modal-close" id="dealClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="dealForm" class="deal-form">
+      <div class="form-row">
+        <div>
+          <label>Preço acordado (R$) *</label>
+          <input type="number" id="dealPrice" name="price" min="0" step="0.01" required>
+        </div>
+        <div>
+          <label>Quantidade *</label>
+          <input type="number" id="dealQty" name="quantity" min="1" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-gold btn-lg btn-full">
+        <i class="fa-solid fa-handshake"></i> Propor Fechamento
+      </button>
+      <p style="font-size:.75rem;color:var(--gray-400);text-align:center;margin-top:12px">O outro usuário ainda precisará confirmar.</p>
+    </form>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="modal-overlay" id="reviewModal" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title">Avaliar Negócio</h2>
+        <p class="modal-subtitle" id="reviewModalSubtitle">Como foi sua experiência?</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <div class="star-input" id="starInput" style="justify-content:center" role="radiogroup" aria-label="Avaliação em estrelas">
+        <button type="button" data-val="1" aria-label="1 estrela"><i class="fa-regular fa-star"></i></button>
+        <button type="button" data-val="2" aria-label="2 estrelas"><i class="fa-regular fa-star"></i></button>
+        <button type="button" data-val="3" aria-label="3 estrelas"><i class="fa-regular fa-star"></i></button>
+        <button type="button" data-val="4" aria-label="4 estrelas"><i class="fa-regular fa-star"></i></button>
+        <button type="button" data-val="5" aria-label="5 estrelas"><i class="fa-regular fa-star"></i></button>
+      </div>
+    </div>
+    <div class="deal-form">
+      <div class="form-group">
+        <label>Comentário (opcional)</label>
+        <textarea id="reviewComment" rows="3" placeholder="Conte como foi a negociação..."></textarea>
+      </div>
+      <button class="btn btn-primary btn-lg btn-full" id="btnSubmitReview">
+        <i class="fa-solid fa-star"></i> Enviar Avaliação
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/anuncio.js"></script>
+</body>
+</html>
