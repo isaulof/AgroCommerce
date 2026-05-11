@@ -1535,13 +1535,13 @@
        RESPONSIVE — TABLET
        ============================================= */
     @media (max-width: 1024px) {
-      .como-funciona-steps { grid-template-columns: 1fr; gap: 24px; }
+      .como-funciona-steps { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .step-connector { display: none; }
 
       .categorias-header { flex-direction: column; align-items: flex-start; }
       .categorias-grid { grid-template-columns: repeat(2, 1fr); }
 
-      .vantagens-grid { grid-template-columns: 1fr; gap: 20px; }
+      .vantagens-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
       .para-empresas-inner { grid-template-columns: 1fr; gap: 48px; }
 
@@ -1557,24 +1557,48 @@
       .fab { display: inline-flex; }
       .back-to-top { display: none; }
 
-      .categorias-grid { grid-template-columns: 1fr; }
+      .categorias-grid { grid-template-columns: repeat(2, 1fr); }
 
       .hero-badges { gap: 8px; }
     }
 
     @media (max-width: 640px) {
-      .section { padding: 80px 0; }
-      .section-inner { padding: 0 24px; }
-      .nav-inner { padding: 0 24px; }
-      .hero-inner { padding: 120px 24px 80px; }
-      .hero-title { font-size: 2.4rem; }
-      .equipe-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .section { padding: 60px 0; }
+      .section-inner { padding: 0 16px; }
+      .nav-inner { padding: 0 16px; }
+      .hero-inner { padding: 120px 16px 72px; }
+      .hero-title { font-size: 2rem; }
+      .equipe-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
       .depoimento::before { font-size: 12rem; top: -30px; }
+
+      /* Como Funciona — compacto */
+      .como-funciona-steps { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .step-card { padding: 20px 16px; }
+      .step-number { font-size: 2.2rem; margin-bottom: 10px; }
+      .step-icon-wrap { width: 48px; height: 48px; font-size: 1.2rem; margin-bottom: 12px; border-radius: 14px; }
+      .step-title { font-size: 1rem; }
+      .step-text { font-size: 0.82rem; }
+
+      /* Categorias — manter 2 colunas, compactar */
+      .categorias-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .categoria-card { padding: 20px 14px; }
+      .categoria-icon { width: 40px; height: 40px; font-size: 1.1rem; margin-bottom: 12px; border-radius: 12px; }
+      .categoria-title { font-size: 0.9rem; }
+      .categoria-text { font-size: 0.78rem; }
+
+      /* Vantagens — 2 colunas, compactar */
+      .vantagens-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .vantagem-card { padding: 22px 14px; }
+      .vantagem-icon { width: 44px; height: 44px; font-size: 1.1rem; margin-bottom: 14px; border-radius: 12px; }
+      .vantagem-title { font-size: 0.95rem; }
+      .vantagem-text { font-size: 0.82rem; }
     }
 
     @media (max-width: 400px) {
-      .equipe-grid { grid-template-columns: 1fr; }
+      .equipe-grid { grid-template-columns: repeat(2, 1fr); }
+      .como-funciona-steps { grid-template-columns: 1fr; }
+      .categorias-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
