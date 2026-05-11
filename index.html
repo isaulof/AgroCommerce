@@ -136,7 +136,7 @@
       font-size: 2rem;
       font-weight: 900;
       letter-spacing: -0.02em;
-      color: var(--white);
+      color: rgba(255,255,255,.45);
     }
 
     .loader-logo span { color: var(--green-500); }
@@ -214,7 +214,8 @@
       color: var(--white);
     }
 
-    .nav-logo span { color: var(--green-400); }
+    .logo-name { color: rgba(255,255,255,.45); }
+    .logo-name > span { color: var(--green-400); }
 
     .nav-links {
       display: flex;
@@ -1208,7 +1209,7 @@
 
     .equipe-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 28px;
     }
 
@@ -1228,15 +1229,18 @@
     }
 
     .equipe-avatar {
-      width: 88px;
-      height: 88px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       object-fit: cover;
+      object-position: center top;
       margin: 0 auto 16px;
       border: 3px solid var(--gray-100);
       display: block;
       background: var(--gray-100);
       transition: border-color 0.3s ease;
+      image-rendering: auto;
+      transform: translateZ(0);
     }
 
     .equipe-card:hover .equipe-avatar { border-color: var(--green-400); }
@@ -1541,7 +1545,7 @@
 
       .para-empresas-inner { grid-template-columns: 1fr; gap: 48px; }
 
-      .equipe-grid { grid-template-columns: repeat(3, 1fr); }
+      .equipe-grid { grid-template-columns: repeat(2, 1fr); }
 
       .contato-grid { grid-template-columns: 1fr; gap: 48px; }
     }
@@ -1564,13 +1568,13 @@
       .nav-inner { padding: 0 24px; }
       .hero-inner { padding: 120px 24px 80px; }
       .hero-title { font-size: 2.4rem; }
-      .equipe-grid { grid-template-columns: repeat(2, 1fr); }
+      .equipe-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
       .depoimento::before { font-size: 12rem; top: -30px; }
     }
 
     @media (max-width: 400px) {
-      .equipe-grid { grid-template-columns: 1fr 1fr; }
+      .equipe-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1594,7 +1598,7 @@
         <div class="nav-logo-mark" aria-hidden="true">
           <i class="fa-solid fa-seedling"></i>
         </div>
-        AGRO<span>COMMERCE</span>
+        <span class="logo-name">AGRO<span>COMMERCE</span></span>
       </a>
 
       <ul class="nav-links" role="list">
@@ -2064,12 +2068,12 @@
           <div class="equipe-card reveal stagger-1" role="listitem">
             <img
               class="equipe-avatar"
-              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=CEO"
-              alt="Foto do CEO e Fundador"
+              src="agrocommerce-perfil-saulo.png"
+              alt="Foto de Saulo — Diretor de Tecnologia"
               loading="lazy"
             >
-            <div class="equipe-name">A Definir</div>
-            <div class="equipe-role">CEO &amp; Fundador</div>
+            <div class="equipe-name">Saulo Pereira</div>
+            <div class="equipe-role">Diretor de Tecnologia</div>
             <div class="equipe-social">
               <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
               <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -2079,57 +2083,43 @@
           <div class="equipe-card reveal stagger-2" role="listitem">
             <img
               class="equipe-avatar"
-              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=CTO"
-              alt="Foto do CTO"
+              src="agrocommerce-perfil-yago.png"
+              alt="Foto de Yago — Head de Design & UX"
               loading="lazy"
+              style="object-position: center 30%;"
             >
-            <div class="equipe-name">A Definir</div>
-            <div class="equipe-role">CTO</div>
+            <div class="equipe-name">Yago Martins</div>
+            <div class="equipe-role">Head de Design &amp; UX</div>
             <div class="equipe-social">
               <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+              <a href="#" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
             </div>
           </div>
 
           <div class="equipe-card reveal stagger-3" role="listitem">
             <img
               class="equipe-avatar"
-              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=HPD"
-              alt="Foto do Head de Produto"
+              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=LV"
+              alt="Foto de Levi — Analista de Negócios"
               loading="lazy"
             >
-            <div class="equipe-name">A Definir</div>
-            <div class="equipe-role">Head de Produto</div>
-            <div class="equipe-social">
-              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-              <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            </div>
-          </div>
-
-          <div class="equipe-card reveal stagger-4" role="listitem">
-            <img
-              class="equipe-avatar"
-              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=HOP"
-              alt="Foto do Head de Operações"
-              loading="lazy"
-            >
-            <div class="equipe-name">A Definir</div>
-            <div class="equipe-role">Head de Operações</div>
+            <div class="equipe-name">Levi Saraiva</div>
+            <div class="equipe-role">Analista de Negócios</div>
             <div class="equipe-social">
               <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
               <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
           </div>
 
-          <div class="equipe-card reveal stagger-5" role="listitem">
+          <div class="equipe-card reveal stagger-4" role="listitem">
             <img
               class="equipe-avatar"
-              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=AGR"
-              alt="Foto do Especialista em Agronegócio"
+              src="https://placehold.co/176x176/e8f5e9/2E7D32?text=CA"
+              alt="Foto de Carlos — Especialista Técnico Agrícola"
               loading="lazy"
             >
-            <div class="equipe-name">A Definir</div>
-            <div class="equipe-role">Especialista em Agronegócio</div>
+            <div class="equipe-name">Carlos</div>
+            <div class="equipe-role">Especialista Técnico Agrícola</div>
             <div class="equipe-social">
               <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
               <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
