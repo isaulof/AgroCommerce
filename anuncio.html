@@ -234,7 +234,37 @@
   </div>
 </div>
 
+<!-- BARRA DE AÇÃO MOBILE (fixa no rodapé) -->
+<div class="mobile-action-bar" id="mobileActionBar">
+  <div class="mobile-action-bar-price" id="mobileBarPrice">—</div>
+  <button class="btn btn-gold" id="mobileBarBtn">
+    <i class="fa-solid fa-comment"></i> Conversar
+  </button>
+</div>
+
 <script src="js/data.js"></script>
 <script src="js/anuncio.js"></script>
+<script>
+  (function () {
+    var bar = document.getElementById('mobileActionBar');
+    var barPrice = document.getElementById('mobileBarPrice');
+    var barBtn = document.getElementById('mobileBarBtn');
+    var boxPrice = document.getElementById('boxPrice');
+    var btnChat = document.getElementById('btnChat');
+
+    function syncPrice() {
+      if (boxPrice && barPrice) barPrice.textContent = boxPrice.textContent;
+    }
+
+    var observer = new MutationObserver(syncPrice);
+    if (boxPrice) observer.observe(boxPrice, { childList: true, subtree: true, characterData: true });
+
+    if (barBtn && btnChat) {
+      barBtn.addEventListener('click', function () { btnChat.click(); });
+    }
+
+    syncPrice();
+  })();
+</script>
 </body>
 </html>
