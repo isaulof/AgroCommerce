@@ -1564,6 +1564,14 @@
     }
 
     @media (max-width: 640px) {
+      /* Converte animações horizontais em vertical para evitar overflow */
+      .reveal-left, .reveal-right {
+        transform: translateY(30px);
+      }
+      .reveal-left.visible, .reveal-right.visible {
+        transform: translateY(0);
+      }
+
       .section { padding: 60px 0; }
       .section-inner { padding: 0 16px; }
       .nav-inner { padding: 0 16px; }
@@ -1605,6 +1613,7 @@
       .hero-inner { padding: 90px 16px 60px; }
       .hero-title { font-size: 1.85rem; }
       .hero-subtitle { font-size: .88rem; }
+      .hero-eyebrow { font-size: .65rem; letter-spacing: .08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 
       /* Badges — scroll horizontal em vez de 2 linhas */
       .hero-badges {
@@ -1627,8 +1636,9 @@
       .step-icon-wrap { flex-shrink: 0; margin-bottom: 0; }
       .step-number { display: none; }
 
-      /* Footer */
+      /* Footer — padding extra para o FAB não cobrir o badge */
       .footer-inner { padding: 0 16px; }
+      .footer { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
     }
 
     @media (max-width: 400px) {
@@ -1640,7 +1650,8 @@
     /* ── 375px: Small mobile (iPhone SE) ─────────────────────── */
     @media (max-width: 375px) {
       .hero-title { font-size: 1.65rem; line-height: 1.2; }
-      .hero-eyebrow { font-size: .68rem; }
+      .hero-eyebrow { font-size: .62rem; letter-spacing: .08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+      .hero-eyebrow-line { width: 20px; }
 
       /* Botões Hero empilhados */
       .hero-actions {

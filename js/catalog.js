@@ -299,7 +299,7 @@ function renderLoginModal() {
         '<div class="user-option-name">' + u.name + (u.verified ? ' <i class="fa-solid fa-circle-check" style="color:var(--green-500);font-size:.7rem"></i>' : '') + '</div>' +
         '<div class="user-option-meta">' +
           '<span>' + ({ comprador: 'Comprador', lojista: 'Lojista' }[u.type] || u.type) + '</span>' +
-          '<span><i class="fa-solid fa-location-dot" style="font-size:.6rem"></i> ' + u.city + ', ' + u.state + '</span>' +
+          '<span class="user-option-loc"><i class="fa-solid fa-location-dot" style="font-size:.6rem"></i> ' + u.city + ', ' + u.state + '</span>' +
         '</div>' +
       '</div>' +
       '<i class="fa-solid fa-circle-check user-option-check"></i>' +

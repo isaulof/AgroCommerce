@@ -567,7 +567,8 @@ input, textarea, select { font-family:var(--font-body); }
 .user-option.selected { border-color:var(--green-700); background:var(--green-50); }
 .user-option .avatar { width:44px; height:44px; font-size:.85rem; flex-shrink:0; }
 .user-option-name { font-weight:700; font-size:.9rem; color:var(--gray-900); margin-bottom:2px; }
-.user-option-meta { font-size:.75rem; color:var(--gray-500); display:flex; align-items:center; gap:8px; }
+.user-option-meta { font-size:.75rem; color:var(--gray-500); display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.user-option-meta .user-option-loc { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; }
 .user-option-check { margin-left:auto; color:var(--green-700); font-size:1rem; opacity:0; }
 .user-option.selected .user-option-check { opacity:1; }
 
