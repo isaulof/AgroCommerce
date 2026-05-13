@@ -1286,9 +1286,10 @@ input, textarea, select { font-family:var(--font-body); }
   box-shadow: 0 -4px 24px rgba(0,0,0,.4);
   display: flex; align-items: center; justify-content: space-between;
   padding: 10px 24px; gap: 16px;
-  transform: translateY(100%); transition: transform .35s var(--ease-out-expo);
+  transform: translateY(100%); opacity: 0; pointer-events: none;
+  transition: transform .35s var(--ease-out-expo), opacity .3s ease;
 }
-.compare-bar.visible { transform: translateY(0); }
+.compare-bar.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
 .compare-bar-items {
   display: flex; gap: 10px; flex: 1; overflow: hidden;
 }
@@ -1320,10 +1321,22 @@ input, textarea, select { font-family:var(--font-body); }
   font-size: .75rem; color: rgba(255,255,255,.4); white-space: nowrap;
 }
 
+/* botão comparar desabilitado (< 2 itens) */
+#compareBtnOpen:disabled {
+  opacity: .35; cursor: not-allowed;
+}
+
 @media (max-width:640px) {
   .compare-bar { padding: 8px 12px; }
   .compare-bar-item-title { max-width: 80px; }
-  .compare-bar-hint { display: none; }
+  .compare-bar-hint {
+    display: inline-block;
+    font-size: .65rem; color: rgba(255,255,255,.45);
+    background: rgba(255,255,255,.07);
+    border: 1px dashed rgba(255,255,255,.15);
+    border-radius: 20px; padding: 3px 8px;
+    white-space: nowrap;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════
