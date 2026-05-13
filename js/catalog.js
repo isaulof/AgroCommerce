@@ -1,9 +1,13 @@
 'use strict';
 
 /* ── Estado da página ───────────────────────────────────────── */
-var state = { category: 'all', sort: 'recent', search: '' };
+var state = { category: 'all', sort: 'recent', search: '', priceMin: 0, priceMax: 2000, city: 'all' };
 var session = Storage.getSession();
 var _searchTimer = null;
+
+/* ── Comparador ─────────────────────────────────────────────── */
+var compareList = []; // max 3 produtos
+var COMPARE_MAX = 3;
 
 /* ── Inicialização ──────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function () {
@@ -47,8 +51,8 @@ function renderStorePills() {
     return '<a href="loja.html?id=' + store.id + '" class="store-pill">' +
       '<span class="store-pill-avatar" style="background:' + color + '">' + initials + '</span>' +
       '<span class="store-pill-name">' + store.name + '</span>' +
-      '<span class="store-pill-rating"><i class="fa-solid fa-star" style="font-size:.6rem"></i> ' + store.rating.toFixed(1) + '</span>' +
-      (store.verified ? '<i class="fa-solid fa-circle-check" style="color:var(--green-400);font-size:.65rem"></i>' : '') +
+      '<span class="store-pill-rating"><i class="fa-solid fa-star" style="font-size:.55rem"></i> ' + store.rating.toFixed(1) + '</span>' +
+      (store.verified ? '<span class="store-pill-verified" title="Fornecedor verificado"><i class="fa-solid fa-check"></i></span>' : '') +
       '</a>';
   }).join('');
 }
@@ -93,6 +97,28 @@ function renderFeed() {
     });
   }
 
+  /* filtro de faixa de preço */
+  products = products.filter(function (p) {
+    return p.price >= state.priceMin && p.price <= state.priceMax;
+  });
+
+  /* filtro de cidade */
+  if (state.city !== 'all') {
+    products = products.filter(function (p) {
+      var store = Storage.getStore(p.storeId);
+      var owner = store ? Storage.getUser(store.ownerId) : null;
+      return owner && owner.city === state.city;
+    });
+  }
+
+  /* menor preço por categoria (para badge) */
+  var minByCat = {};
+  products.forEach(function (p) {
+    if (!(p.category in minByCat) || p.price < minByCat[p.category]) {
+      minByCat[p.category] = p.price;
+    }
+  });
+
   /* ordenação */
   if (state.sort === 'price_asc') {
     products.sort(function (a, b) { return a.price - b.price; });
@@ -114,12 +140,16 @@ function renderFeed() {
     grid.innerHTML = '<div class="empty-state">' +
       '<i class="fa-solid fa-magnifying-glass"></i>' +
       '<h3>Nenhum produto encontrado</h3>' +
-      '<p>Tente ajustar os filtros ou termos de busca.</p>' +
+      '<p>Tente ajustar os filtros, faixa de preço ou termos de busca.</p>' +
       '</div>';
     return;
   }
 
-  grid.innerHTML = products.map(function (p, i) { return renderCard(p, i); }).join('');
+  grid.innerHTML = products.map(function (p, i) {
+    var isBest = products.filter(function (x) { return x.category === p.category; }).length > 1
+                 && p.price === minByCat[p.category];
+    return renderCard(p, i, isBest);
+  }).join('');
 
   /* aplicar favs */
   grid.querySelectorAll('.product-card-fav').forEach(function (btn) {
@@ -144,11 +174,24 @@ function renderFeed() {
     });
   });
 
+  /* botões comparar */
+  grid.querySelectorAll('.btn-compare').forEach(function (btn) {
+    var pid = parseInt(btn.dataset.pid, 10);
+    if (compareList.some(function (x) { return x.id === pid; })) {
+      btn.classList.add('selected');
+    }
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleCompare(pid);
+    });
+  });
+
   setupReveal();
 }
 
 /* ── Renderizar card de produto ─────────────────────────────── */
-function renderCard(p, i) {
+function renderCard(p, i, isBest) {
   var store   = Storage.getStore(p.storeId);
   var owner   = store ? Storage.getUser(store.ownerId) : null;
   var color   = owner ? owner.color : '#2E7D32';
@@ -164,10 +207,14 @@ function renderCard(p, i) {
         '<img src="' + imgSrc + '" alt="' + p.title + '" loading="lazy">' +
         '<div class="product-card-badges">' +
           '<span class="badge ' + Fmt.categoryColor(p.category) + '"><i class="fa-solid ' + Fmt.categoryIcon(p.category) + '"></i> ' + Fmt.categoryLabel(p.category) + '</span>' +
+          (isBest ? '<span class="badge badge-best-price"><i class="fa-solid fa-trophy"></i> Menor Preço</span>' : '') +
           (p.featured ? '<span class="badge badge-featured"><i class="fa-solid fa-star"></i> Destaque</span>' : '') +
         '</div>' +
         '<button class="product-card-fav' + (isFav ? ' active' : '') + '" data-pid="' + p.id + '" title="Favoritar" aria-label="Favoritar">' +
           '<i class="fa-' + (isFav ? 'solid' : 'regular') + ' fa-heart"></i>' +
+        '</button>' +
+        '<button class="btn-compare" data-pid="' + p.id + '" title="Comparar produto" aria-label="Adicionar à comparação">' +
+          '<i class="fa-solid fa-scale-balanced"></i>' +
         '</button>' +
       '</div>' +
       '<div class="product-card-body">' +
@@ -371,6 +418,255 @@ function bindEvents() {
       document.querySelectorAll('.modal-overlay.open').forEach(function (m) { closeModal(m.id); });
     }
   });
+
+  /* slider de faixa de preço */
+  initPriceRange();
+
+  /* filtro de cidades */
+  initCityFilter();
+
+  /* comparador */
+  initCompareBar();
+}
+
+/* ── Filtro de cidade ───────────────────────────────────────── */
+function initCityFilter() {
+  /* desktop */
+  var cityEl = document.getElementById('filterCity');
+  if (cityEl) cityEl.addEventListener('change', function () {
+    state.city = cityEl.value;
+    syncMobileControls();
+    updateFilterBadge();
+    renderFeed();
+  });
+
+  /* mobile */
+  var cityMob = document.getElementById('filterCityMobile');
+  if (cityMob) cityMob.addEventListener('change', function () {
+    state.city = cityMob.value;
+    if (cityEl) cityEl.value = cityMob.value;
+    updateFilterBadge();
+    renderFeed();
+  });
+
+  /* sort mobile */
+  var sortMob = document.getElementById('filterSortMobile');
+  if (sortMob) sortMob.addEventListener('change', function () {
+    state.sort = sortMob.value;
+    var sortEl = document.getElementById('filterSort');
+    if (sortEl) sortEl.value = sortMob.value;
+    renderFeed();
+  });
+
+  /* price mobile */
+  var minMob = document.getElementById('priceMinM');
+  var maxMob = document.getElementById('priceMaxM');
+  var minLblM = document.getElementById('priceMinLabelM');
+  var maxLblM = document.getElementById('priceMaxLabelM');
+  var fillM   = document.getElementById('priceRangeFillM');
+  function updateMobilePrice() {
+    if (!minMob || !maxMob) return;
+    var lo = parseInt(minMob.value, 10);
+    var hi = parseInt(maxMob.value, 10);
+    if (lo > hi) { var t = lo; lo = hi; hi = t; minMob.value = lo; maxMob.value = hi; }
+    var pct = function (v) { return (v / 2000) * 100; };
+    if (fillM) { fillM.style.left = pct(lo) + '%'; fillM.style.width = (pct(hi) - pct(lo)) + '%'; }
+    if (minLblM) minLblM.textContent = 'R$ ' + lo;
+    if (maxLblM) maxLblM.textContent = hi >= 2000 ? 'R$ ' + hi + '+' : 'R$ ' + hi;
+    state.priceMin = lo; state.priceMax = hi;
+    /* sync desktop labels */
+    var minL = document.getElementById('priceMinLabel');
+    var maxL = document.getElementById('priceMaxLabel');
+    if (minL) minL.textContent = 'R$ ' + lo;
+    if (maxL) maxL.textContent = hi >= 2000 ? 'R$ ' + hi + '+' : 'R$ ' + hi;
+    updateFilterBadge();
+  }
+  if (minMob) minMob.addEventListener('input', function () { updateMobilePrice(); renderFeed(); });
+  if (maxMob) maxMob.addEventListener('input', function () { updateMobilePrice(); renderFeed(); });
+
+  /* botão Filtros */
+  var btn   = document.getElementById('filterMobileBtn');
+  var panel = document.getElementById('filterMobilePanel');
+  if (btn && panel) {
+    btn.addEventListener('click', function () {
+      var open = panel.classList.toggle('open');
+      btn.classList.toggle('active', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+}
+
+function syncMobileControls() {
+  var cityMob = document.getElementById('filterCityMobile');
+  if (cityMob) cityMob.value = state.city;
+  var sortMob = document.getElementById('filterSortMobile');
+  if (sortMob) sortMob.value = state.sort;
+}
+
+function updateFilterBadge() {
+  var badge = document.getElementById('filterMobileBadge');
+  if (!badge) return;
+  var active = state.city !== 'all' || state.priceMin > 0 || state.priceMax < 2000;
+  badge.style.display = active ? 'inline-block' : 'none';
+}
+
+/* ── Slider de faixa de preço ───────────────────────────────── */
+function initPriceRange() {
+  var minEl    = document.getElementById('priceMin');
+  var maxEl    = document.getElementById('priceMax');
+  var minLabel = document.getElementById('priceMinLabel');
+  var maxLabel = document.getElementById('priceMaxLabel');
+  var fill     = document.getElementById('priceRangeFill');
+  if (!minEl || !maxEl) return;
+
+  function updateRange() {
+    var lo = parseInt(minEl.value, 10);
+    var hi = parseInt(maxEl.value, 10);
+    if (lo > hi) { var t = lo; lo = hi; hi = t; minEl.value = lo; maxEl.value = hi; }
+    var pct = function (v) { return (v / parseInt(maxEl.max, 10)) * 100; };
+    if (fill) { fill.style.left = pct(lo) + '%'; fill.style.width = (pct(hi) - pct(lo)) + '%'; }
+    if (minLabel) minLabel.textContent = 'R$ ' + lo;
+    if (maxLabel) maxLabel.textContent = hi >= parseInt(maxEl.max, 10) ? 'R$ ' + hi + '+' : 'R$ ' + hi;
+    state.priceMin = lo;
+    state.priceMax = hi;
+  }
+
+  minEl.addEventListener('input', function () { updateRange(); renderFeed(); });
+  maxEl.addEventListener('input', function () { updateRange(); renderFeed(); });
+  updateRange();
+}
+
+/* ── Comparador ─────────────────────────────────────────────── */
+function toggleCompare(pid) {
+  var product = Storage.getProduct(pid);
+  if (!product) return;
+
+  var idx = compareList.findIndex(function (x) { return x.id === pid; });
+  if (idx >= 0) {
+    compareList.splice(idx, 1);
+  } else {
+    if (compareList.length >= COMPARE_MAX) {
+      Toast.show('Máximo de ' + COMPARE_MAX + ' produtos para comparar.', 'warning');
+      return;
+    }
+    compareList.push(product);
+  }
+
+  /* atualizar estado visual do botão no grid */
+  document.querySelectorAll('.btn-compare[data-pid="' + pid + '"]').forEach(function (btn) {
+    btn.classList.toggle('selected', compareList.some(function (x) { return x.id === pid; }));
+  });
+
+  renderCompareBar();
+}
+
+function initCompareBar() {
+  var openBtn  = document.getElementById('compareBtnOpen');
+  var clearBtn = document.getElementById('compareBtnClear');
+  var closeBtn = document.getElementById('compareModalClose');
+
+  if (openBtn)  openBtn.addEventListener('click', openCompareModal);
+  if (clearBtn) clearBtn.addEventListener('click', function () { compareList = []; renderCompareBar(); renderFeed(); });
+  if (closeBtn) closeBtn.addEventListener('click', function () { closeModal('compareModal'); });
+}
+
+function renderCompareBar() {
+  var bar      = document.getElementById('compareBar');
+  var itemsEl  = document.getElementById('compareBarItems');
+  var openBtn  = document.getElementById('compareBtnOpen');
+  if (!bar || !itemsEl) return;
+
+  bar.classList.toggle('visible', compareList.length > 0);
+  if (openBtn) openBtn.disabled = compareList.length < 2;
+
+  itemsEl.innerHTML = compareList.map(function (p) {
+    var imgSrc = (p.images && p.images.length > 0) ? p.images[0] : 'https://placehold.co/36x36/e8f5e9/2E7D32?text=P';
+    return '<div class="compare-bar-item">' +
+      '<img class="compare-bar-item-img" src="' + imgSrc + '" alt="' + p.title + '">' +
+      '<div class="compare-bar-item-info">' +
+        '<div class="compare-bar-item-title">' + p.title + '</div>' +
+        '<div class="compare-bar-item-price">' + Fmt.currency(p.price) + '</div>' +
+      '</div>' +
+      '<button class="compare-bar-item-remove" data-pid="' + p.id + '" title="Remover">' +
+        '<i class="fa-solid fa-xmark"></i>' +
+      '</button>' +
+    '</div>';
+  }).join('');
+
+  if (compareList.length < COMPARE_MAX) {
+    itemsEl.innerHTML += '<div class="compare-bar-hint">+ ' + (COMPARE_MAX - compareList.length) + ' para comparar</div>';
+  }
+
+  itemsEl.querySelectorAll('.compare-bar-item-remove').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      toggleCompare(parseInt(btn.dataset.pid, 10));
+    });
+  });
+}
+
+function openCompareModal() {
+  if (compareList.length < 2) return;
+
+  var cols = compareList.length + 1; // +1 coluna de labels
+  var colTpl = '120px ' + compareList.map(function () { return '1fr'; }).join(' ');
+
+  var rows = [
+    { label: 'Produto',    render: function (p) {
+      var img = (p.images && p.images.length > 0) ? p.images[0] : 'https://placehold.co/72x54/e8f5e9/2E7D32?text=P';
+      return '<img class="compare-cell-img" src="' + img + '" alt="' + p.title + '"><div style="font-size:.8rem;font-weight:700;margin-top:6px">' + p.title + '</div>';
+    }},
+    { label: 'Preço',      render: function (p, best) {
+      return '<div class="compare-cell-price' + (best ? ' best' : '') + '">' + Fmt.currency(p.price) + ' <span style="font-size:.7rem;font-weight:400">/ ' + p.unit + '</span></div>' +
+             (best ? '<div class="compare-cell-best-badge"><i class="fa-solid fa-trophy"></i> Menor Preço</div>' : '');
+    }, isBestRow: true },
+    { label: 'Avaliação',  render: function (p) {
+      return '<span style="display:flex;align-items:center;justify-content:center;gap:5px">' +
+             '<span class="stars stars-sm">' + Fmt.stars(p.rating) + '</span>' +
+             '<strong>' + p.rating.toFixed(1) + '</strong></span>';
+    }},
+    { label: 'Estoque',    render: function (p) { return p.stock + ' unid.'; }},
+    { label: 'Fornecedor', render: function (p) {
+      var s = Storage.getStore(p.storeId);
+      return (s ? s.name : '—') + (s && s.verified ? ' <i class="fa-solid fa-circle-check" style="color:var(--green-500);font-size:.7rem"></i>' : '');
+    }},
+    { label: 'Categoria',  render: function (p) {
+      return '<span class="badge ' + Fmt.categoryColor(p.category) + '">' + Fmt.categoryLabel(p.category) + '</span>';
+    }},
+  ];
+
+  var minPrice = Math.min.apply(null, compareList.map(function (p) { return p.price; }));
+
+  var header = '<div class="compare-table-header" style="grid-template-columns:' + colTpl + '">' +
+    '<div class="compare-col-header" style="background:var(--gray-100)"></div>' +
+    compareList.map(function (p) {
+      return '<div class="compare-col-header">' + p.title.substring(0, 28) + (p.title.length > 28 ? '…' : '') +
+             '<button class="compare-col-remove" data-pid="' + p.id + '">✕ remover</button></div>';
+    }).join('') +
+  '</div>';
+
+  var body = rows.map(function (row) {
+    return '<div class="compare-row" style="grid-template-columns:' + colTpl + '">' +
+      '<div class="compare-row-label">' + row.label + '</div>' +
+      compareList.map(function (p) {
+        var best = row.isBestRow && p.price === minPrice;
+        return '<div class="compare-cell">' + row.render(p, best) + '</div>';
+      }).join('') +
+    '</div>';
+  }).join('');
+
+  var tableEl = document.getElementById('compareTable');
+  if (tableEl) {
+    tableEl.innerHTML = '<div class="compare-table">' + header + '<div class="compare-table-body">' + body + '</div></div>';
+    tableEl.querySelectorAll('.compare-col-remove').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        toggleCompare(parseInt(btn.dataset.pid, 10));
+        if (compareList.length < 2) { closeModal('compareModal'); }
+        else { openCompareModal(); }
+      });
+    });
+  }
+
+  openModal('compareModal');
 }
 
 /* ── Carrossel Hero ─────────────────────────────────────────── */

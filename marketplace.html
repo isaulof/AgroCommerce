@@ -186,7 +186,7 @@
 <!-- LOJAS VERIFICADAS -->
 <div class="stores-strip">
   <div class="stores-strip-inner">
-    <div class="stores-strip-title"><i class="fa-solid fa-store" style="margin-right:6px"></i>Lojas Verificadas</div>
+    <div class="stores-strip-title"><i class="fa-solid fa-star" style="margin-right:6px;color:var(--gold-500)"></i>Lojas Mais Avaliadas</div>
     <div class="stores-row" id="storesRow"></div>
   </div>
 </div>
@@ -222,22 +222,95 @@
 
   <div class="filter-bar">
     <div class="filter-bar-inner">
-      <div class="filter-pills">
-        <button class="filter-pill active" data-cat="all"><i class="fa-solid fa-border-all"></i> Todos</button>
-        <button class="filter-pill" data-cat="racao"><i class="fa-solid fa-cow"></i> Ração</button>
-        <button class="filter-pill" data-cat="adubo"><i class="fa-solid fa-flask"></i> Adubos</button>
-        <button class="filter-pill" data-cat="defensivo"><i class="fa-solid fa-shield"></i> Defensivos</button>
-        <button class="filter-pill" data-cat="medicamento"><i class="fa-solid fa-syringe"></i> Medicamentos</button>
-        <button class="filter-pill" data-cat="sementes"><i class="fa-solid fa-seedling"></i> Sementes</button>
+
+      <!-- Linha principal: pills + controles desktop / botão filtros mobile -->
+      <div class="filter-bar-row">
+        <div class="filter-pills" id="catPills">
+          <button class="filter-pill active" data-cat="all"><i class="fa-solid fa-border-all"></i> Todos</button>
+          <button class="filter-pill" data-cat="racao"><i class="fa-solid fa-cow"></i> Ração</button>
+          <button class="filter-pill" data-cat="adubo"><i class="fa-solid fa-flask"></i> Adubos</button>
+          <button class="filter-pill" data-cat="defensivo"><i class="fa-solid fa-shield"></i> Defensivos</button>
+          <button class="filter-pill" data-cat="medicamento"><i class="fa-solid fa-syringe"></i> Medicamentos</button>
+          <button class="filter-pill" data-cat="sementes"><i class="fa-solid fa-seedling"></i> Sementes</button>
+        </div>
+
+        <!-- Controles visíveis só no desktop -->
+        <div class="filter-right filter-right-desktop">
+          <div class="price-range-wrap" id="priceRangeWrap">
+            <span class="price-range-label"><i class="fa-solid fa-tag"></i> Preço</span>
+            <div class="price-range-inputs">
+              <span class="price-range-val" id="priceMinLabel">R$ 0</span>
+              <div class="price-range-slider-wrap">
+                <input type="range" class="price-range-input" id="priceMin" min="0" max="2000" value="0" step="10" aria-label="Preço mínimo">
+                <input type="range" class="price-range-input" id="priceMax" min="0" max="2000" value="2000" step="10" aria-label="Preço máximo">
+                <div class="price-range-track"><div class="price-range-fill" id="priceRangeFill"></div></div>
+              </div>
+              <span class="price-range-val" id="priceMaxLabel">R$ 2000</span>
+            </div>
+          </div>
+          <select class="filter-sort" id="filterCity" aria-label="Filtrar por cidade">
+            <option value="all">Filtrar por cidade</option>
+            <option value="Lucas do Rio Verde">Lucas do Rio Verde</option>
+            <option value="Sorriso">Sorriso</option>
+            <option value="Sinop">Sinop</option>
+            <option value="Rondonópolis">Rondonópolis</option>
+            <option value="Cuiabá">Cuiabá</option>
+            <option value="Nova Mutum">Nova Mutum</option>
+          </select>
+          <select class="filter-sort" id="filterSort" aria-label="Ordenar">
+            <option value="recent">Mais recentes</option>
+            <option value="price_asc">Menor preço</option>
+            <option value="price_desc">Maior preço</option>
+            <option value="rating">Mais avaliados</option>
+          </select>
+        </div>
+
+        <!-- Botão "Filtros" visível só no mobile -->
+        <button class="filter-mobile-btn" id="filterMobileBtn" aria-expanded="false">
+          <i class="fa-solid fa-sliders"></i> Filtros
+          <span class="filter-mobile-badge" id="filterMobileBadge" style="display:none">!</span>
+        </button>
       </div>
-      <div class="filter-right">
-        <select class="filter-sort" id="filterSort" aria-label="Ordenar">
-          <option value="recent">Mais recentes</option>
-          <option value="price_asc">Menor preço</option>
-          <option value="price_desc">Maior preço</option>
-          <option value="rating">Mais avaliados</option>
-        </select>
+
+      <!-- Painel colapsável mobile com filtros avançados -->
+      <div class="filter-mobile-panel" id="filterMobilePanel">
+        <div class="filter-mobile-panel-inner">
+          <div class="filter-mobile-row">
+            <label class="filter-mobile-label"><i class="fa-solid fa-location-dot"></i> Cidade</label>
+            <select class="filter-sort filter-sort-mobile" id="filterCityMobile" aria-label="Filtrar por cidade">
+              <option value="all">Todas</option>
+              <option value="Lucas do Rio Verde">Lucas do Rio Verde</option>
+              <option value="Sorriso">Sorriso</option>
+              <option value="Sinop">Sinop</option>
+              <option value="Rondonópolis">Rondonópolis</option>
+              <option value="Cuiabá">Cuiabá</option>
+              <option value="Nova Mutum">Nova Mutum</option>
+            </select>
+          </div>
+          <div class="filter-mobile-row">
+            <label class="filter-mobile-label"><i class="fa-solid fa-arrow-down-wide-short"></i> Ordenar</label>
+            <select class="filter-sort filter-sort-mobile" id="filterSortMobile" aria-label="Ordenar">
+              <option value="recent">Mais recentes</option>
+              <option value="price_asc">Menor preço</option>
+              <option value="price_desc">Maior preço</option>
+              <option value="rating">Mais avaliados</option>
+            </select>
+          </div>
+          <div class="filter-mobile-row filter-mobile-price">
+            <label class="filter-mobile-label"><i class="fa-solid fa-tag"></i> Preço</label>
+            <div class="price-range-inputs">
+              <span class="price-range-val" id="priceMinLabelM">R$ 0</span>
+              <div class="price-range-slider-wrap" style="width:120px">
+                <input type="range" class="price-range-input" id="priceMinM" min="0" max="2000" value="0" step="10" aria-label="Preço mínimo">
+                <input type="range" class="price-range-input" id="priceMaxM" min="0" max="2000" value="2000" step="10" aria-label="Preço máximo">
+                <div class="price-range-track"><div class="price-range-fill" id="priceRangeFillM"></div></div>
+              </div>
+              <span class="price-range-val" id="priceMaxLabelM">R$ 2000+</span>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -254,6 +327,33 @@
     <div class="feed-grid" id="feedGrid"></div>
   </div>
 
+</div>
+
+<!-- BARRA COMPARADOR FLUTUANTE -->
+<div class="compare-bar" id="compareBar" aria-live="polite">
+  <div class="compare-bar-items" id="compareBarItems"></div>
+  <div class="compare-bar-actions">
+    <button class="btn btn-gold" id="compareBtnOpen" disabled>
+      <i class="fa-solid fa-scale-balanced"></i> Comparar
+    </button>
+    <button class="btn btn-ghost btn-sm" id="compareBtnClear">
+      <i class="fa-solid fa-xmark"></i> Limpar
+    </button>
+  </div>
+</div>
+
+<!-- MODAL COMPARADOR -->
+<div class="modal-overlay" id="compareModal">
+  <div class="modal compare-modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title"><i class="fa-solid fa-scale-balanced"></i> Comparar Produtos</div>
+        <div class="modal-subtitle">Analise preço, avaliação e fornecedor lado a lado</div>
+      </div>
+      <button class="modal-close" id="compareModalClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="compareTable"></div>
+  </div>
 </div>
 
 <!-- FOOTER -->
