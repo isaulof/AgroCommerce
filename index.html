@@ -68,6 +68,7 @@
     html {
       scroll-behavior: smooth;
       font-size: 16px;
+      overflow-x: hidden;
     }
 
     body {
@@ -1462,7 +1463,7 @@
        ============================================= */
     .fab {
       position: fixed;
-      bottom: 24px; right: 24px;
+      bottom: calc(24px + env(safe-area-inset-bottom, 0px)); right: 24px;
       z-index: 500;
       display: none;
       align-items: center;
@@ -1595,10 +1596,70 @@
       .vantagem-text { font-size: 0.82rem; }
     }
 
+    /* ── 480px: Large mobile ─────────────────────────────────── */
+    @media (max-width: 480px) {
+      .section { padding: 48px 0; }
+      .section-inner { padding: 0 var(--content-pad-mobile, 16px); }
+
+      /* Hero */
+      .hero-inner { padding: 90px 16px 60px; }
+      .hero-title { font-size: 1.85rem; }
+      .hero-subtitle { font-size: .88rem; }
+
+      /* Badges — scroll horizontal em vez de 2 linhas */
+      .hero-badges {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      .hero-badges::-webkit-scrollbar { display: none; }
+      .hero-badge { flex-shrink: 0; padding: 8px 14px; font-size: .75rem; }
+
+      /* Para Empresas — botão full-width */
+      .btn-empresas { width: 100%; justify-content: center; }
+
+      /* Step cards — 1 coluna */
+      .como-funciona-steps { grid-template-columns: 1fr; gap: 10px; }
+      .step-card { padding: 16px 14px; flex-direction: row; align-items: flex-start; gap: 14px; }
+      .step-icon-wrap { flex-shrink: 0; margin-bottom: 0; }
+      .step-number { display: none; }
+
+      /* Footer */
+      .footer-inner { padding: 0 16px; }
+    }
+
     @media (max-width: 400px) {
       .equipe-grid { grid-template-columns: repeat(2, 1fr); }
       .como-funciona-steps { grid-template-columns: 1fr; }
       .categorias-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── 375px: Small mobile (iPhone SE) ─────────────────────── */
+    @media (max-width: 375px) {
+      .hero-title { font-size: 1.65rem; line-height: 1.2; }
+      .hero-eyebrow { font-size: .68rem; }
+
+      /* Botões Hero empilhados */
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* FAB mais compacto */
+      .fab { padding: 12px 18px; font-size: .75rem; right: 16px; }
+
+      /* Equipe — garantir 2 colunas com espaçamento menor */
+      .equipe-grid { gap: 12px; }
+      .equipe-avatar { width: 100px; height: 100px; }
     }
   </style>
 </head>
@@ -2328,6 +2389,7 @@
       var heroBg = document.getElementById('heroBg');
       function updateParallax() {
         if (!heroBg) return;
+        if (window.innerWidth <= 768) { heroBg.style.transform = ''; return; }
         if (window.scrollY < window.innerHeight) {
           heroBg.style.transform = 'scale(1.05) translateY(' + (window.scrollY * 0.3) + 'px)';
         }

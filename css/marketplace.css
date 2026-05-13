@@ -27,6 +27,9 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
   --nav-h: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tap-target: 44px;
+  --content-pad-mobile: 16px;
 }
 
 /* ── Reset & Base ────────────────────────────────────────── */
@@ -1049,7 +1052,8 @@ input, textarea, select { font-family:var(--font-body); }
   /* ── Fix overflow (linha branca) ─────────────────────────── */
   .filter-bar { overflow:hidden; }
   .filter-bar-inner { overflow:hidden; }
-  .stores-strip { overflow:hidden; }
+  .stores-strip { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .stores-strip::-webkit-scrollbar { display:none; }
   .flash-sale-section { overflow:hidden; }
 
   /* ── Nav compactado ──────────────────────────────────────── */
@@ -1157,6 +1161,18 @@ input, textarea, select { font-family:var(--font-body); }
   .compare-bar { padding: 8px 12px; }
   .compare-bar-item-title { max-width: 72px; font-size: .7rem; }
   .compare-bar-item-price { font-size: .68rem; }
+
+  /* ── Touch targets mínimos 44px ─────────────────────────── */
+  .btn { min-height: var(--tap-target); }
+  .filter-pill { min-height: var(--tap-target); }
+  .store-pill { min-height: var(--tap-target); }
+
+  /* ── Compare bar — safe area iOS ────────────────────────── */
+  .compare-bar { padding-bottom: calc(10px + var(--safe-bottom)); }
+
+  /* ── Toast — largura responsiva ─────────────────────────── */
+  .toast { max-width: calc(100vw - 32px); font-size: .82rem; }
+  .toast-container { right: 12px; bottom: calc(12px + var(--safe-bottom)); }
 
   /* ── Seção divider ───────────────────────────────────────── */
   .section-divider { padding: 9px 0; }
@@ -1373,4 +1389,101 @@ input, textarea, select { font-family:var(--font-body); }
   .compare-modal { max-width: 100%; }
   .compare-row-label { padding: 10px 10px; font-size: .7rem; min-width: 80px; }
   .compare-cell { padding: 10px 8px; font-size: .8rem; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE 480px — Large phone
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width:480px) {
+  /* ── Modal → bottom sheet ────────────────────────────────── */
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding: 20px 16px 24px;
+    max-height: 85vh;
+    width: 100%;
+    overscroll-behavior: contain;
+  }
+
+  /* ── Product card — botões empilhados ────────────────────── */
+  .product-card-footer { flex-direction: column; gap: 6px; padding: 8px; }
+  .product-card-footer .btn { width: 100%; font-size: .78rem; padding: 10px; justify-content: center; }
+
+  /* ── Admin — tabela com scroll horizontal ────────────────── */
+  .admin-section { overflow-x: auto; overflow-y: visible; }
+  .data-table { min-width: 520px; }
+  .admin-stats { grid-template-columns: 1fr 1fr; }
+
+  /* ── Cart / Checkout ─────────────────────────────────────── */
+  .cart-section { padding: 16px !important; }
+  .checkout-section { padding: 16px !important; }
+  .cart-item { gap: 10px; }
+  .cart-item-img { width: 64px; height: 64px; }
+
+  /* ── Loja header stats ───────────────────────────────────── */
+  .loja-header-stats { gap: 12px; flex-wrap: wrap; }
+
+  /* ── Profile ─────────────────────────────────────────────── */
+  .profile-bio { max-width: 100%; }
+
+  /* ── Gallery thumbs — scroll horizontal ─────────────────── */
+  .gallery-thumbs {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; padding: 8px;
+  }
+  .gallery-thumbs::-webkit-scrollbar { display: none; }
+  .gallery-thumb { width: 56px; height: 42px; flex-shrink: 0; }
+  .detail-wrap { padding-left: 12px; padding-right: 12px; }
+  .detail-section { padding: 16px; }
+
+  /* ── Nav compactado ──────────────────────────────────────── */
+  .m-nav-user-btn { font-size: .72rem; padding: 5px 8px; }
+  .m-nav-logo-name { font-size: .82rem; }
+
+  /* ── Formulários — touch-friendly ───────────────────────── */
+  .form-group input, .form-group select, .form-group textarea {
+    min-height: var(--tap-target); font-size: 1rem;
+  }
+  .payment-option { padding: 12px 14px; min-height: var(--tap-target); }
+
+  /* ── Flash cards — responsivos ───────────────────────────── */
+  .flash-card { width: 120px; }
+  .flash-card-img { height: 100px; }
+  .flash-card-title { font-size: .68rem; }
+
+  /* ── Compare bar ─────────────────────────────────────────── */
+  .compare-bar-items { gap: 6px; }
+  .compare-bar-item { padding: 4px 8px; }
+  .compare-bar-item-title { max-width: 60px; font-size: .68rem; }
+  .compare-bar-item-img { width: 28px; height: 28px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE 375px — Small phone (iPhone SE, Galaxy A)
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width:375px) {
+  :root { --nav-h: 128px; }
+
+  /* ── Nav ainda mais compacto ─────────────────────────────── */
+  .m-nav-inner { padding: 0 10px 10px; gap: 6px 8px; }
+  .btn-new-listing { padding: 7px 10px; }
+
+  /* ── Product cards ───────────────────────────────────────── */
+  .product-card-body { padding: 7px; }
+  .product-card-title { font-size: .73rem; }
+  .product-card-price { font-size: .88rem; }
+  .feed-grid { gap: 7px; }
+
+  /* ── Cart / Checkout ─────────────────────────────────────── */
+  .cart-section { padding: 12px !important; }
+  .checkout-section { padding: 12px !important; }
+
+  /* ── Mobile action bar ───────────────────────────────────── */
+  .mobile-action-bar { padding: 10px 12px; padding-bottom: calc(10px + var(--safe-bottom)); }
+  .mobile-action-bar-price { font-size: 1.05rem; }
+  .mobile-action-bar .btn { padding: 10px 14px; font-size: .82rem; }
+
+  /* ── Admin stat ──────────────────────────────────────────── */
+  .admin-stat-card-num { font-size: 1.4rem; }
+  .admin-stat-card { padding: 14px; }
 }
