@@ -1051,8 +1051,6 @@ input, textarea, select { font-family:var(--font-body); }
 
 @media (max-width:768px) {
   /* ── Fix overflow (linha branca) ─────────────────────────── */
-  .filter-bar { overflow:hidden; }
-  .filter-bar-inner { overflow:hidden; }
   .stores-strip { overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
   .stores-strip::-webkit-scrollbar { display:none; }
   .flash-sale-section { overflow:hidden; }
@@ -1065,14 +1063,14 @@ input, textarea, select { font-family:var(--font-body); }
 
   /* ── Filter bar: somente pills + botão Filtros ───────────── */
   .filter-bar { padding:8px 0; }
-  .filter-bar-inner { padding:0 12px; gap:6px; }
-  .filter-bar-row { gap:6px; flex-wrap:nowrap; overflow:hidden; }
+  .filter-bar-inner { padding:0 12px; gap:0; }
+  .filter-bar-row { display:flex; flex:1; min-width:0; flex-wrap:nowrap; gap:6px; align-items:center; }
 
   .filter-pills {
+    flex: 1; min-width: 0;
     flex-wrap: nowrap; overflow-x: auto; gap: 5px;
     scrollbar-width: none; -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-    /* fade direita indicando scroll */
     -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
     mask-image: linear-gradient(to right, black 80%, transparent 100%);
   }
@@ -1104,14 +1102,16 @@ input, textarea, select { font-family:var(--font-body); }
   /* ── Painel colapsável ───────────────────────────────────── */
   .filter-mobile-panel {
     display: block;
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 499;
     max-height: 0; overflow: hidden;
     transition: max-height .3s ease, padding .3s ease;
     background: var(--dark-800);
     border-top: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,.4);
   }
   .filter-mobile-panel.open {
-    max-height: 200px;
-    padding: 10px 0 4px;
+    max-height: 220px;
+    padding: 10px 0 8px;
   }
   .filter-mobile-panel-inner {
     padding: 0 12px; display: flex; flex-direction: column; gap: 8px;
@@ -1388,8 +1388,10 @@ input, textarea, select { font-family:var(--font-body); }
 
 @media (max-width:640px) {
   .compare-modal { max-width: 100%; }
-  .compare-row-label { padding: 10px 10px; font-size: .7rem; min-width: 80px; }
-  .compare-cell { padding: 10px 8px; font-size: .8rem; }
+  #compareTable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .compare-table { min-width: 480px; }
+  .compare-row-label { padding: 10px 8px; font-size: .7rem; min-width: 80px; }
+  .compare-cell { padding: 10px 6px; font-size: .78rem; }
 }
 
 /* ══════════════════════════════════════════════════════════════
