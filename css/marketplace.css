@@ -1327,16 +1327,47 @@ input, textarea, select { font-family:var(--font-body); }
 }
 
 @media (max-width:640px) {
-  .compare-bar { padding: 8px 12px; }
-  .compare-bar-item-title { max-width: 80px; }
-  .compare-bar-hint {
-    display: inline-block;
-    font-size: .65rem; color: rgba(255,255,255,.45);
-    background: rgba(255,255,255,.07);
-    border: 1px dashed rgba(255,255,255,.15);
-    border-radius: 20px; padding: 3px 8px;
-    white-space: nowrap;
+  /* ── Compare bar — layout dois blocos ───────────────────── */
+  .compare-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px 12px calc(10px + var(--safe-bottom));
   }
+  /* linha 1: chips dos produtos com scroll horizontal */
+  .compare-bar-items {
+    gap: 8px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; flex-wrap: nowrap;
+    padding-bottom: 2px; /* espaço para a sombra do chip */
+  }
+  .compare-bar-items::-webkit-scrollbar { display: none; }
+  .compare-bar-item {
+    flex-shrink: 0;
+    padding: 5px 10px; gap: 6px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 20px;
+  }
+  .compare-bar-item-img { width: 28px; height: 28px; border-radius: 6px; }
+  .compare-bar-item-title { max-width: 72px; font-size: .7rem; }
+  .compare-bar-item-price { display: none; } /* preço visível no modal */
+  .compare-bar-item-remove {
+    font-size: .55rem; opacity: .6; margin-left: 2px;
+  }
+  /* hint "+N para comparar" no mesmo scroll horizontal */
+  .compare-bar-hint {
+    flex-shrink: 0;
+    font-size: .65rem; color: rgba(255,255,255,.5);
+    background: rgba(255,255,255,.06);
+    border: 1px dashed rgba(255,255,255,.18);
+    border-radius: 20px; padding: 4px 10px;
+    white-space: nowrap; align-self: center;
+  }
+  /* linha 2: botões de ação em largura total */
+  .compare-bar-actions { width: 100%; gap: 8px; }
+  #compareBtnOpen { flex: 1; font-size: .82rem; padding: 9px 12px; min-height: 42px; }
+  #compareBtnClear { font-size: .78rem; padding: 9px 14px; min-height: 42px; }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -1467,11 +1498,6 @@ input, textarea, select { font-family:var(--font-body); }
   .flash-card-img { height: 100px; }
   .flash-card-title { font-size: .68rem; }
 
-  /* ── Compare bar ─────────────────────────────────────────── */
-  .compare-bar-items { gap: 6px; }
-  .compare-bar-item { padding: 4px 8px; }
-  .compare-bar-item-title { max-width: 60px; font-size: .68rem; }
-  .compare-bar-item-img { width: 28px; height: 28px; }
 }
 
 /* ══════════════════════════════════════════════════════════════
