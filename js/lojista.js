@@ -94,7 +94,20 @@ function renderLojista(user) {
   var products = Storage.getProducts().filter(function (p) { return p.storeId === store.id; });
   var activeCount = products.filter(function (p) { return p.active; }).length;
 
-  var html =
+  /* ── Tabs HTML ─────────────────────────────────────────────── */
+  var tabsHtml =
+    '<div class="lojista-tabs">' +
+      '<button class="lojista-tab active" id="tabProdutos" data-tab="produtos">' +
+        '<i class="fa-solid fa-box"></i> Meus Produtos' +
+      '</button>' +
+      '<button class="lojista-tab" id="tabAnalytics" data-tab="analytics">' +
+        '<i class="fa-solid fa-chart-line"></i> AgroInsights' +
+        '<span class="ai-badge-premium">PREMIUM</span>' +
+      '</button>' +
+    '</div>';
+
+  /* ── Conteúdo de Produtos ────────────────────────────────── */
+  var prodHtml =
     /* Store header */
     '<div class="loja-header">' +
       '<div class="loja-avatar-lg" style="background:' + user.color + '">' + user.initials + '</div>' +
@@ -136,7 +149,35 @@ function renderLojista(user) {
       ) +
     '</div>';
 
+  var html =
+    tabsHtml +
+    '<div id="tabContentProdutos">' + prodHtml + '</div>' +
+    '<div id="tabContentAnalytics" style="display:none"></div>';
+
   document.getElementById('lojistaContent').innerHTML = html;
+
+  /* ── Tab switching ─────────────────────────────────────────── */
+  document.getElementById('tabAnalytics').addEventListener('click', function () {
+    document.getElementById('tabContentProdutos').style.display = 'none';
+    document.getElementById('tabContentAnalytics').style.display = 'block';
+    this.classList.add('active');
+    document.getElementById('tabProdutos').classList.remove('active');
+    /* Inicializar AgroInsights apenas se ainda não foi renderizado */
+    if (!document.querySelector('.ai-wrap')) {
+      var allProducts = Storage.getProducts();
+      var allReviews  = Storage.getReviews ? Storage.getReviews() : [];
+      var allOrders   = Storage.getOrders  ? Storage.getOrders()  : [];
+      var storeProds  = allProducts.filter(function (p) { return p.storeId === store.id; });
+      AgroInsights.init(store.id, storeProds, allReviews, allOrders);
+    }
+  });
+
+  document.getElementById('tabProdutos').addEventListener('click', function () {
+    document.getElementById('tabContentProdutos').style.display = 'block';
+    document.getElementById('tabContentAnalytics').style.display = 'none';
+    this.classList.add('active');
+    document.getElementById('tabAnalytics').classList.remove('active');
+  });
 
   /* Bind Add Product */
   var btnAdd = document.getElementById('btnAddProduct');

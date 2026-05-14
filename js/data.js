@@ -5,15 +5,16 @@
 
 /* ── Chaves do localStorage ───────────────────────────────── */
 const STORE = {
-  INIT:     'agroB2C_v1_init',
-  USERS:    'agroB2C_v1_users',
-  STORES:   'agroB2C_v1_stores',
-  PRODUCTS: 'agroB2C_v1_products',
-  ORDERS:   'agroB2C_v1_orders',
-  REVIEWS:  'agroB2C_v1_reviews',
-  CART:     'agroB2C_v1_cart',
-  SESSION:  'agroB2C_v1_session',
-  FAVS:     'agroB2C_v1_favs',
+  INIT:            'agroB2C_v1_init',
+  USERS:           'agroB2C_v1_users',
+  STORES:          'agroB2C_v1_stores',
+  PRODUCTS:        'agroB2C_v1_products',
+  ORDERS:          'agroB2C_v1_orders',
+  REVIEWS:         'agroB2C_v1_reviews',
+  CART:            'agroB2C_v1_cart',
+  SESSION:         'agroB2C_v1_session',
+  FAVS:            'agroB2C_v1_favs',
+  ANALYTICS_PREFS: 'agro_analytics_prefs_v1',
 };
 
 /* ── Seed Data ────────────────────────────────────────────── */
@@ -358,6 +359,14 @@ const Storage = {
     if (idx >= 0) favs.splice(idx, 1); else favs.push(productId);
     this._set(STORE.FAVS, favs);
     return idx < 0;
+  },
+
+  /* ── Analytics Prefs ─────────────────────────────────────── */
+  getAnalyticsPrefs() {
+    try { return JSON.parse(localStorage.getItem(STORE.ANALYTICS_PREFS)) || {}; } catch(_) { return {}; }
+  },
+  saveAnalyticsPrefs(prefs) {
+    try { localStorage.setItem(STORE.ANALYTICS_PREFS, JSON.stringify(prefs)); } catch(_) {}
   },
 };
 
