@@ -942,16 +942,22 @@
 /* ── Lojista Tabs ────────────────────────────────────────────── */
 .lojista-tabs {
   display: flex;
-  gap: 8px;
+  gap: 0;
   margin-bottom: 24px;
   border-bottom: 2px solid var(--gray-200, #E5E7EB);
   padding-bottom: 0;
+  position: sticky;
+  top: var(--nav-h, 64px);
+  background: #fff;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,.07);
 }
 
 .lojista-tab {
+  flex: 1;
   background: none;
   border: none;
-  padding: 10px 20px;
+  padding: 14px 16px;
   font-size: .9rem;
   font-weight: 600;
   color: var(--gray-500, #6B7280);
@@ -960,9 +966,12 @@
   margin-bottom: -2px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  transition: color .2s, border-color .2s;
+  transition: color .2s, border-color .2s, background .15s;
   font-family: 'Inter', sans-serif;
+  min-height: 52px;
+  white-space: nowrap;
 }
 
 .lojista-tab.active {
@@ -970,8 +979,9 @@
   border-bottom-color: var(--green-700, #2E7D32);
 }
 
-.lojista-tab:hover {
+.lojista-tab:hover:not(.active) {
   color: var(--gray-800, #1F2937);
+  background: rgba(0,0,0,.025);
 }
 
 /* ── Counter Animation ───────────────────────────────────────── */
@@ -1092,8 +1102,51 @@
   .ai-safra-row  { grid-template-columns: 70px repeat(12, 1fr); }
 }
 
+@media (max-width: 640px) {
+  /* Segmented-control style tabs on mobile */
+  .lojista-tabs {
+    margin: 0 -16px 20px;
+    padding: 10px 16px;
+    gap: 6px;
+    border-bottom: none;
+    background: #f3f4f6;
+    box-shadow: none;
+    border-radius: 0;
+    top: var(--nav-h, 112px);
+  }
+  .lojista-tab {
+    flex: 1;
+    padding: 10px 6px;
+    font-size: .83rem;
+    font-weight: 700;
+    min-height: 44px;
+    border-bottom: none;
+    margin-bottom: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gray-500, #6B7280);
+    justify-content: center;
+    gap: 5px;
+  }
+  .lojista-tab.active {
+    background: var(--green-700, #2E7D32);
+    color: #fff;
+    border-bottom: none;
+    box-shadow: 0 2px 8px rgba(46,125,50,.35);
+  }
+  .lojista-tab:hover:not(.active) {
+    background: rgba(0,0,0,.05);
+  }
+  .lojista-tab i { display: none; }
+  .ai-badge-premium {
+    font-size: .5rem;
+    padding: 1px 3px;
+    line-height: 1.4;
+    vertical-align: middle;
+  }
+}
+
 @media (max-width: 480px) {
   .ai-kpi-value { font-size: 1.3rem; }
   .ai-grid-2    { grid-template-columns: 1fr; }
-  .lojista-tab  { padding: 8px 12px; font-size: .8rem; }
 }
