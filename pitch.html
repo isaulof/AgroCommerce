@@ -746,7 +746,7 @@ html, body {
   /* Build dots */
   for (var i = 0; i < total; i++) {
     var d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.className = 'dot' + (i === cur ? ' active' : '');
     d.dataset.i = i;
     d.addEventListener('click', function () { goTo(parseInt(this.dataset.i)); });
     dotsEl.appendChild(d);
@@ -754,20 +754,21 @@ html, body {
 
   function goTo(n) {
     if (n < 0 || n >= total) return;
+    var going_forward = n > cur;
+
     slides[cur].classList.remove('active');
-    slides[cur].classList.add(n > cur ? 'prev' : '');
-    slides[cur].classList.remove(n <= cur ? 'prev' : '');
+    if (going_forward) slides[cur].classList.add('prev');
+    else               slides[cur].classList.remove('prev');
 
-    /* direction */
+    /* direction-aware entry */
     slides[n].classList.remove('prev');
-    if (n < cur) slides[n].style.transform = 'translateX(-32px)';
-    else         slides[n].style.transform = 'translateX(32px)';
+    slides[n].style.transform = going_forward ? 'translateX(40px)' : 'translateX(-40px)';
 
-    /* force reflow */
+    /* force reflow then animate in */
     slides[n].getBoundingClientRect();
     slides[n].style.transform = '';
 
-    /* clean previous */
+    /* clean outgoing slide after transition */
     var old = cur;
     setTimeout(function () {
       slides[old].classList.remove('prev');
