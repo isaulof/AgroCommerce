@@ -10,6 +10,7 @@
 <style>
 @page { size: A5 portrait; margin: 0; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 210mm; overflow: hidden; }
 
 :root {
   --g9: #0f2318;
@@ -40,7 +41,7 @@ body {
 /* ── CABEÇALHO ── */
 .hd {
   background: var(--g9);
-  padding: 4mm 7mm;
+  padding: 2.5mm 7mm;
   display: flex;
   align-items: center;
   gap: 3mm;
@@ -71,7 +72,7 @@ body {
 /* ── HERO ── */
 .hero {
   background: linear-gradient(155deg, var(--g8) 0%, var(--g9) 100%);
-  padding: 5mm 7mm 4.5mm;
+  padding: 4mm 7mm 3.5mm;
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
@@ -116,7 +117,7 @@ body {
 /* ── BANNER ── */
 .banner-strip {
   flex-shrink: 0;
-  height: 36mm;
+  height: 32mm;
   overflow: hidden;
   position: relative;
 }
@@ -128,29 +129,32 @@ body {
 }
 .banner-products {
   position: absolute;
-  left: 50%;
-  transform: translateX(-58%);
-  bottom: 0;
-  height: 82%;
+  left: 23%;
+  transform: translateX(-40%);
+  bottom: -11mm;
+  height: 118%;
   width: auto;
+  opacity: 0.95;
   filter: drop-shadow(2px 6px 10px rgba(0,0,0,.55));
 }
 .banner-legend {
   position: absolute;
-  left: 50%;
-  transform: translateX(-58%);
-  top: 2mm;
-  white-space: nowrap;
+  left: 0;
+  right: 0;
+  top: 2.5mm;
   text-align: center;
+  padding: 0 5mm;
 }
 .banner-legend-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 3.4mm;
+  font-size: 3.1mm;
   color: var(--white);
-  letter-spacing: .06em;
+  letter-spacing: .14em;
   text-transform: uppercase;
   text-shadow: 0 1px 8px rgba(0,0,0,.9), 0 2px 16px rgba(0,0,0,.7);
+  white-space: nowrap;
+  display: block;
 }
 .banner-legend-title em {
   font-style: normal;
@@ -163,7 +167,7 @@ body {
   flex-shrink: 0;
 }
 .ps-col {
-  padding: 4mm 5mm 4mm 6mm;
+  padding: 3mm 5mm 3mm 6mm;
 }
 .ps-col:first-child {
   background: #fef9f9;
@@ -221,7 +225,7 @@ body {
 /* ── RODAPÉ ── */
 .ft {
   background: var(--g9);
-  padding: 5mm 7mm;
+  padding: 4mm 7mm;
   display: flex; align-items: center;
   justify-content: space-between; gap: 5mm;
   margin-top: auto; flex-shrink: 0;
@@ -283,8 +287,22 @@ body {
 }
 
 @media print {
-  body { width:148mm; height:210mm;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  html {
+    height: 210mm;
+    max-height: 210mm;
+    overflow: hidden;
+  }
+  body {
+    width: 148mm !important;
+    height: 210mm !important;
+    max-height: 210mm !important;
+    overflow: hidden !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    page-break-after: avoid;
+    page-break-before: avoid;
+  }
+  * { page-break-inside: avoid; }
 }
 </style>
 </head>
@@ -301,12 +319,10 @@ body {
 <section class="hero">
   <div class="hero-eyebrow">Para quem vive do campo</div>
   <h1 class="hero-title">
-    Compre e venda insumos<br>do campo — <em>sem complicação</em>
+    Compre e venda insumos do campo, <em>sem complicação!</em>
   </h1>
   <p class="hero-sub">
-    Uma plataforma simples e gratuita para pequenos e médios produtores
-    encontrarem os melhores preços, e para lojistas rurais venderem
-    para mais gente — sem precisar sair de casa.
+    A forma mais simples de conectar pequenos e médios produtores aos melhores preços, e lojistas rurais a mais clientes. Tudo online, sem complicação e sem sair de casa.
   </p>
   <div class="hero-audience">
     <div class="hero-pill"><i class="fa-solid fa-tractor"></i> Agricultura familiar</div>
@@ -320,7 +336,7 @@ body {
   <img class="banner-bg" src="banners_img/banner_1.png" alt="Campo em movimento">
   <img class="banner-products" src="banners_img/produtos_pitch.png" alt="Produtos agrícolas">
   <div class="banner-legend">
-    <div class="banner-legend-title"><em>Ração</em> · Insumos · <em>Sementes</em> · Defensivos · Fertilizantes</div>
+    <div class="banner-legend-title"><em>Ração</em> · Insumos · <em>Sementes</em> · Defensivos · <em>Fertilizantes</em></div>
   </div>
 </div>
 
