@@ -130,7 +130,7 @@ body {
 /* ════════════════════════════════════════
    SLIDE 2 — PITCH
 ════════════════════════════════════════ */
-#s-pitch { padding: 0 88px; gap: 0; }
+#s-pitch { padding: 0 88px; gap: 0; text-align: center; }
 
 #s-pitch .p-eyebrow {
   font-size: 24px;
@@ -324,9 +324,10 @@ body {
 #s-cta .c-url {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 40px;
-  color: rgba(255,255,255,.45);
-  letter-spacing: 2px;
+  font-size: 36px;
+  color: rgba(255,255,255,.6);
+  letter-spacing: 1px;
+  line-height: 1.3;
   opacity: 0;
   transition: opacity 0.5s ease 1s;
 }
@@ -334,11 +335,12 @@ body {
 #s-cta.active .c-url { opacity: 1; }
 
 #s-cta .c-tagline {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 300;
-  color: rgba(255,255,255,.25);
-  margin-top: 28px;
-  letter-spacing: 1px;
+  color: rgba(255,255,255,.38);
+  margin-top: 24px;
+  letter-spacing: 0px;
+  line-height: 1.6;
   opacity: 0;
   transition: opacity 0.5s ease 1.2s;
 }
@@ -404,13 +406,27 @@ body {
 #s-venha .v-title em { font-style: normal; color: #66BB6A; }
 #s-venha.active .v-title { clip-path: inset(0 0 0% 0); }
 
+#s-venha .v-date {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #FFB300;
+  letter-spacing: 2px;
+  margin-top: 48px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+}
+#s-venha.active .v-date { opacity: 1; transform: translateY(0); }
+
 /* ── Label "Um projeto:" no CTA ── */
 .c-unemat-label {
-  font-size: 28px;
-  font-weight: 400;
-  color: rgba(255,255,255,.35);
-  letter-spacing: 4px;
-  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-top: 40px;
   margin-bottom: 20px;
   opacity: 0;
   transition: opacity 0.5s ease 1.4s;
@@ -492,7 +508,8 @@ body {
   <!-- ── SLIDE 8: VENHA CONHECER ── -->
   <div class="slide" id="s-venha">
     <div class="v-pre">Venha conhecer</div>
-    <div class="v-title">nossa<br><em>Start UP</em></div>
+    <div class="v-title">nossa<br><em>Startup</em></div>
+    <div class="v-date">16/05/2026 · Início: 13:00h</div>
   </div>
 
   <!-- ── SLIDE 9: CTA ── -->
@@ -504,8 +521,11 @@ body {
       brasileiro.
     </div>
     <div class="c-rule"></div>
-    <div class="c-url"><em>isaulof</em>.github.io/AgroCommerce</div>
-    <div class="c-tagline">O comércio de insumos na palma da sua mão.</div>
+    <div class="c-url">Estaremos na <em>I Amostra AgroFuturo</em></div>
+    <div class="c-tagline">
+      Auditório Unilasalle · Av. Universitária, 1000W<br>
+      Parque das Emas, Lucas do Rio Verde
+    </div>
     <div class="c-unemat-label">Um projeto:</div>
     <div class="c-unemat">
       <img class="c-brasao" src="banners_img/unemat.png" alt="Brasão UNEMAT">
