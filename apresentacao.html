@@ -374,6 +374,49 @@ body {
   width: auto;
 }
 
+/* ════════════════════════════════════════
+   SLIDE 8 — VENHA CONHECER
+════════════════════════════════════════ */
+#s-venha { text-align: center; padding: 0 88px; gap: 0; }
+
+#s-venha .v-pre {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 60px;
+  color: rgba(255,255,255,.45);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+}
+#s-venha.active .v-pre { opacity: 1; transform: translateY(0); }
+
+#s-venha .v-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 128px;
+  line-height: 1.05;
+  color: #fff;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(.4,0,.2,1) 0.35s;
+}
+#s-venha .v-title em { font-style: normal; color: #66BB6A; }
+#s-venha.active .v-title { clip-path: inset(0 0 0% 0); }
+
+/* ── Label "Um projeto:" no CTA ── */
+.c-unemat-label {
+  font-size: 28px;
+  font-weight: 400;
+  color: rgba(255,255,255,.35);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease 1.4s;
+}
+#s-cta.active .c-unemat-label { opacity: 1; }
+
 /* ── Indicador de progresso ── */
 .progress-bar {
   position: absolute;
@@ -446,7 +489,13 @@ body {
     <div class="m-role">Especialista Técnico</div>
   </div>
 
-  <!-- ── SLIDE 8: CTA ── -->
+  <!-- ── SLIDE 8: VENHA CONHECER ── -->
+  <div class="slide" id="s-venha">
+    <div class="v-pre">Venha conhecer</div>
+    <div class="v-title">nossa<br><em>Start UP</em></div>
+  </div>
+
+  <!-- ── SLIDE 9: CTA ── -->
   <div class="slide" id="s-cta">
     <div class="c-mark"><i class="fa-solid fa-seedling"></i></div>
     <div class="c-title">
@@ -457,6 +506,7 @@ body {
     <div class="c-rule"></div>
     <div class="c-url"><em>isaulof</em>.github.io/AgroCommerce</div>
     <div class="c-tagline">O comércio de insumos na palma da sua mão.</div>
+    <div class="c-unemat-label">Um projeto:</div>
     <div class="c-unemat">
       <img class="c-brasao" src="banners_img/unemat.png" alt="Brasão UNEMAT">
       <div class="c-unemat-divider"></div>
@@ -486,10 +536,11 @@ body {
     { at: 2500,  show: 's-pitch',      hide: 's-logo' },
     { at: 5000,  show: 's-team-title', hide: 's-pitch' },
     { at: 5800,  show: 's-saulo',      hide: 's-team-title' },
-    { at: 7000,  show: 's-yago',       hide: 's-saulo' },
-    { at: 8200,  show: 's-levi',       hide: 's-yago' },
-    { at: 9400,  show: 's-carlos',     hide: 's-levi' },
-    { at: 10600, show: 's-cta',        hide: 's-carlos' },
+    { at: 6900,  show: 's-yago',       hide: 's-saulo' },
+    { at: 8000,  show: 's-levi',       hide: 's-yago' },
+    { at: 9100,  show: 's-carlos',     hide: 's-levi' },
+    { at: 10200, show: 's-venha',      hide: 's-carlos' },
+    { at: 12000, show: 's-cta',        hide: 's-venha' },
   ];
 
   function go(step) {
