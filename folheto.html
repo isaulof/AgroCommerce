@@ -134,27 +134,37 @@ body {
   width: auto;
   object-fit: contain;
   object-position: left bottom;
-  filter: drop-shadow(2px 4px 6px rgba(0,0,0,.45));
+  filter: drop-shadow(2px 6px 8px rgba(0,0,0,.5));
 }
 .banner-legend {
   position: absolute;
-  left: 3mm;
-  top: 2.5mm;
-  background: rgba(15,35,24,.72);
-  border-left: 1.5px solid var(--g4);
-  padding: 1.2mm 2.5mm;
-  border-radius: 0 1.5mm 1.5mm 0;
-  backdrop-filter: blur(2px);
+  right: 5mm;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
 }
 .banner-legend-title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 800; font-size: 2.5mm;
-  color: var(--white); line-height: 1.2;
+  font-weight: 900;
+  font-size: 5mm;
+  line-height: 1.15;
+  color: var(--white);
+  text-shadow: 0 2px 12px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.9);
+  letter-spacing: -.01em;
+}
+.banner-legend-title em {
+  font-style: normal;
+  color: var(--g4);
 }
 .banner-legend-sub {
-  font-size: 1.9mm; color: var(--g4);
-  font-weight: 600; margin-top: .5mm;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.4mm;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+  margin-top: 1.5mm;
   letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
 /* ── PROBLEMA + SOLUÇÃO ── */
@@ -320,8 +330,8 @@ body {
   <img class="banner-bg" src="banners_img/banner_1.png" alt="Campo em movimento">
   <img class="banner-products" src="banners_img/produtos_pitch.png" alt="Produtos agrícolas">
   <div class="banner-legend">
-    <div class="banner-legend-title">Ração · Fertilizantes · Defensivos · Sementes</div>
-    <div class="banner-legend-sub">Tudo em um só lugar — no celular ou computador</div>
+    <div class="banner-legend-title">Do campo<br>para as suas <em>mãos.</em></div>
+    <div class="banner-legend-sub">Ração · Insumos · Sementes · Defensivos</div>
   </div>
 </div>
 
