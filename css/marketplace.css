@@ -904,8 +904,44 @@ input, textarea, select { font-family:var(--font-body); }
 .shopee-search { display:flex; background:#fff; border-radius:3px; overflow:hidden; }
 .shopee-search-input { flex:1; border:none; outline:none; padding:10px 14px; font-size:1rem; color:#222; font-family:var(--font-body); background:#fff; min-width:0; }
 .shopee-search-input::placeholder { color:#b0b0b0; }
-.shopee-search-clear { background:none; border:none; color:#aaa; padding:0 10px; cursor:pointer; display:none; align-items:center; font-size:.95rem; }
+.shopee-search-clear { background:none; border:none; color:#aaa; padding:0 8px; cursor:pointer; display:none; align-items:center; font-size:.95rem; }
 .shopee-search-clear.visible { display:flex; }
+
+/* ── Botão de voz ──────────────────────────────────────────────── */
+.search-mic-btn {
+  background: none;
+  border: none;
+  color: #bbb;
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  transition: color .2s;
+  flex-shrink: 0;
+  position: relative;
+}
+.search-mic-btn:hover { color: #888; }
+.search-mic-btn.listening { color: #e53935; }
+.search-mic-btn.listening i { animation: mic-pulse .7s ease-in-out infinite alternate; }
+.search-mic-btn.listening::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 2px solid #e53935;
+  animation: mic-ring .7s ease-in-out infinite;
+  opacity: 0;
+}
+@keyframes mic-pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.25); }
+}
+@keyframes mic-ring {
+  0%   { transform: scale(.6); opacity: .8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
 .shopee-search-btn { background:var(--gold-500,#FFB300); color:#fff; border:none; padding:10px 22px; font-size:.88rem; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px; transition:background .18s; white-space:nowrap; flex-shrink:0; }
 .shopee-search-btn:hover { background:#e5a100; }
 .shopee-search-tags { display:flex; align-items:center; gap:8px; margin-top:7px; flex-wrap:wrap; }
