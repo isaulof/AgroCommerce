@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>AgroCommerce — Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g9: #0a1810;
+  --g8: #0f2318;
+  --g7: #2E7D32;
+  --g5: #4CAF50;
+  --g4: #66BB6A;
+  --g1: rgba(76,175,80,.08);
+  --gold: #FFB300;
+  --red: #ef5350;
+  --white: #fff;
+  --gray: rgba(255,255,255,.45);
+  --surface: rgba(255,255,255,.04);
+  --border: rgba(255,255,255,.08);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--g8);
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Deck ── */
+.deck {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 10%, rgba(46,125,50,.18) 0%, transparent 70%),
+    var(--g8);
+}
+
+/* ── Slides ── */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 100px;
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity .48s cubic-bezier(.4,0,.2,1), transform .48s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+.slide.prev  { opacity: 0; transform: translateX(-32px); }
+.slide.active{ opacity: 1; transform: translateX(0); pointer-events: auto; }
+
+/* ── Navigation arrows ── */
+.nav-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,.5);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, color .2s, opacity .2s;
+  z-index: 100;
+}
+.nav-btn:hover { background: rgba(76,175,80,.2); color: var(--g4); }
+.nav-btn.disabled { opacity: .2; pointer-events: none; }
+#btnPrev { left: 20px; }
+#btnNext { right: 20px; }
+
+/* ── Dots ── */
+.dots {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  cursor: pointer;
+  transition: background .3s, transform .3s;
+}
+.dot.active { background: var(--g4); transform: scale(1.4); }
+
+/* ── Slide counter ── */
+.counter {
+  position: fixed;
+  bottom: 22px;
+  right: 28px;
+  font-size: .7rem;
+  color: rgba(255,255,255,.2);
+  font-weight: 600;
+  letter-spacing: 2px;
+  z-index: 100;
+}
+
+/* ── Shared components ── */
+.eyebrow {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--g4);
+  margin-bottom: 20px;
+}
+.eyebrow.red { color: var(--red); }
+
+.headline {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.headline em { font-style: normal; color: var(--g4); }
+.headline.red em { color: var(--red); }
+
+.sub {
+  font-size: clamp(.85rem, 1.3vw, 1.05rem);
+  color: var(--gray);
+  text-align: center;
+  line-height: 1.65;
+  max-width: 680px;
+}
+
+.rule {
+  width: 48px; height: 3px;
+  background: linear-gradient(90deg, var(--g5), var(--g4));
+  border-radius: 2px;
+  margin: 24px auto;
+}
+.rule.red { background: linear-gradient(90deg, var(--red), #ff8a80); }
+
+/* ── Pain points ── */
+.pain-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 32px;
+  width: 100%;
+  max-width: 640px;
+}
+.pain-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: rgba(239,83,80,.07);
+  border: 1px solid rgba(239,83,80,.15);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.pain-item.green {
+  background: var(--g1);
+  border-color: rgba(76,175,80,.15);
+}
+.pain-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(239,83,80,.15);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--red);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.pain-icon.green { background: rgba(76,175,80,.15); color: var(--g4); }
+.pain-text strong {
+  display: block;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.pain-text span {
+  font-size: .82rem;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* ── Two-column layout ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 960px;
+  margin-top: 32px;
+}
+.col-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 28px;
+}
+.col-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+.col-card-head i {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: var(--g1);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--g4);
+  font-size: .9rem;
+}
+.col-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: .875rem;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.col-item i { color: var(--g4); font-size: .7rem; margin-top: 5px; flex-shrink: 0; }
+.col-item strong { color: var(--white); font-weight: 600; }
+
+/* ── Steps (Como funciona) ── */
+.steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 40px;
+}
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+}
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 36px;
+  right: -12px;
+  width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--g5), rgba(76,175,80,.2));
+}
+.step-icon {
+  width: 72px; height: 72px;
+  border-radius: 20px;
+  background: var(--g1);
+  border: 1px solid rgba(76,175,80,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  color: var(--g4);
+  margin: 0 auto 20px;
+}
+.step-num {
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--g4);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.step-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+.step-desc {
+  font-size: .8rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* ── Diferenciais ── */
+.diff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 840px;
+  margin-top: 32px;
+}
+.diff-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.diff-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--g1);
+  border: 1px solid rgba(76,175,80,.15);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--g4);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.diff-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: .9rem;
+  margin-bottom: 6px;
+}
+.diff-card-desc {
+  font-size: .78rem;
+  color: var(--gray);
+  line-height: 1.55;
+}
+
+/* ── Ganhos ── */
+.gain-col-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+.gain-col-head .badge {
+  background: var(--g1);
+  border: 1px solid rgba(76,175,80,.2);
+  border-radius: 8px;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--g4);
+}
+.gain-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.gain-check {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: rgba(76,175,80,.12);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--g4);
+  font-size: .6rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.gain-text strong { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 2px; }
+.gain-text span { font-size: .78rem; color: var(--gray); line-height: 1.5; }
+
+/* ── Equipe ── */
+.team-grid {
+  display: flex;
+  gap: 28px;
+  margin-top: 36px;
+}
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+}
+.team-photo {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(76,175,80,.3);
+  box-shadow: 0 0 30px rgba(76,175,80,.15);
+  margin-bottom: 16px;
+}
+.team-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: .9rem;
+  text-align: center;
+  margin-bottom: 6px;
+}
+.team-role {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--g4);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ── Logo mark ── */
+.logo-mark {
+  width: 80px; height: 80px;
+  background: linear-gradient(145deg, #388E3C, #2E7D32);
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; color: #fff;
+  box-shadow: 0 0 40px rgba(76,175,80,.3), 0 16px 40px rgba(0,0,0,.4);
+  margin-bottom: 28px;
+}
+.logo-mark.sm {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+/* ── QR slide ── */
+.qr-wrap {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 0 0 3px var(--g5), 0 24px 60px rgba(0,0,0,.5);
+  margin: 32px 0 20px;
+}
+.qr-wrap img { width: 200px; height: 200px; display: block; }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — CAPA
+  ══════════════════════════════════════ -->
+  <section class="slide active" data-index="0">
+    <div class="logo-mark"><i class="fa-solid fa-seedling"></i></div>
+    <div class="eyebrow">Apresentação · I Amostra AgroFuturo · 2026</div>
+    <h1 class="headline" style="font-size:clamp(2.4rem,5vw,4rem)">
+      O <em>marketplace</em><br>do agronegócio brasileiro
+    </h1>
+    <div class="rule"></div>
+    <p class="sub">Conectando produtores e lojistas rurais num único lugar,<br>simples, digital e sem custo técnico.</p>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:40px;opacity:.35">
+      <img src="banners_img/unemat.png" style="height:36px;width:auto">
+      <img src="banners_img/unemat_texto.png" style="height:24px;width:auto">
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — PROBLEMA: O PRODUTOR
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="1">
+    <div class="eyebrow red"><i class="fa-solid fa-triangle-exclamation"></i> &nbsp;O Problema</div>
+    <h2 class="headline red">Como o produtor<br>compra insumos <em>hoje?</em></h2>
+    <div class="rule red"></div>
+    <div class="pain-list">
+      <div class="pain-item">
+        <div class="pain-icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="pain-text">
+          <strong>Liga para vários fornecedores no WhatsApp</strong>
+          <span>Horas perdidas em cotações manuais, sem histórico e sem comparação.</span>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon"><i class="fa-solid fa-tags"></i></div>
+        <div class="pain-text">
+          <strong>Não sabe se pagou caro ou barato</strong>
+          <span>Sem transparência de preços — cada fornecedor diz o que quer.</span>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="pain-text">
+          <strong>Limitado aos fornecedores da vizinhança</strong>
+          <span>Sem acesso a lojas de fora da cidade, mesmo que ofereçam melhores preços.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — PROBLEMA: O LOJISTA
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="2">
+    <div class="eyebrow red"><i class="fa-solid fa-triangle-exclamation"></i> &nbsp;O Problema</div>
+    <h2 class="headline red">E o lojista rural,<br>como <em>vende hoje?</em></h2>
+    <div class="rule red"></div>
+    <div class="pain-list">
+      <div class="pain-item">
+        <div class="pain-icon"><i class="fa-solid fa-map-pin"></i></div>
+        <div class="pain-text">
+          <strong>Vende só para quem já conhece</strong>
+          <span>Alcance limitado à região imediata, sem visibilidade digital.</span>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon"><i class="fa-solid fa-server"></i></div>
+        <div class="pain-text">
+          <strong>Sem sistema digital próprio</strong>
+          <span>Criar e manter um e-commerce tem custo alto e exige suporte técnico contínuo.</span>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="pain-text">
+          <strong>Sem visão das suas vendas</strong>
+          <span>Difícil acompanhar desempenho, estoque e comportamento dos clientes.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — A SOLUÇÃO
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="3">
+    <div class="eyebrow"><i class="fa-solid fa-seedling"></i> &nbsp;A Solução</div>
+    <h2 class="headline">AgroCommerce conecta<br>os <em>dois lados</em> do campo</h2>
+    <div class="rule"></div>
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-card-head">
+          <div style="width:36px;height:36px;border-radius:9px;background:var(--g1);display:flex;align-items:center;justify-content:center;color:var(--g4)"><i class="fa-solid fa-tractor"></i></div>
+          Para o Produtor
+        </div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Compare preços de <strong>múltiplas lojas</strong> ao mesmo tempo</div></div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Acesse fornecedores de <strong>toda a região</strong></div></div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Leia <strong>avaliações reais</strong> de outros produtores</div></div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Compre pelo <strong>celular, do campo</strong></div></div>
+      </div>
+      <div class="col-card">
+        <div class="col-card-head">
+          <div style="width:36px;height:36px;border-radius:9px;background:var(--g1);display:flex;align-items:center;justify-content:center;color:var(--g4)"><i class="fa-solid fa-store"></i></div>
+          Para o Lojista
+        </div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Cadastre produtos e venda <strong>sem custo técnico</strong></div></div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Alcance produtores de <strong>toda a região</strong></div></div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div>Painel completo de <strong>gestão de vendas</strong></div></div>
+        <div class="col-item"><i class="fa-solid fa-check"></i><div><strong>Zero manutenção técnica</strong> — nós cuidamos disso</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — COMO FUNCIONA
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="4">
+    <div class="eyebrow">Como Funciona</div>
+    <h2 class="headline">Simples para <em>todos</em></h2>
+    <div class="rule"></div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="step-num">01 — Busque</div>
+        <div class="step-title">Encontre o que precisa</div>
+        <div class="step-desc">Ração, fertilizantes, defensivos, sementes — tudo num único lugar.</div>
+      </div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+        <div class="step-num">02 — Compare</div>
+        <div class="step-title">Veja preços e avaliações</div>
+        <div class="step-desc">Transparência total — compare lojas e escolha com segurança.</div>
+      </div>
+      <div class="step">
+        <div class="step-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+        <div class="step-num">03 — Compre</div>
+        <div class="step-title">Finalize pelo celular</div>
+        <div class="step-desc">De qualquer lugar do campo, sem deslocamento ou ligação.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — DIFERENCIAIS
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="5">
+    <div class="eyebrow">Por que o AgroCommerce?</div>
+    <h2 class="headline">Nossos <em>Diferenciais</em></h2>
+    <div class="rule"></div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <div>
+          <div class="diff-card-title">100% pelo celular</div>
+          <div class="diff-card-desc">Interface adaptada para o produtor rural — simples, rápida e funciona em qualquer conexão.</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <div class="diff-card-title">Zero custo técnico</div>
+          <div class="diff-card-desc">O lojista não precisa criar ou manter nada — apenas cadastra e começa a vender.</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><i class="fa-solid fa-star"></i></div>
+        <div>
+          <div class="diff-card-title">Avaliações reais</div>
+          <div class="diff-card-desc">Produtores avaliam lojas e produtos, gerando confiança e transparência no mercado.</div>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <div>
+          <div class="diff-card-title">Painel AgroInsights</div>
+          <div class="diff-card-desc">Lojistas acompanham vendas, desempenho e dados dos clientes em tempo real.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7 — GANHOS & VALOR
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="6">
+    <div class="eyebrow">Ganhos & Valor</div>
+    <h2 class="headline">O que cada lado <em>ganha</em></h2>
+    <div class="rule"></div>
+    <div class="two-col" style="max-width:900px">
+      <div class="col-card">
+        <div class="gain-col-head">
+          <div class="badge"><i class="fa-solid fa-tractor"></i></div>
+          Produtor
+        </div>
+        <div class="gain-item">
+          <div class="gain-check"><i class="fa-solid fa-check"></i></div>
+          <div class="gain-text"><strong>Economia de tempo</strong><span>Cotação em minutos, não horas de ligações.</span></div>
+        </div>
+        <div class="gain-item">
+          <div class="gain-check"><i class="fa-solid fa-check"></i></div>
+          <div class="gain-text"><strong>Melhores preços</strong><span>Acesso a múltiplas lojas — mais concorrência, menor custo.</span></div>
+        </div>
+        <div class="gain-item">
+          <div class="gain-check"><i class="fa-solid fa-check"></i></div>
+          <div class="gain-text"><strong>Mais segurança</strong><span>Avaliações e histórico de compras antes de decidir.</span></div>
+        </div>
+      </div>
+      <div class="col-card">
+        <div class="gain-col-head">
+          <div class="badge"><i class="fa-solid fa-store"></i></div>
+          Lojista
+        </div>
+        <div class="gain-item">
+          <div class="gain-check"><i class="fa-solid fa-check"></i></div>
+          <div class="gain-text"><strong>Mais clientes</strong><span>Visibilidade para produtores de toda a região.</span></div>
+        </div>
+        <div class="gain-item">
+          <div class="gain-check"><i class="fa-solid fa-check"></i></div>
+          <div class="gain-text"><strong>Sem investimento em TI</strong><span>Plataforma pronta — foca em vender, não em tecnologia.</span></div>
+        </div>
+        <div class="gain-item">
+          <div class="gain-check"><i class="fa-solid fa-check"></i></div>
+          <div class="gain-text"><strong>Gestão centralizada</strong><span>Produtos, pedidos e métricas em um só painel.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8 — A EQUIPE
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="7">
+    <div class="eyebrow">Quem Constrói</div>
+    <h2 class="headline">Nossa <em>Equipe</em></h2>
+    <div class="rule"></div>
+    <div class="team-grid">
+      <div class="team-card">
+        <img class="team-photo" src="agrocommerce-perfil-saulo.png" alt="Saulo">
+        <div class="team-name">Saulo Pereira</div>
+        <div class="team-role">Desenvolvedor de T.I</div>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="agrocommerce-perfil-yago.png" alt="Yago" style="object-position:center 30%">
+        <div class="team-name">Yago Martins</div>
+        <div class="team-role">Design & UX</div>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="agrocommerce-perfil-levi.png" alt="Levi">
+        <div class="team-name">Levi Saraiva</div>
+        <div class="team-role">Estratégia de Negócios</div>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="agrocommerce-perfil-carlos.png" alt="Carlos">
+        <div class="team-name">Carlos Hartmann</div>
+        <div class="team-role">Especialista Técnico</div>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:28px;font-size:.8rem">Estudantes de Agrocomputação · UNEMAT · Lucas do Rio Verde</p>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 9 — ACESSE AGORA
+  ══════════════════════════════════════ -->
+  <section class="slide" data-index="8">
+    <div class="logo-mark"><i class="fa-solid fa-seedling"></i></div>
+    <div class="eyebrow">Experimente ao vivo</div>
+    <h2 class="headline">Acesse agora e<br>explore a <em>plataforma</em></h2>
+    <div class="qr-wrap">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://isaulof.github.io/AgroCommerce/marketplace.html&bgcolor=ffffff&color=0f2318&qzone=1" alt="QR Code">
+    </div>
+    <p class="sub" style="font-size:.8rem;opacity:.5">isaulof.github.io/AgroCommerce</p>
+    <div style="margin-top:32px;display:flex;align-items:center;gap:12px;opacity:.25">
+      <img src="banners_img/unemat.png" style="height:32px;width:auto">
+      <img src="banners_img/unemat_texto.png" style="height:22px;width:auto">
+    </div>
+  </section>
+
+</div><!-- .deck -->
+
+<!-- Navigation -->
+<button class="nav-btn disabled" id="btnPrev"><i class="fa-solid fa-chevron-left"></i></button>
+<button class="nav-btn" id="btnNext"><i class="fa-solid fa-chevron-right"></i></button>
+
+<div class="dots" id="dots"></div>
+<div class="counter" id="counter">1 / 9</div>
+
+<script>
+(function () {
+  var slides = document.querySelectorAll('.slide');
+  var total  = slides.length;
+  var cur    = 0;
+
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var dotsEl  = document.getElementById('dots');
+  var counterEl = document.getElementById('counter');
+
+  /* preview=N param: jump to slide N (1-indexed) instantly */
+  var urlParams = new URLSearchParams(window.location.search);
+  var previewSlide = parseInt(urlParams.get('preview') || '1', 10) - 1;
+  if (previewSlide > 0 && previewSlide < total) {
+    slides[0].classList.remove('active');
+    slides[previewSlide].classList.add('active');
+    cur = previewSlide;
+  }
+
+  /* Build dots */
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.dataset.i = i;
+    d.addEventListener('click', function () { goTo(parseInt(this.dataset.i)); });
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add(n > cur ? 'prev' : '');
+    slides[cur].classList.remove(n <= cur ? 'prev' : '');
+
+    /* direction */
+    slides[n].classList.remove('prev');
+    if (n < cur) slides[n].style.transform = 'translateX(-32px)';
+    else         slides[n].style.transform = 'translateX(32px)';
+
+    /* force reflow */
+    slides[n].getBoundingClientRect();
+    slides[n].style.transform = '';
+
+    /* clean previous */
+    var old = cur;
+    setTimeout(function () {
+      slides[old].classList.remove('prev');
+      slides[old].style.transform = '';
+    }, 500);
+
+    cur = n;
+    slides[cur].classList.add('active');
+
+    /* update UI */
+    dotsEl.querySelectorAll('.dot').forEach(function (d, idx) {
+      d.classList.toggle('active', idx === cur);
+    });
+    counterEl.textContent = (cur + 1) + ' / ' + total;
+    btnPrev.classList.toggle('disabled', cur === 0);
+    btnNext.classList.toggle('disabled', cur === total - 1);
+  }
+
+  btnPrev.addEventListener('click', function () { goTo(cur - 1); });
+  btnNext.addEventListener('click', function () { goTo(cur + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(cur + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
+  });
+})();
+</script>
+</body>
+</html>
