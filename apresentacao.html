@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>AgroCommerce — Apresentação Instagram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #000;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+/* ── Stage — 1080×1920 scaled to fit screen ── */
+.stage {
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+  overflow: hidden;
+  transform-origin: center center;
+  background: #0a1810;
+  flex-shrink: 0;
+}
+
+/* ── Fundo comum a todos os slides ── */
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 20%, rgba(46,125,50,.22) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 85%, rgba(27,58,38,.4) 0%, transparent 70%),
+    linear-gradient(180deg, #0f2318 0%, #0a1810 50%, #0f2318 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Slides ── */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s cubic-bezier(.4,0,.2,1);
+  z-index: 1;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+/* ════════════════════════════════════════
+   SLIDE 1 — LOGO
+════════════════════════════════════════ */
+#s-logo { gap: 0; }
+
+#s-logo .logo-mark {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(145deg, #388E3C, #2E7D32);
+  border-radius: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 88px;
+  color: #fff;
+  margin-bottom: 56px;
+  box-shadow:
+    0 0 0 1px rgba(76,175,80,.3),
+    0 0 60px rgba(76,175,80,.35),
+    0 0 120px rgba(76,175,80,.15),
+    0 24px 60px rgba(0,0,0,.5);
+  opacity: 0;
+  transform: scale(0.45) translateY(20px);
+  transition: opacity 0.7s cubic-bezier(.34,1.4,.64,1), transform 0.7s cubic-bezier(.34,1.4,.64,1);
+}
+#s-logo.active .logo-mark { opacity: 1; transform: scale(1) translateY(0); }
+
+#s-logo .logo-wordmark {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 100px;
+  letter-spacing: -2px;
+  color: rgba(255,255,255,.35);
+  line-height: 1;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.7s cubic-bezier(.4,0,.2,1) 0.45s;
+}
+#s-logo .logo-wordmark span { color: #66BB6A; }
+#s-logo.active .logo-wordmark { clip-path: inset(0 0% 0 0); }
+
+#s-logo .logo-tag {
+  font-size: 28px;
+  font-weight: 400;
+  color: rgba(255,255,255,.28);
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  margin-top: 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease 1s;
+}
+#s-logo.active .logo-tag { opacity: 1; }
+
+#s-logo .logo-rule {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102,187,106,.6), transparent);
+  margin-top: 56px;
+  transition: width 0.8s cubic-bezier(.4,0,.2,1) 1.1s;
+}
+#s-logo.active .logo-rule { width: 320px; }
+
+/* ════════════════════════════════════════
+   SLIDE 2 — PITCH
+════════════════════════════════════════ */
+#s-pitch { padding: 0 88px; gap: 0; }
+
+#s-pitch .p-eyebrow {
+  font-size: 24px;
+  font-weight: 600;
+  color: #66BB6A;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+}
+#s-pitch.active .p-eyebrow { opacity: 1; transform: translateY(0); }
+
+#s-pitch .p-l1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 116px;
+  line-height: 1.0;
+  color: #fff;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(.4,0,.2,1) 0.3s;
+}
+#s-pitch.active .p-l1 { clip-path: inset(0 0 0% 0); }
+
+#s-pitch .p-l2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 116px;
+  line-height: 1.0;
+  color: #66BB6A;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(.4,0,.2,1) 0.55s;
+}
+#s-pitch.active .p-l2 { clip-path: inset(0 0 0% 0); }
+
+#s-pitch .p-l3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 72px;
+  line-height: 1.0;
+  color: rgba(255,255,255,.25);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(.4,0,.2,1) 0.75s;
+}
+#s-pitch.active .p-l3 { clip-path: inset(0 0 0% 0); }
+
+#s-pitch .p-sub {
+  font-size: 32px;
+  font-weight: 300;
+  color: rgba(255,255,255,.38);
+  line-height: 1.6;
+  margin-top: 64px;
+  opacity: 0;
+  transition: opacity 0.6s ease 1s;
+}
+#s-pitch.active .p-sub { opacity: 1; }
+
+/* ════════════════════════════════════════
+   SLIDE 3 — TEAM TITLE
+════════════════════════════════════════ */
+#s-team-title { gap: 0; text-align: center; }
+
+#s-team-title .tt-nossa {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 72px;
+  color: rgba(255,255,255,.3);
+  letter-spacing: 24px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s;
+}
+#s-team-title.active .tt-nossa { opacity: 1; transform: translateY(0); }
+
+#s-team-title .tt-equipe {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 148px;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -3px;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.55s cubic-bezier(.4,0,.2,1) 0.28s;
+}
+#s-team-title.active .tt-equipe { clip-path: inset(0 0 0% 0); }
+
+#s-team-title .tt-rule {
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4CAF50, transparent);
+  margin: 40px auto 0;
+  transition: width 0.55s cubic-bezier(.4,0,.2,1) 0.55s;
+}
+#s-team-title.active .tt-rule { width: 180px; }
+
+/* ════════════════════════════════════════
+   SLIDES 4-7 — TEAM MEMBERS
+════════════════════════════════════════ */
+.s-member { text-align: center; padding: 0 80px; gap: 0; }
+
+.m-photo {
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(76,175,80,.35);
+  box-shadow:
+    0 0 0 8px rgba(76,175,80,.07),
+    0 0 60px rgba(76,175,80,.22),
+    0 0 120px rgba(76,175,80,.08),
+    0 32px 80px rgba(0,0,0,.6);
+  margin-bottom: 64px;
+  opacity: 0;
+  transform: scale(0.82) translateY(30px);
+  transition: opacity 0.55s cubic-bezier(.34,1.2,.64,1) 0.1s,
+              transform 0.55s cubic-bezier(.34,1.2,.64,1) 0.1s;
+}
+.s-member.active .m-photo { opacity: 1; transform: scale(1) translateY(0); }
+
+.m-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 76px;
+  color: #fff;
+  line-height: 1.05;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.5s cubic-bezier(.4,0,.2,1) 0.38s;
+}
+.s-member.active .m-name { clip-path: inset(0 0 0% 0); }
+
+.m-role {
+  font-size: 30px;
+  font-weight: 500;
+  color: #66BB6A;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.6s;
+}
+.s-member.active .m-role { opacity: 1; }
+
+/* ════════════════════════════════════════
+   SLIDE 8 — CTA
+════════════════════════════════════════ */
+#s-cta { text-align: center; padding: 0 88px; gap: 0; }
+
+#s-cta .c-mark {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(145deg, #388E3C, #2E7D32);
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #fff;
+  margin: 0 auto 48px;
+  box-shadow: 0 0 50px rgba(76,175,80,.3), 0 16px 40px rgba(0,0,0,.5);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.5s cubic-bezier(.34,1.4,.64,1) 0.1s,
+              transform 0.5s cubic-bezier(.34,1.4,.64,1) 0.1s;
+}
+#s-cta.active .c-mark { opacity: 1; transform: scale(1); }
+
+#s-cta .c-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 84px;
+  line-height: 1.1;
+  color: #fff;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(.4,0,.2,1) 0.35s;
+}
+#s-cta .c-title em { font-style: normal; color: #66BB6A; }
+#s-cta.active .c-title { clip-path: inset(0 0 0% 0); }
+
+#s-cta .c-rule {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102,187,106,.5), transparent);
+  margin: 60px auto;
+  transition: width 0.65s cubic-bezier(.4,0,.2,1) 0.8s;
+}
+#s-cta.active .c-rule { width: 280px; }
+
+#s-cta .c-url {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: rgba(255,255,255,.45);
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 0.5s ease 1s;
+}
+#s-cta .c-url em { font-style: normal; color: #66BB6A; }
+#s-cta.active .c-url { opacity: 1; }
+
+#s-cta .c-tagline {
+  font-size: 28px;
+  font-weight: 300;
+  color: rgba(255,255,255,.25);
+  margin-top: 28px;
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.5s ease 1.2s;
+}
+#s-cta.active .c-tagline { opacity: 1; }
+
+.c-unemat {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background: rgba(255,255,255,.92);
+  border-radius: 28px;
+  padding: 28px 48px;
+  margin-top: 64px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 1.5s, transform 0.6s ease 1.5s;
+}
+#s-cta.active .c-unemat { opacity: 1; transform: translateY(0); }
+
+.c-brasao {
+  height: 110px;
+  width: auto;
+  flex-shrink: 0;
+}
+.c-unemat-divider {
+  width: 1px;
+  height: 80px;
+  background: rgba(0,0,0,.12);
+  flex-shrink: 0;
+}
+.c-unemat-txt {
+  height: 64px;
+  width: auto;
+}
+
+/* ── Indicador de progresso ── */
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2E7D32, #66BB6A);
+  width: 0%;
+  z-index: 10;
+  transition: none;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper"><div class="stage" id="stage">
+
+  <!-- ── SLIDE 1: LOGO ── -->
+  <div class="slide" id="s-logo">
+    <div class="logo-mark"><i class="fa-solid fa-seedling"></i></div>
+    <div class="logo-wordmark">AGRO<span>COMMERCE</span></div>
+    <div class="logo-tag">Marketplace do Agronegócio</div>
+    <div class="logo-rule"></div>
+  </div>
+
+  <!-- ── SLIDE 2: PITCH ── -->
+  <div class="slide" id="s-pitch">
+    <div class="p-eyebrow">Startup · Agronegócio</div>
+    <div class="p-l1">O campo</div>
+    <div class="p-l2">mais conectado.</div>
+    <div class="p-l3">Do Brasil.</div>
+    <p class="p-sub">
+      Pequenos e médios produtores.<br>
+      Lojistas rurais. Tudo num só lugar.
+    </p>
+  </div>
+
+  <!-- ── SLIDE 3: TEAM TITLE ── -->
+  <div class="slide" id="s-team-title">
+    <div class="tt-nossa">Nossa</div>
+    <div class="tt-equipe">Equipe</div>
+    <div class="tt-rule"></div>
+  </div>
+
+  <!-- ── SLIDE 4: SAULO ── -->
+  <div class="slide s-member" id="s-saulo">
+    <img class="m-photo" src="agrocommerce-perfil-saulo.png" alt="Saulo Pereira">
+    <div class="m-name">Saulo Pereira</div>
+    <div class="m-role">Desenvolvedor de T.I</div>
+  </div>
+
+  <!-- ── SLIDE 5: YAGO ── -->
+  <div class="slide s-member" id="s-yago">
+    <img class="m-photo" src="agrocommerce-perfil-yago.png" alt="Yago Martins" style="object-position: center 30%;">
+    <div class="m-name">Yago Martins</div>
+    <div class="m-role">Design & UX</div>
+  </div>
+
+  <!-- ── SLIDE 6: LEVI ── -->
+  <div class="slide s-member" id="s-levi">
+    <img class="m-photo" src="agrocommerce-perfil-levi.png" alt="Levi Saraiva">
+    <div class="m-name">Levi Saraiva</div>
+    <div class="m-role">Estratégia de Negócios</div>
+  </div>
+
+  <!-- ── SLIDE 7: CARLOS ── -->
+  <div class="slide s-member" id="s-carlos">
+    <img class="m-photo" src="agrocommerce-perfil-carlos.png" alt="Carlos Hartmann">
+    <div class="m-name">Carlos Hartmann</div>
+    <div class="m-role">Especialista Técnico</div>
+  </div>
+
+  <!-- ── SLIDE 8: CTA ── -->
+  <div class="slide" id="s-cta">
+    <div class="c-mark"><i class="fa-solid fa-seedling"></i></div>
+    <div class="c-title">
+      O marketplace do<br>
+      <em>agronegócio</em><br>
+      brasileiro.
+    </div>
+    <div class="c-rule"></div>
+    <div class="c-url"><em>isaulof</em>.github.io/AgroCommerce</div>
+    <div class="c-tagline">O comércio de insumos na palma da sua mão.</div>
+    <div class="c-unemat">
+      <img class="c-brasao" src="banners_img/unemat.png" alt="Brasão UNEMAT">
+      <div class="c-unemat-divider"></div>
+      <img class="c-unemat-txt" src="banners_img/unemat_texto.png" alt="UNEMAT">
+    </div>
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+</div></div>
+
+<script>
+(function () {
+
+  /* ── Scale stage to 9:16 dentro do viewport ── */
+  var stage = document.getElementById('stage');
+  function scaleStage() {
+    var scl = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+    stage.style.transform = 'scale(' + scl + ')';
+  }
+  scaleStage();
+  window.addEventListener('resize', scaleStage);
+
+  /* ── Timeline — total 15 000ms ── */
+  var TOTAL = 15000;
+  var seq = [
+    { at: 0,     show: 's-logo' },
+    { at: 2500,  show: 's-pitch',      hide: 's-logo' },
+    { at: 5000,  show: 's-team-title', hide: 's-pitch' },
+    { at: 5800,  show: 's-saulo',      hide: 's-team-title' },
+    { at: 7000,  show: 's-yago',       hide: 's-saulo' },
+    { at: 8200,  show: 's-levi',       hide: 's-yago' },
+    { at: 9400,  show: 's-carlos',     hide: 's-levi' },
+    { at: 10600, show: 's-cta',        hide: 's-carlos' },
+  ];
+
+  function go(step) {
+    document.getElementById(step.show).classList.add('active');
+    if (step.hide) document.getElementById(step.hide).classList.remove('active');
+  }
+
+  /* ?preview=N mostra o slide N imediatamente (para captura de tela) */
+  var previewIdx = new URLSearchParams(window.location.search).get('preview');
+  if (previewIdx !== null) {
+    var noAnim = document.createElement('style');
+    noAnim.textContent = '*, *::before, *::after { transition: none !important; animation: none !important; clip-path: none !important; }';
+    document.head.appendChild(noAnim);
+    go(seq[parseInt(previewIdx, 10)]);
+  } else {
+    seq.forEach(function (step) {
+      setTimeout(function () { go(step); }, step.at);
+    });
+  }
+
+  /* ── Barra de progresso ── */
+  var bar = document.getElementById('progressBar');
+  var start = Date.now();
+  function tick() {
+    var elapsed = Date.now() - start;
+    var pct = Math.min(elapsed / TOTAL * 100, 100);
+    bar.style.width = pct + '%';
+    if (elapsed < TOTAL) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+})();
+</script>
+</body>
+</html>
