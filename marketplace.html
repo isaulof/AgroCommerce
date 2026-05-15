@@ -386,39 +386,29 @@
 <script src="js/catalog.js"></script>
 <script>
 (function () {
-  var VOICE_TERMS = [
-    'ração para bovinos', 'fertilizante NPK', 'sementes de soja',
-    'herbicida seletivo', 'vitamina animal', 'defensivo agrícola',
-    'calcário dolomítico', 'milho híbrido', 'vermífugo bovino',
-    'adubo foliar'
-  ];
-
   var micBtn = document.getElementById('searchMic');
   if (!micBtn) return;
 
   var listening = false;
+  var timer = null;
+
+  function stopListening() {
+    listening = false;
+    micBtn.classList.remove('listening');
+    micBtn.title = 'Busca por voz';
+    clearTimeout(timer);
+  }
 
   micBtn.addEventListener('click', function () {
-    if (listening) return;
+    if (listening) { stopListening(); return; }
+
     listening = true;
     micBtn.classList.add('listening');
+    micBtn.title = 'Toque para cancelar';
+    Toast.show('🎤 Escutando... fale agora', 'info', 3800);
 
-    /* toast de escutando */
-    Toast.show('🎤 Escutando...', 'info', 2200);
-
-    setTimeout(function () {
-      var term = VOICE_TERMS[Math.floor(Math.random() * VOICE_TERMS.length)];
-      var input = document.getElementById('navSearch');
-      if (input) {
-        input.value = term;
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        /* acionar a busca */
-        var searchBtn = document.getElementById('searchBtn');
-        if (searchBtn) searchBtn.click();
-      }
-      micBtn.classList.remove('listening');
-      listening = false;
-    }, 2000);
+    /* para automaticamente após 4s */
+    timer = setTimeout(stopListening, 4000);
   });
 })();
 </script>
