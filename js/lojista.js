@@ -94,8 +94,9 @@ function renderLojista(user) {
   var products = Storage.getProducts().filter(function (p) { return p.storeId === store.id; });
   var activeCount = products.filter(function (p) { return p.active; }).length;
 
-  /* ── Tabs HTML ─────────────────────────────────────────────── */
-  var tabsHtml =
+  /* ── Tabs — injetadas na barra fixa fora do lojista-wrap ─── */
+  var tabsBar = document.getElementById('lojistaTabsBar');
+  tabsBar.innerHTML =
     '<div class="lojista-tabs">' +
       '<button class="lojista-tab active" id="tabProdutos" data-tab="produtos">' +
         '<i class="fa-solid fa-box"></i> Meus Produtos' +
@@ -105,6 +106,7 @@ function renderLojista(user) {
         '<span class="ai-badge-premium">PREMIUM</span>' +
       '</button>' +
     '</div>';
+  tabsBar.style.display = 'block';
 
   /* ── Conteúdo de Produtos ────────────────────────────────── */
   var prodHtml =
@@ -150,7 +152,6 @@ function renderLojista(user) {
     '</div>';
 
   var html =
-    tabsHtml +
     '<div id="tabContentProdutos">' + prodHtml + '</div>' +
     '<div id="tabContentAnalytics" style="display:none"></div>';
 

@@ -289,7 +289,7 @@ input, textarea, select { font-family:var(--font-body); }
 .order-card-total { font-family:var(--font-display); font-size:1rem; font-weight:900; color:var(--green-700); }
 
 /* ── Lojista Panel ───────────────────────────────────────── */
-.lojista-wrap { max-width:1200px; margin:0 auto; padding:calc(var(--nav-h)+32px) 24px 80px; }
+.lojista-wrap { max-width:1200px; margin:0 auto; padding:calc(var(--nav-h) + 32px + 60px) 24px 80px; }
 .product-form label { display:block; font-size:.8rem; font-weight:600; color:var(--gray-700); margin-bottom:6px; }
 .product-form input, .product-form select, .product-form textarea {
   width:100%; border:1.5px solid var(--gray-300); border-radius:var(--radius-sm);
