@@ -191,61 +191,65 @@ body {
 /* ── RODAPÉ ── */
 .ft {
   background: var(--g9);
-  padding: 3.5mm 7mm;
+  padding: 5mm 7mm;
   display: flex; align-items: center;
-  justify-content: space-between; gap: 4mm;
+  justify-content: space-between; gap: 5mm;
   margin-top: auto; flex-shrink: 0;
+  border-top: 3px solid var(--g5);
 }
 .ft-left { flex: 1; }
 .ft-logo {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 900; font-size: 3.8mm;
+  font-weight: 900; font-size: 4.5mm;
   color: rgba(255,255,255,.4);
-  letter-spacing: -.02em; margin-bottom: 2mm;
+  letter-spacing: -.02em; margin-bottom: 3mm;
 }
 .ft-logo span { color: var(--g4); }
+.ft-cta-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; font-size: 3.2mm;
+  color: var(--white); line-height: 1.35;
+  margin-bottom: 3mm;
+}
+.ft-cta-text em {
+  font-style: normal; color: var(--g4);
+}
 .ft-links {
-  display: flex; flex-direction: column; gap: 1mm;
+  display: flex; flex-direction: column; gap: 1.2mm;
 }
 .ft-link {
-  font-size: 2.4mm; color: rgba(255,255,255,.55);
+  font-size: 2.3mm; color: rgba(255,255,255,.5);
   display: flex; align-items: center; gap: 1.5mm;
 }
-.ft-link i { color: var(--g4); font-size: 2.4mm; width: 3mm; text-align: center; }
+.ft-link i { color: var(--g4); font-size: 2.3mm; width: 3mm; text-align: center; }
+
+/* QR code em destaque */
 .ft-qr {
   display: flex; flex-direction: column;
-  align-items: center; gap: 1.5mm;
-}
-.ft-qr img {
-  width: 18mm; height: 18mm;
-  border-radius: 1.5mm;
-  background: #fff; padding: .8mm;
-}
-.ft-qr-lbl {
-  font-size: 1.9mm;
-  color: rgba(255,255,255,.38);
-  text-align: center;
-}
-
-/* ── CTA ── */
-.cta {
+  align-items: center; gap: 2mm;
   flex-shrink: 0;
-  background: var(--g7);
-  padding: 4mm 7mm;
 }
-.cta-inner {
-  display: flex; align-items: center; gap: 3.5mm;
+.ft-qr-frame {
+  background: var(--white);
+  border-radius: 2.5mm;
+  padding: 1.5mm;
+  box-shadow: 0 0 0 2px var(--g5);
 }
-.cta-icon {
-  font-size: 7mm; color: var(--gold); flex-shrink: 0;
+.ft-qr-frame img {
+  width: 26mm; height: 26mm;
+  display: block;
 }
-.cta-title {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800; font-size: 3.3mm;
-  color: var(--white); margin-bottom: 1mm;
+.ft-qr-arrow {
+  font-size: 2.2mm; font-weight: 700;
+  color: var(--g4);
+  text-align: center;
+  display: flex; align-items: center; gap: 1mm;
 }
-.cta-sub {
-  font-size: 2.5mm; color: rgba(255,255,255,.72); line-height: 1.4;
+.ft-qr-sub {
+  font-size: 2mm;
+  color: rgba(255,255,255,.4);
+  text-align: center;
+  line-height: 1.4;
 }
 
 @media print {
@@ -332,21 +336,15 @@ body {
   </div>
 </div>
 
-<!-- CTA -->
-<div class="cta">
-  <div class="cta-inner">
-    <i class="fa-solid fa-bolt cta-icon"></i>
-    <div>
-      <div class="cta-title">É gratuito. É simples. É para quem vive do campo.</div>
-      <div class="cta-sub">Acesse pelo celular, cadastre-se em 2 minutos e comece a usar hoje.</div>
-    </div>
-  </div>
-</div>
-
 <!-- RODAPÉ -->
 <footer class="ft">
   <div class="ft-left">
     <div class="ft-logo">AGRO<span>COMMERCE</span></div>
+    <div class="ft-cta-text">
+      Acesse a plataforma, conheça<br>
+      nossos serviços e veja como o<br>
+      <em>campo pode ser mais simples.</em>
+    </div>
     <div class="ft-links">
       <div class="ft-link"><i class="fa-solid fa-envelope"></i> contato@agrocommerce.com.br</div>
       <div class="ft-link"><i class="fa-solid fa-globe"></i> agrocommerce.com.br</div>
@@ -354,11 +352,14 @@ body {
     </div>
   </div>
   <div class="ft-qr">
-    <img
-      src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://isaulof.github.io/AgroCommerce/marketplace.html&bgcolor=ffffff&color=1b3a26&qzone=1"
-      alt="QR Code demo"
-    >
-    <div class="ft-qr-lbl">Escaneie e<br>acesse a demo</div>
+    <div class="ft-qr-frame">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://isaulof.github.io/AgroCommerce/marketplace.html&bgcolor=ffffff&color=1b3a26&qzone=1"
+        alt="QR Code"
+      >
+    </div>
+    <div class="ft-qr-arrow"><i class="fa-solid fa-camera"></i> Aponte a câmera</div>
+    <div class="ft-qr-sub">e acesse a plataforma<br>agora mesmo</div>
   </div>
 </footer>
 
