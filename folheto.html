@@ -113,92 +113,18 @@ body {
 }
 
 /* ── SCREENSHOT DA PLATAFORMA ── */
-/* ── FAIXA DE PRODUTOS ── */
-.products-strip {
+/* ── BANNER ── */
+.banner-strip {
   flex-shrink: 0;
-  background: #f9fafb;
-  border-top: 2px solid var(--g5);
-  border-bottom: 2px solid var(--g5);
-  padding: 2.5mm 4mm;
-  display: flex;
-  flex-direction: column;
-  gap: 1.8mm;
-}
-.products-strip-label {
-  font-size: 2mm; font-weight: 700;
-  color: var(--g7); letter-spacing: .08em;
-  text-transform: uppercase;
-}
-.products-row {
-  display: flex;
-  gap: 2mm;
-  align-items: stretch;
-}
-
-/* Card de produto */
-.prod-card {
-  flex: 1;
-  background: var(--white);
-  border: 1px solid #e5e7eb;
-  border-radius: 2mm;
-  padding: 2mm 1.5mm 1.5mm;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1mm;
-  position: relative;
+  height: 34mm;
   overflow: hidden;
 }
-.prod-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 1mm;
-}
-
-/* cores de topo por marca */
-.pc-purina::before  { background: #e31837; }
-.pc-yara::before    { background: #f06400; }
-.pc-bayer::before   { background: #10a438; }
-.pc-syngenta::before{ background: #007a3d; }
-.pc-zoetis::before  { background: #5b2d8e; }
-.pc-basf::before    { background: #004a96; }
-.pc-heringer::before{ background: #e8830a; }
-.pc-nortox::before  { background: #c41230; }
-
-.prod-icon-wrap {
-  width: 9mm; height: 9mm;
-  border-radius: 2mm;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4.5mm;
-}
-.pc-purina   .prod-icon-wrap { background:#fff0f2; color:#e31837; }
-.pc-yara     .prod-icon-wrap { background:#fff4ec; color:#f06400; }
-.pc-bayer    .prod-icon-wrap { background:#edfbf1; color:#10a438; }
-.pc-syngenta .prod-icon-wrap { background:#e6f5ee; color:#007a3d; }
-.pc-zoetis   .prod-icon-wrap { background:#f3eeff; color:#5b2d8e; }
-.pc-basf     .prod-icon-wrap { background:#e8f0fc; color:#004a96; }
-.pc-heringer .prod-icon-wrap { background:#fff6e8; color:#e8830a; }
-.pc-nortox   .prod-icon-wrap { background:#fff0f2; color:#c41230; }
-
-.prod-brand {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 2.3mm;
-  line-height: 1;
-  text-align: center;
-}
-.pc-purina   .prod-brand { color:#e31837; }
-.pc-yara     .prod-brand { color:#f06400; }
-.pc-bayer    .prod-brand { color:#10a438; }
-.pc-syngenta .prod-brand { color:#007a3d; }
-.pc-zoetis   .prod-brand { color:#5b2d8e; }
-.pc-basf     .prod-brand { color:#004a96; }
-.pc-heringer .prod-brand { color:#e8830a; }
-.pc-nortox   .prod-brand { color:#c41230; }
-
-.prod-name {
-  font-size: 2mm; color: #374151;
-  text-align: center; line-height: 1.3;
+.banner-strip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
 }
 
 /* ── PROBLEMA + SOLUÇÃO ── */
@@ -355,60 +281,9 @@ body {
   </div>
 </section>
 
-<!-- FAIXA DE PRODUTOS -->
-<div class="products-strip">
-  <div class="products-strip-label"><i class="fa-solid fa-boxes-stacked" style="margin-right:1mm"></i>Produtos disponíveis na plataforma</div>
-  <div class="products-row">
-
-    <div class="prod-card pc-purina">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-cow"></i></div>
-      <div class="prod-brand">PURINA</div>
-      <div class="prod-name">Ração Bovinos</div>
-    </div>
-
-    <div class="prod-card pc-yara">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-flask"></i></div>
-      <div class="prod-brand">YARA</div>
-      <div class="prod-name">Fertilizante NPK</div>
-    </div>
-
-    <div class="prod-card pc-bayer">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
-      <div class="prod-brand">BAYER</div>
-      <div class="prod-name">Defensivo Agro</div>
-    </div>
-
-    <div class="prod-card pc-syngenta">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-seedling"></i></div>
-      <div class="prod-brand">SYNGENTA</div>
-      <div class="prod-name">Sementes Soja</div>
-    </div>
-
-    <div class="prod-card pc-zoetis">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-syringe"></i></div>
-      <div class="prod-brand">ZOETIS</div>
-      <div class="prod-name">Vitamina Animal</div>
-    </div>
-
-    <div class="prod-card pc-basf">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-leaf"></i></div>
-      <div class="prod-brand">BASF</div>
-      <div class="prod-name">Herbicida</div>
-    </div>
-
-    <div class="prod-card pc-heringer">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-bag-shopping"></i></div>
-      <div class="prod-brand">HERINGER</div>
-      <div class="prod-name">Adubo Foliar</div>
-    </div>
-
-    <div class="prod-card pc-nortox">
-      <div class="prod-icon-wrap"><i class="fa-solid fa-droplet"></i></div>
-      <div class="prod-brand">NORTOX</div>
-      <div class="prod-name">Inseticida</div>
-    </div>
-
-  </div>
+<!-- BANNER -->
+<div class="banner-strip">
+  <img src="banners_img/banner_1.png" alt="AgroCommerce — o campo em movimento">
 </div>
 
 <!-- PROBLEMA + SOLUÇÃO -->
