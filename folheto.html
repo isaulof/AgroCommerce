@@ -116,15 +116,45 @@ body {
 /* ── BANNER ── */
 .banner-strip {
   flex-shrink: 0;
-  height: 34mm;
+  height: 36mm;
   overflow: hidden;
+  position: relative;
 }
-.banner-strip img {
-  width: 100%;
-  height: 100%;
+.banner-bg {
+  width: 100%; height: 100%;
   object-fit: cover;
   object-position: center center;
   display: block;
+}
+.banner-products {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 92%;
+  width: auto;
+  object-fit: contain;
+  object-position: left bottom;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,.45));
+}
+.banner-legend {
+  position: absolute;
+  left: 3mm;
+  top: 2.5mm;
+  background: rgba(15,35,24,.72);
+  border-left: 1.5px solid var(--g4);
+  padding: 1.2mm 2.5mm;
+  border-radius: 0 1.5mm 1.5mm 0;
+  backdrop-filter: blur(2px);
+}
+.banner-legend-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800; font-size: 2.5mm;
+  color: var(--white); line-height: 1.2;
+}
+.banner-legend-sub {
+  font-size: 1.9mm; color: var(--g4);
+  font-weight: 600; margin-top: .5mm;
+  letter-spacing: .04em;
 }
 
 /* ── PROBLEMA + SOLUÇÃO ── */
@@ -287,7 +317,12 @@ body {
 
 <!-- BANNER -->
 <div class="banner-strip">
-  <img src="banners_img/banner_1.png" alt="AgroCommerce — o campo em movimento">
+  <img class="banner-bg" src="banners_img/banner_1.png" alt="Campo em movimento">
+  <img class="banner-products" src="banners_img/produtos_pitch.png" alt="Produtos agrícolas">
+  <div class="banner-legend">
+    <div class="banner-legend-title">Ração · Fertilizantes · Defensivos · Sementes</div>
+    <div class="banner-legend-sub">Tudo em um só lugar — no celular ou computador</div>
+  </div>
 </div>
 
 <!-- PROBLEMA + SOLUÇÃO -->
