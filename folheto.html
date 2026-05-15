@@ -2,33 +2,26 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AgroCommerce — Folheto A5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* ── Reset e configuração de impressão A5 ── */
-@page {
-  size: A5 portrait;
-  margin: 0;
-}
+@page { size: A5 portrait; margin: 0; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --green-900: #0f2318;
-  --green-800: #1b3a26;
-  --green-700: #2E7D32;
-  --green-600: #388E3C;
-  --green-500: #4CAF50;
-  --green-400: #66BB6A;
-  --green-100: #E8F5E9;
-  --gold:       #FFB300;
-  --gold-d:     #e5a100;
-  --white:      #ffffff;
-  --gray-100:   #f3f4f6;
-  --gray-400:   #9ca3af;
+  --g9: #0f2318;
+  --g8: #1b3a26;
+  --g7: #2E7D32;
+  --g6: #388E3C;
+  --g5: #4CAF50;
+  --g4: #66BB6A;
+  --g1: #E8F5E9;
+  --gold: #FFB300;
+  --red: #dc2626;
+  --white: #fff;
 }
 
 body {
@@ -40,437 +33,362 @@ body {
   overflow: hidden;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
-}
-
-/* ────────────────────────────────────────────
-   CABEÇALHO
-──────────────────────────────────────────── */
-.header {
-  background: var(--green-900);
-  padding: 5mm 7mm 4mm;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
-.logo {
+/* ── CABEÇALHO ── */
+.hd {
+  background: var(--g9);
+  padding: 4mm 7mm;
   display: flex;
   align-items: center;
   gap: 3mm;
-}
-.logo-mark {
-  width: 9mm;
-  height: 9mm;
-  background: var(--green-500);
-  border-radius: 2.5mm;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4.5mm;
-  color: #fff;
   flex-shrink: 0;
 }
-.logo-text {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 5.5mm;
-  letter-spacing: -0.02em;
-  color: rgba(255,255,255,0.45);
-  line-height: 1;
+.hd-mark {
+  width: 8.5mm; height: 8.5mm;
+  background: var(--g5);
+  border-radius: 2.5mm;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4mm; color: #fff; flex-shrink: 0;
 }
-.logo-text span { color: var(--green-400); }
-
-.header-badge {
+.hd-name {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2.4mm;
-  font-weight: 700;
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  border-radius: 10mm;
-  padding: 1mm 2.5mm;
-  letter-spacing: .05em;
+  font-weight: 900; font-size: 5mm;
+  letter-spacing: -.02em; color: rgba(255,255,255,.45); line-height: 1;
+}
+.hd-name span { color: var(--g4); }
+.hd-tag {
+  margin-left: auto;
+  font-size: 2.2mm; font-weight: 700;
+  color: rgba(255,255,255,.3);
+  font-family: 'Inter', sans-serif;
+  letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-/* ────────────────────────────────────────────
-   HERO
-──────────────────────────────────────────── */
+/* ── HERO ── */
 .hero {
-  background: linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 100%);
-  padding: 6mm 7mm 5mm;
+  background: linear-gradient(155deg, var(--g8) 0%, var(--g9) 100%);
+  padding: 5mm 7mm 4.5mm;
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
 }
-.hero::before {
+.hero::after {
   content: '';
-  position: absolute;
-  right: -8mm;
-  top: -8mm;
-  width: 40mm;
-  height: 40mm;
+  position: absolute; right: -5mm; bottom: -5mm;
+  width: 35mm; height: 35mm;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(76,175,80,.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(76,175,80,.15) 0%, transparent 70%);
 }
-.hero-tag {
-  font-size: 2.4mm;
-  font-weight: 700;
-  color: var(--green-400);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  margin-bottom: 2.5mm;
+.hero-eyebrow {
+  font-size: 2.2mm; font-weight: 700;
+  color: var(--g4); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 2mm;
 }
 .hero-title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 7.5mm;
-  line-height: 1.1;
-  color: var(--white);
-  margin-bottom: 3mm;
+  font-weight: 900; font-size: 7mm;
+  line-height: 1.1; color: var(--white); margin-bottom: 2.5mm;
 }
-.hero-title em {
-  font-style: normal;
-  color: var(--green-400);
-}
+.hero-title em { font-style: normal; color: var(--g4); }
 .hero-sub {
-  font-size: 3mm;
-  color: rgba(255,255,255,.65);
-  line-height: 1.55;
-  max-width: 90mm;
+  font-size: 2.8mm; color: rgba(255,255,255,.62);
+  line-height: 1.55; max-width: 95mm;
+}
+.hero-audience {
+  margin-top: 3mm;
+  display: flex; gap: 2mm; flex-wrap: wrap;
+}
+.hero-pill {
+  background: rgba(76,175,80,.18);
+  border: 1px solid rgba(102,187,106,.35);
+  border-radius: 10mm;
+  padding: 1mm 3mm;
+  font-size: 2.2mm; font-weight: 600;
+  color: var(--g4);
+  display: flex; align-items: center; gap: 1.2mm;
 }
 
-/* ────────────────────────────────────────────
-   MÉTRICAS
-──────────────────────────────────────────── */
-.metrics {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  background: var(--green-700);
+/* ── SCREENSHOT DA PLATAFORMA ── */
+.platform-strip {
+  flex-shrink: 0;
+  position: relative;
+  background: var(--g8);
+  overflow: hidden;
+  height: 32mm;
 }
-.metric {
-  padding: 3.5mm 4mm;
-  text-align: center;
-  border-right: 1px solid rgba(255,255,255,.12);
+.platform-strip img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  display: block;
+  opacity: .9;
 }
-.metric:last-child { border-right: none; }
-.metric-value {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 6mm;
-  color: var(--white);
-  line-height: 1;
+.platform-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(27,58,38,.1) 0%, rgba(15,35,24,.55) 100%);
 }
-.metric-value span { color: var(--gold); }
-.metric-label {
-  font-size: 2.2mm;
-  color: rgba(255,255,255,.65);
-  margin-top: 1mm;
+.platform-label {
+  position: absolute; bottom: 3mm; left: 6mm;
+  font-size: 2.2mm; font-weight: 600;
+  color: rgba(255,255,255,.8);
+  display: flex; align-items: center; gap: 1.5mm;
 }
-
-/* ────────────────────────────────────────────
-   PROBLEMA + SOLUÇÃO
-──────────────────────────────────────────── */
-.ps-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  padding: 5mm 7mm;
-  background: var(--white);
-  border-bottom: 1px solid #e5e7eb;
+.platform-label i { color: var(--g4); font-size: 2.2mm; }
+.platform-live {
+  position: absolute; bottom: 3mm; right: 6mm;
+  background: var(--g5);
+  color: #fff;
+  font-size: 2mm; font-weight: 700;
+  padding: .8mm 2mm; border-radius: 10mm;
+  letter-spacing: .04em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 1mm;
 }
-.ps-block { padding-right: 4mm; }
-.ps-block:last-child { padding-right: 0; padding-left: 4mm; border-left: 1px solid #e5e7eb; }
-.ps-icon {
-  width: 7mm;
-  height: 7mm;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3mm;
-  margin-bottom: 2mm;
-}
-.ps-icon.prob { background: #fef2f2; color: #dc2626; }
-.ps-icon.solv { background: var(--green-100); color: var(--green-700); }
-.ps-head {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 3mm;
-  font-weight: 800;
-  margin-bottom: 1.5mm;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-.ps-head.prob { color: #dc2626; }
-.ps-head.solv { color: var(--green-700); }
-.ps-text {
-  font-size: 2.6mm;
-  color: #374151;
-  line-height: 1.55;
+.platform-live::before {
+  content: '';
+  width: 1.5mm; height: 1.5mm;
+  border-radius: 50%; background: #fff;
 }
 
-/* ────────────────────────────────────────────
-   PARA QUEM
-──────────────────────────────────────────── */
-.audience {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  padding: 4mm 7mm;
-  background: var(--gray-100);
-}
-.audience-col { padding-right: 4mm; }
-.audience-col:last-child { padding-right: 0; padding-left: 4mm; border-left: 1px solid #d1d5db; }
-.audience-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 3mm;
-  font-weight: 800;
-  color: var(--green-700);
-  margin-bottom: 2mm;
-  display: flex;
-  align-items: center;
-  gap: 1.5mm;
-}
-.audience-title i { font-size: 3mm; }
-.audience-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5mm;
-  margin-bottom: 1.5mm;
-  font-size: 2.5mm;
-  color: #374151;
-  line-height: 1.4;
-}
-.audience-item i {
-  color: var(--green-500);
-  font-size: 2.2mm;
-  margin-top: .4mm;
+/* ── PROBLEMA + SOLUÇÃO ── */
+.ps {
+  display: grid; grid-template-columns: 1fr 1fr;
   flex-shrink: 0;
 }
-
-/* ────────────────────────────────────────────
-   DESTAQUES DO PRODUTO
-──────────────────────────────────────────── */
-.features {
-  padding: 4mm 7mm;
-  background: var(--white);
+.ps-col {
+  padding: 4mm 5mm 4mm 6mm;
 }
-.features-title {
+.ps-col:first-child {
+  background: #fef9f9;
+  border-right: 1px solid #f3e8e8;
+}
+.ps-col:last-child {
+  background: #f5fbf5;
+}
+.ps-head {
+  display: flex; align-items: center; gap: 1.5mm;
   font-family: 'Montserrat', sans-serif;
-  font-size: 2.8mm;
-  font-weight: 800;
-  color: var(--green-700);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  margin-bottom: 2.5mm;
-}
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2mm;
-}
-.feat {
-  background: var(--green-100);
-  border-radius: 2mm;
-  padding: 2.5mm 2mm;
-  text-align: center;
-}
-.feat i {
-  font-size: 4mm;
-  color: var(--green-600);
-  display: block;
-  margin-bottom: 1.2mm;
-}
-.feat-text {
-  font-size: 2.2mm;
-  font-weight: 600;
-  color: var(--green-800);
-  line-height: 1.35;
-}
-
-/* ────────────────────────────────────────────
-   RODAPÉ
-──────────────────────────────────────────── */
-.footer {
-  background: var(--green-900);
-  padding: 4mm 7mm;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4mm;
-  margin-top: auto;
-}
-.footer-info { flex: 1; }
-.footer-logo-text {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 4mm;
-  color: rgba(255,255,255,.45);
-  letter-spacing: -.02em;
+  font-size: 2.8mm; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .06em;
   margin-bottom: 2mm;
 }
-.footer-logo-text span { color: var(--green-400); }
-.footer-contact {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2mm;
+.ps-head.prob { color: var(--red); }
+.ps-head.solv { color: var(--g7); }
+.ps-head i { font-size: 3mm; }
+.ps-quote {
+  font-size: 2.7mm; font-style: italic;
+  line-height: 1.5; color: #374151;
+  margin-bottom: 1.5mm;
 }
-.footer-contact a, .footer-contact span {
-  font-size: 2.5mm;
-  color: rgba(255,255,255,.6);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 1.5mm;
+.ps-quote.prob { color: #7f1d1d; }
+.ps-detail {
+  font-size: 2.4mm; color: #6b7280;
+  line-height: 1.5;
 }
-.footer-contact i { color: var(--green-400); font-size: 2.5mm; }
-.footer-contact a:hover { color: var(--green-400); }
 
-.footer-qr {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5mm;
+/* ── PARA QUEM ── */
+.audience {
+  flex-shrink: 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--g1);
+  border-top: 2px solid var(--g5);
 }
-.footer-qr img {
-  width: 18mm;
-  height: 18mm;
+.aud-col {
+  padding: 3.5mm 5mm 3.5mm 6mm;
+}
+.aud-col:first-child { border-right: 1px solid #c8e6c9; }
+.aud-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.8mm; font-weight: 800;
+  color: var(--g7);
+  display: flex; align-items: center; gap: 1.5mm;
+  margin-bottom: 2mm;
+}
+.aud-item {
+  display: flex; align-items: flex-start;
+  gap: 1.5mm; margin-bottom: 1.3mm;
+  font-size: 2.4mm; color: #374151; line-height: 1.4;
+}
+.aud-item i { color: var(--g5); font-size: 2.2mm; margin-top: .4mm; flex-shrink: 0; }
+
+/* ── RODAPÉ ── */
+.ft {
+  background: var(--g9);
+  padding: 3.5mm 7mm;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 4mm;
+  margin-top: auto; flex-shrink: 0;
+}
+.ft-left { flex: 1; }
+.ft-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 3.8mm;
+  color: rgba(255,255,255,.4);
+  letter-spacing: -.02em; margin-bottom: 2mm;
+}
+.ft-logo span { color: var(--g4); }
+.ft-links {
+  display: flex; flex-direction: column; gap: 1mm;
+}
+.ft-link {
+  font-size: 2.4mm; color: rgba(255,255,255,.55);
+  display: flex; align-items: center; gap: 1.5mm;
+}
+.ft-link i { color: var(--g4); font-size: 2.4mm; width: 3mm; text-align: center; }
+.ft-qr {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 1.5mm;
+}
+.ft-qr img {
+  width: 18mm; height: 18mm;
   border-radius: 1.5mm;
-  background: #fff;
-  padding: 1mm;
+  background: #fff; padding: .8mm;
 }
-.footer-qr-label {
-  font-size: 2mm;
-  color: rgba(255,255,255,.45);
+.ft-qr-lbl {
+  font-size: 1.9mm;
+  color: rgba(255,255,255,.38);
   text-align: center;
 }
 
-/* ── Utilitário de impressão ── */
+/* ── CTA ── */
+.cta {
+  flex-shrink: 0;
+  background: var(--g7);
+  padding: 4mm 7mm;
+}
+.cta-inner {
+  display: flex; align-items: center; gap: 3.5mm;
+}
+.cta-icon {
+  font-size: 7mm; color: var(--gold); flex-shrink: 0;
+}
+.cta-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800; font-size: 3.3mm;
+  color: var(--white); margin-bottom: 1mm;
+}
+.cta-sub {
+  font-size: 2.5mm; color: rgba(255,255,255,.72); line-height: 1.4;
+}
+
 @media print {
-  body {
-    width: 148mm;
-    height: 210mm;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+  body { width:148mm; height:210mm;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style>
 </head>
 <body>
 
 <!-- CABEÇALHO -->
-<header class="header">
-  <div class="logo">
-    <div class="logo-mark"><i class="fa-solid fa-seedling"></i></div>
-    <div class="logo-text">AGRO<span>COMMERCE</span></div>
-  </div>
-  <div class="header-badge">Feira de Tecnologia 2026</div>
+<header class="hd">
+  <div class="hd-mark"><i class="fa-solid fa-seedling"></i></div>
+  <div class="hd-name">AGRO<span>COMMERCE</span></div>
+  <div class="hd-tag">Marketplace do Agronegócio</div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-tag">Startup · Agronegócio · Marketplace B2C</div>
+  <div class="hero-eyebrow">Para quem vive do campo</div>
   <h1 class="hero-title">
-    O marketplace que o<br>
-    <em>campo brasileiro</em><br>
-    estava esperando
+    Compre e venda insumos<br>do campo — <em>sem complicação</em>
   </h1>
   <p class="hero-sub">
-    Conectamos produtores rurais e consumidores finais em uma plataforma
-    digital segura, rápida e feita para o agronegócio.
+    Uma plataforma simples e gratuita para pequenos e médios produtores
+    encontrarem os melhores preços, e para lojistas rurais venderem
+    para mais gente — sem precisar sair de casa.
   </p>
+  <div class="hero-audience">
+    <div class="hero-pill"><i class="fa-solid fa-tractor"></i> Agricultura familiar</div>
+    <div class="hero-pill"><i class="fa-solid fa-wheat-awn"></i> Pequeno e médio produtor</div>
+    <div class="hero-pill"><i class="fa-solid fa-store"></i> Lojista rural</div>
+  </div>
 </section>
 
-<!-- MÉTRICAS -->
-<div class="metrics">
-  <div class="metric">
-    <div class="metric-value">R$<span>1,2tri</span></div>
-    <div class="metric-label">PIB do agronegócio BR</div>
+<!-- SCREENSHOT DA PLATAFORMA -->
+<div class="platform-strip">
+  <img src="folheto-screenshot.png" alt="Plataforma AgroCommerce">
+  <div class="platform-overlay"></div>
+  <div class="platform-label">
+    <i class="fa-solid fa-circle-check"></i> Plataforma real — acesse agora pelo celular ou computador
   </div>
-  <div class="metric">
-    <div class="metric-value"><span>27%</span></div>
-    <div class="metric-label">do PIB nacional</div>
-  </div>
-  <div class="metric">
-    <div class="metric-value"><span>+</span>15M</div>
-    <div class="metric-label">produtores rurais</div>
-  </div>
+  <div class="platform-live">ao vivo</div>
 </div>
 
 <!-- PROBLEMA + SOLUÇÃO -->
-<div class="ps-wrap">
-  <div class="ps-block">
-    <div class="ps-icon prob"><i class="fa-solid fa-triangle-exclamation"></i></div>
-    <div class="ps-head prob">O Problema</div>
-    <p class="ps-text">
-      Produtores rurais dependem de intermediários, sem transparência de preços, sem acesso a insumos de qualidade e sem canais digitais confiáveis.
+<div class="ps">
+  <div class="ps-col">
+    <div class="ps-head prob">
+      <i class="fa-solid fa-triangle-exclamation"></i> O dia a dia de hoje
+    </div>
+    <p class="ps-quote prob">
+      "Ligo pra um fornecedor, depois pra outro, anoto tudo num papel,
+      no fim das contas nunca sei se paguei caro ou barato."
+    </p>
+    <p class="ps-detail">
+      Horas perdidas em cotações no WhatsApp, sem transparência de preço
+      e sem acesso a fornecedores de fora da cidade.
     </p>
   </div>
-  <div class="ps-block">
-    <div class="ps-icon solv"><i class="fa-solid fa-seedling"></i></div>
-    <div class="ps-head solv">A Solução</div>
-    <p class="ps-text">
-      AgroCommerce: marketplace B2C que conecta diretamente lojistas do agro a produtores, com comparação de preços, avaliações e checkout seguro.
+  <div class="ps-col">
+    <div class="ps-head solv">
+      <i class="fa-solid fa-seedling"></i> Com o AgroCommerce
+    </div>
+    <p class="ps-quote solv">
+      "Abri o app, comparei três lojas ao mesmo tempo, comprei o melhor
+      preço e recebi em 3 dias. Pronto."
+    </p>
+    <p class="ps-detail">
+      Produtores compram com mais segurança. Lojistas atingem produtores
+      de toda a região, não só os da vizinhança.
     </p>
   </div>
 </div>
 
 <!-- PARA QUEM -->
 <div class="audience">
-  <div class="audience-col">
-    <div class="audience-title"><i class="fa-solid fa-tractor"></i> Para Produtores</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Busca e filtre insumos por categoria</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Compare preços entre fornecedores</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Avaliações reais de outros produtores</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Checkout rápido com rastreio</div>
+  <div class="aud-col">
+    <div class="aud-title"><i class="fa-solid fa-tractor"></i> Se você produz</div>
+    <div class="aud-item"><i class="fa-solid fa-check"></i> Compare preços de ração, fertilizantes e defensivos</div>
+    <div class="aud-item"><i class="fa-solid fa-check"></i> Veja avaliações de outros produtores antes de comprar</div>
+    <div class="aud-item"><i class="fa-solid fa-check"></i> Compre pelo celular, de qualquer lugar do campo</div>
   </div>
-  <div class="audience-col">
-    <div class="audience-title"><i class="fa-solid fa-store"></i> Para Lojistas</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Cadastre produtos em minutos</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Painel AgroInsights com analytics</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Gestão de estoque e pedidos</div>
-    <div class="audience-item"><i class="fa-solid fa-check"></i> Loja verificada com selo de confiança</div>
+  <div class="aud-col">
+    <div class="aud-title"><i class="fa-solid fa-store"></i> Se você vende</div>
+    <div class="aud-item"><i class="fa-solid fa-check"></i> Cadastre sua loja e seus produtos em minutos</div>
+    <div class="aud-item"><i class="fa-solid fa-check"></i> Alcance produtores da sua região (e de fora dela)</div>
+    <div class="aud-item"><i class="fa-solid fa-check"></i> Acompanhe vendas e desempenho pelo painel</div>
   </div>
 </div>
 
-<!-- DESTAQUES -->
-<section class="features">
-  <div class="features-title">Diferenciais da plataforma</div>
-  <div class="features-grid">
-    <div class="feat">
-      <i class="fa-solid fa-mobile-screen"></i>
-      <div class="feat-text">100% responsivo — mobile first</div>
-    </div>
-    <div class="feat">
-      <i class="fa-solid fa-chart-line"></i>
-      <div class="feat-text">Analytics premium para lojistas</div>
-    </div>
-    <div class="feat">
-      <i class="fa-solid fa-scale-balanced"></i>
-      <div class="feat-text">Comparador de preços integrado</div>
-    </div>
-    <div class="feat">
-      <i class="fa-solid fa-shield-halved"></i>
-      <div class="feat-text">Lojas verificadas e avaliadas</div>
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-inner">
+    <i class="fa-solid fa-bolt cta-icon"></i>
+    <div>
+      <div class="cta-title">É gratuito. É simples. É para quem vive do campo.</div>
+      <div class="cta-sub">Acesse pelo celular, cadastre-se em 2 minutos e comece a usar hoje.</div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- RODAPÉ -->
-<footer class="footer">
-  <div class="footer-info">
-    <div class="footer-logo-text">AGRO<span>COMMERCE</span></div>
-    <div class="footer-contact">
-      <span><i class="fa-solid fa-envelope"></i> contato@agrocommerce.com.br</span>
-      <span><i class="fa-solid fa-globe"></i> agrocommerce.com.br</span>
-      <span><i class="fa-brands fa-github"></i> github.com/isaulof/AgroCommerce</span>
+<footer class="ft">
+  <div class="ft-left">
+    <div class="ft-logo">AGRO<span>COMMERCE</span></div>
+    <div class="ft-links">
+      <div class="ft-link"><i class="fa-solid fa-envelope"></i> contato@agrocommerce.com.br</div>
+      <div class="ft-link"><i class="fa-solid fa-globe"></i> agrocommerce.com.br</div>
+      <div class="ft-link"><i class="fa-brands fa-github"></i> github.com/isaulof/AgroCommerce</div>
     </div>
   </div>
-  <div class="footer-qr">
+  <div class="ft-qr">
     <img
       src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://isaulof.github.io/AgroCommerce/marketplace.html&bgcolor=ffffff&color=1b3a26&qzone=1"
-      alt="QR Code — Demo AgroCommerce"
+      alt="QR Code demo"
     >
-    <div class="footer-qr-label">Acesse a demo<br>ao vivo</div>
+    <div class="ft-qr-lbl">Escaneie e<br>acesse a demo</div>
   </div>
 </footer>
 
