@@ -805,7 +805,7 @@ window.AgroInsights = (function () {
   function renderModule7_Financeiro(storeId, products) {
     var seed = ANALYTICS_SEED[storeId] || { mult: 1.0 };
     var kpi  = calcKPIs(storeId, products, []);
-    var commission = 0.05;
+    var commission = 0.14;
     var gross  = kpi.totalRev;
     var comm   = gross * commission;
     var net    = gross - comm;
@@ -845,7 +845,7 @@ window.AgroInsights = (function () {
         '<div class="ai-card">' +
           '<div class="ai-card-header"><div class="ai-card-title"><i class="fa-solid fa-file-invoice-dollar"></i> Demonstrativo do Período</div></div>' +
           '<div class="ai-fin-row"><span class="ai-fin-label">Receita Bruta (30d)</span><span class="ai-fin-value">' + fmtBRL(gross) + ' <span class="ai-fin-delta ' + (gross >= prevGross ? 'up' : 'down') + '">' + (gross >= prevGross ? '▲' : '▼') + ' vs ant.</span></span></div>' +
-          '<div class="ai-fin-row"><span class="ai-fin-label">Comissão Plataforma (5%)</span><span class="ai-fin-value" style="color:var(--ai-red)">−' + fmtBRL(comm) + '</span></div>' +
+          '<div class="ai-fin-row"><span class="ai-fin-label">Comissão Plataforma (14%)</span><span class="ai-fin-value" style="color:var(--ai-red)">−' + fmtBRL(comm) + '</span></div>' +
           '<div class="ai-fin-row total"><span class="ai-fin-label" style="font-weight:700;color:var(--ai-text-1)">Receita Líquida</span><span class="ai-fin-value" style="color:var(--ai-accent);font-size:1rem">' + fmtBRL(net) + ' <span class="ai-fin-delta ' + (net >= prevNet ? 'up' : 'down') + '">' + (net >= prevNet ? '▲' : '▼') + ' vs ant.</span></span></div>' +
         '</div>' +
         '<div class="ai-card">' +

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Model Canvas — AgroCommerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --green: #2E7D32;
+      --green-light: #E8F5E9;
+      --gold: #F9A825;
+      --gold-light: #FFFDE7;
+      --bg: #F7F8F6;
+      --white: #ffffff;
+      --border: #E2E8DF;
+      --text: #1A2E1B;
+      --muted: #6B7A6C;
+      --font-d: 'Montserrat', sans-serif;
+      --font-b: 'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 56px 32px 64px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .header-left {}
+    .logo {
+      font-family: var(--font-d);
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .logo .gray { color: #B0BAB1; }
+    .logo .green { color: var(--green); }
+    .header-title {
+      font-family: var(--font-d);
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .header-sub {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .header-tag i { color: var(--green); font-size: .65rem; }
+
+    /* ── CANVAS GRID ── */
+    .canvas {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 2fr 1.5fr 1.5fr;
+      grid-template-rows: 1fr 1fr auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--border);
+      gap: 1px;
+      box-shadow: 0 2px 24px rgba(0,0,0,.06);
+    }
+
+    /* Grid areas */
+    .kp { grid-column: 1; grid-row: 1 / 3; }
+    .ka { grid-column: 2; grid-row: 1; }
+    .vp { grid-column: 3; grid-row: 1 / 3; }
+    .cr { grid-column: 4; grid-row: 1; }
+    .cs { grid-column: 5; grid-row: 1 / 3; }
+    .kr { grid-column: 2; grid-row: 2; }
+    .ch { grid-column: 4; grid-row: 2; }
+    .cost { grid-column: 1 / 4; grid-row: 3; }
+    .rev  { grid-column: 4 / 6; grid-row: 3; }
+
+    /* ── CELL ── */
+    .cell {
+      background: var(--white);
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    /* accent bar */
+    .cell::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+    }
+    .kp::before, .kr::before { background: #388E3C; }
+    .ka::before              { background: #66BB6A; }
+    .vp::before              { background: var(--gold); width: 0; }
+    .cr::before, .ch::before { background: #26A69A; }
+    .cs::before              { background: #42A5F5; }
+    .cost::before            { background: none; top: 0; left: 0; width: 100%; height: 3px; background: #EF5350; }
+    .rev::before             { background: none; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); }
+
+    /* VP highlight */
+    .vp { background: #FEFDF8; }
+    .vp::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    /* bottom row */
+    .cost, .rev { gap: 12px; }
+
+    /* ── CELL HEADER ── */
+    .cell-label {
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .cell-title {
+      font-family: var(--font-d);
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+      margin-top: -8px;
+    }
+    .vp .cell-title { color: var(--green); font-size: 1.05rem; }
+
+    /* ── CELL CONTENT ── */
+    .items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      flex: 1;
+    }
+    .items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: .8rem;
+      color: #374151;
+      line-height: 1.55;
+    }
+    .items li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 1.5px solid var(--green);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .items li strong { font-weight: 600; color: var(--text); }
+
+    /* VP quote */
+    .vp-quote {
+      font-family: var(--font-d);
+      font-size: .88rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text);
+      border-left: 2px solid var(--gold);
+      padding-left: 12px;
+      font-style: italic;
+    }
+
+    /* pills */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: auto;
+    }
+    .pill {
+      font-size: .67rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pill-green { background: var(--green-light); color: var(--green); border-color: #C8E6C9; }
+    .pill-gold  { background: var(--gold-light);  color: #E65100;      border-color: #FFE082; }
+    .pill-teal  { background: #E0F2F1;             color: #00796B;      border-color: #B2DFDB; }
+    .pill-blue  { background: #E3F2FD;             color: #1565C0;      border-color: #BBDEFB; }
+
+    /* bottom row layout */
+    .bottom-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .bottom-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+    }
+    .bottom-group-label {
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    /* revenue items */
+    .rev-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .rev-row:last-child { border-bottom: none; }
+    .rev-name { font-size: .78rem; font-weight: 600; color: var(--text); flex: 1; }
+    .rev-detail { font-size: .72rem; color: var(--muted); }
+    .rev-badge {
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 5px;
+      background: var(--gold-light);
+      color: #B45309;
+      border: 1px solid #FFE082;
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-logo {
+      font-family: var(--font-d);
+      font-size: .88rem;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+    .footer-logo .gray  { color: #B0BAB1; }
+    .footer-logo .green { color: var(--green); }
+    .footer-copy {
+      font-size: .72rem;
+      color: var(--muted);
+    }
+    .footer-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .footer-tag {
+      font-size: .68rem;
+      font-weight: 600;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .footer-tag i { color: var(--green); font-size: .6rem; }
+
+    /* ── RESPONSIVE ── */
+    @media print {
+      body { background: white; }
+      .page { padding: 24px; }
+    }
+    @media (max-width: 1024px) {
+      .canvas {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .kp, .ka, .vp, .cr, .cs, .kr, .ch, .cost, .rev {
+        grid-column: auto; grid-row: auto;
+      }
+      .vp { grid-column: 1 / 3; }
+      .cost, .rev { grid-column: 1 / 3; }
+    }
+    @media (max-width: 600px) {
+      .canvas { grid-template-columns: 1fr; }
+      .vp, .cost, .rev { grid-column: auto; }
+      .bottom-cols { grid-template-columns: 1fr; gap: 12px; }
+      .page { padding: 24px 16px 40px; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .header-right { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo"><span class="gray">AGRO</span><span class="green">COMMERCE</span></div>
+      <h1 class="header-title">Business Model Canvas</h1>
+      <p class="header-sub">Marketplace B2C para o Agronegócio Brasileiro · Mato Grosso · 2026</p>
+    </div>
+    <div class="header-right">
+      <span class="header-tag"><i class="fa-solid fa-seedling"></i> Projeto Acadêmico</span>
+      <span class="header-tag"><i class="fa-solid fa-users"></i> Mercado: 5M+ produtores rurais</span>
+      <span class="header-tag"><i class="fa-solid fa-chart-pie"></i> 27% do PIB brasileiro</span>
+    </div>
+  </header>
+
+  <!-- CANVAS -->
+  <div class="canvas">
+
+    <!-- PARCEIROS PRINCIPAIS -->
+    <div class="cell kp">
+      <span class="cell-label">Bloco 1</span>
+      <span class="cell-title">Parceiros Principais</span>
+      <ul class="items">
+        <li><strong>Fornecedores verificados</strong> — distribuidoras com CNPJ ativo e regularidade MAPA</li>
+        <li><strong>Transportadoras rurais</strong> — especializadas em frete para propriedades de difícil acesso</li>
+        <li><strong>Gateway de pagamento</strong> — processamento de PIX, boleto e cartão</li>
+        <li><strong>Cooperativas e associações</strong> — canal de confiança junto ao produtor rural</li>
+      </ul>
+      <div class="pills">
+        <span class="pill pill-green"><i class="fa-solid fa-shield-halved"></i> MAPA</span>
+        <span class="pill pill-green"><i class="fa-solid fa-truck"></i> Logística rural</span>
+      </div>
+    </div>
+
+    <!-- ATIVIDADES-CHAVE -->
+    <div class="cell ka">
+      <span class="cell-label">Bloco 2</span>
+      <span class="cell-title">Atividades-Chave</span>
+      <ul class="items">
+        <li><strong>Desenvolvimento da plataforma</strong> — evolução de UX, mobile e funcionalidades</li>
+        <li><strong>Onboarding de lojistas</strong> — verificação fiscal e cadastro de produtos</li>
+        <li><strong>Marketing rural</strong> — aquisição de produtores via redes sociais e cooperativas</li>
+      </ul>
+    </div>
+
+    <!-- PROPOSTA DE VALOR -->
+    <div class="cell vp">
+      <span class="cell-label">Coração do Negócio</span>
+      <span class="cell-title">Proposta de Valor</span>
+      <p class="vp-quote">"Compre insumos agro com a segurança de quem conhece o fornecedor — sem sair da propriedade."</p>
+      <ul class="items">
+        <li><strong>Para o produtor:</strong> acesso centralizado a insumos de fornecedores verificados, com preço transparente e rastreio do pedido</li>
+        <li><strong>Para o lojista:</strong> canal de vendas digital sem custo de desenvolvimento, com base de clientes rurais qualificada</li>
+        <li><strong>Diferencial:</strong> verificação obrigatória de CNPJ + regularidade MAPA — nenhum produto irregular entra no catálogo</li>
+      </ul>
+      <div class="pills">
+        <span class="pill pill-gold"><i class="fa-solid fa-shield-halved"></i> Fornecedores verificados</span>
+        <span class="pill pill-gold"><i class="fa-solid fa-bolt"></i> Compra em minutos</span>
+        <span class="pill pill-gold"><i class="fa-solid fa-mobile-screen"></i> Mobile-first</span>
+      </div>
+    </div>
+
+    <!-- RELACIONAMENTO -->
+    <div class="cell cr">
+      <span class="cell-label">Bloco 5</span>
+      <span class="cell-title">Relacionamento</span>
+      <ul class="items">
+        <li><strong>Autoatendimento digital</strong> — compra, pagamento e rastreio sem contato humano</li>
+        <li><strong>Avaliações e histórico</strong> — reviews criam confiança; recompra com 1 clique</li>
+        <li><strong>Flash Sale sazonal</strong> — ofertas alinhadas ao calendário agrícola</li>
+      </ul>
+    </div>
+
+    <!-- SEGMENTOS -->
+    <div class="cell cs">
+      <span class="cell-label">Bloco 4</span>
+      <span class="cell-title">Segmentos de Clientes</span>
+      <ul class="items">
+        <li><strong>Produtor de grãos</strong> — soja e milho, alta demanda por sementes e defensivos</li>
+        <li><strong>Pecuarista</strong> — compras recorrentes de ração, medicamentos e suplementos</li>
+        <li><strong>Pequeno e médio produtor</strong> — sem acesso a grandes distribuidoras</li>
+        <li><strong>Lojista agro</strong> — distribuidora regional sem canal digital próprio</li>
+      </ul>
+      <div class="pills">
+        <span class="pill pill-blue"><i class="fa-solid fa-seedling"></i> Grãos</span>
+        <span class="pill pill-blue"><i class="fa-solid fa-cow"></i> Pecuária</span>
+      </div>
+    </div>
+
+    <!-- RECURSOS PRINCIPAIS -->
+    <div class="cell kr">
+      <span class="cell-label">Bloco 3</span>
+      <span class="cell-title">Recursos Principais</span>
+      <ul class="items">
+        <li><strong>Plataforma web</strong> — marketplace + painel lojista + painel admin</li>
+        <li><strong>Base verificada</strong> — ativo de confiança difícil de replicar</li>
+        <li><strong>Dados de safra</strong> — histórico de compras para campanhas sazonais</li>
+      </ul>
+    </div>
+
+    <!-- CANAIS -->
+    <div class="cell ch">
+      <span class="cell-label">Bloco 6</span>
+      <span class="cell-title">Canais</span>
+      <ul class="items">
+        <li><strong>Marketplace web</strong> — ponto central de descoberta e compra</li>
+        <li><strong>WhatsApp e Instagram</strong> — onde o produtor rural já está</li>
+        <li><strong>Cooperativas parceiras</strong> — indicação presencial com alta conversão</li>
+      </ul>
+      <div class="pills">
+        <span class="pill pill-teal"><i class="fa-brands fa-whatsapp"></i> Social</span>
+        <span class="pill pill-teal"><i class="fa-solid fa-globe"></i> Web</span>
+      </div>
+    </div>
+
+    <!-- ESTRUTURA DE CUSTOS -->
+    <div class="cell cost">
+      <span class="cell-label">Bloco 8</span>
+      <span class="cell-title">Estrutura de Custos</span>
+      <div class="bottom-cols">
+        <div>
+          <p class="bottom-group-label">Fixos</p>
+          <ul class="items">
+            <li>Infraestrutura tecnológica (servidores, CDN, domínio)</li>
+            <li>Equipe de desenvolvimento e suporte</li>
+            <li>SaaS: gateway, e-mail marketing, analytics</li>
+          </ul>
+        </div>
+        <div>
+          <p class="bottom-group-label">Variáveis</p>
+          <ul class="items">
+            <li>CAC — custo por produtor adquirido via marketing</li>
+            <li>Onboarding e verificação de novos lojistas</li>
+            <li>Frete subsidiado em campanhas de aquisição</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FONTES DE RECEITA -->
+    <div class="cell rev">
+      <span class="cell-label">Bloco 9</span>
+      <span class="cell-title">Fontes de Receita</span>
+      <div class="bottom-row">
+        <div class="rev-row">
+          <span class="rev-name">Comissão por transação</span>
+          <span class="rev-detail">sobre o GMV</span>
+          <span class="rev-badge">14%</span>
+        </div>
+        <div class="rev-row">
+          <span class="rev-name">Plano lojista premium</span>
+          <span class="rev-detail">destaque + analytics</span>
+          <span class="rev-badge">Recorrente</span>
+        </div>
+        <div class="rev-row">
+          <span class="rev-name">Anúncio e Flash Sale</span>
+          <span class="rev-detail">mídia interna</span>
+          <span class="rev-badge">Por campanha</span>
+        </div>
+        <div class="rev-row">
+          <span class="rev-name">Taxa de listagem extra</span>
+          <span class="rev-detail">SKUs acima do limite gratuito</span>
+          <span class="rev-badge">Por produto</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /canvas -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo"><span class="gray">AGRO</span><span class="green">COMMERCE</span></div>
+    <div class="footer-tags">
+      <span class="footer-tag"><i class="fa-solid fa-code"></i> HTML · CSS · JavaScript</span>
+      <span class="footer-tag"><i class="fa-solid fa-map-marker-alt"></i> Mato Grosso · Brasil</span>
+      <span class="footer-tag"><i class="fa-solid fa-scale-balanced"></i> CC0 1.0</span>
+    </div>
+    <span class="footer-copy">Business Model Canvas · 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
