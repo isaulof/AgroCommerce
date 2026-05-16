@@ -4,8 +4,9 @@
 'use strict';
 
 /* ── Chaves do localStorage ───────────────────────────────── */
+const DATA_VERSION = '2.1';
 const STORE = {
-  INIT:            'agroB2C_v2_init',
+  INIT:            'agroB2C_init',
   USERS:           'agroB2C_v1_users',
   STORES:          'agroB2C_v1_stores',
   PRODUCTS:        'agroB2C_v1_products',
@@ -297,15 +298,20 @@ const SEED = {
 /* ── Camada de Armazenamento ──────────────────────────────── */
 const Storage = {
   init() {
-    if (localStorage.getItem(STORE.INIT)) return;
+    var stored = localStorage.getItem(STORE.INIT);
+    if (stored === DATA_VERSION) return;
+    /* versão diferente ou primeira visita — re-seed de dados de referência */
     localStorage.setItem(STORE.USERS,    JSON.stringify(SEED.users));
     localStorage.setItem(STORE.STORES,   JSON.stringify(SEED.stores));
     localStorage.setItem(STORE.PRODUCTS, JSON.stringify(SEED.products));
     localStorage.setItem(STORE.ORDERS,   JSON.stringify(SEED.orders));
     localStorage.setItem(STORE.REVIEWS,  JSON.stringify(SEED.reviews));
-    localStorage.setItem(STORE.CART,     JSON.stringify([]));
-    localStorage.setItem(STORE.FAVS,     JSON.stringify([]));
-    localStorage.setItem(STORE.INIT,     '1');
+    if (!stored) {
+      /* primeira visita — inicializa carrinho e favoritos também */
+      localStorage.setItem(STORE.CART,   JSON.stringify([]));
+      localStorage.setItem(STORE.FAVS,   JSON.stringify([]));
+    }
+    localStorage.setItem(STORE.INIT, DATA_VERSION);
   },
   reset() {
     Object.values(STORE).forEach(function (k) { localStorage.removeItem(k); });
