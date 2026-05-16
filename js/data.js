@@ -493,7 +493,7 @@ const Fmt = {
     return { racao:'badge-racao', adubo:'badge-adubo', defensivo:'badge-defensivo', medicamento:'badge-medicamento', sementes:'badge-sementes', outros:'badge-outros' }[cat] || '';
   },
   segmentoLabel(seg) {
-    return { racao:'Ração Animal', adubo:'Adubos & Fertilizantes', defensivo:'Defensivos Agrícolas', medicamento:'Medicamentos Vet.', sementes:'Sementes', ferramentas:'Ferramentas', outros:'Outros' }[seg] || seg;
+    return { racao:'Ração Animal', adubo:'Adubos & Fertilizantes', defensivo:'Defensivos Agrícolas', medicamento:'Medicamentos Vet.', sementes:'Sementes', outros:'Outros' }[seg] || seg;
   },
   orderStatus(status) {
     return { confirmed:'Confirmado', shipped:'Em transporte', delivered:'Entregue', cancelled:'Cancelado' }[status] || status;

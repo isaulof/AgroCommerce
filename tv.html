@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>AgroCommerce — TV Estande</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a1810;
+  font-family: 'Inter', sans-serif;
+  cursor: none;
+  user-select: none;
+}
+
+/* ── Stage ocupa 100% do viewport ── */
+.stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 65% at 8% 50%, rgba(46,125,50,.18) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 75% at 92% 50%, rgba(27,58,38,.3) 0%, transparent 65%),
+    linear-gradient(135deg, #0f2318 0%, #0a1810 55%, #0c1f14 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Slides ── */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
+  z-index: 1;
+  padding: 5vh 7vw 9vh;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+/* ── Footer persistente ── */
+.footer-bar {
+  position: absolute;
+  bottom: 0.4vh;
+  left: 0;
+  right: 0;
+  height: 5.5vh;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5vw;
+  background: rgba(8,20,12,.88);
+  border-top: 1px solid rgba(76,175,80,.1);
+}
+.footer-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.1vw;
+  color: rgba(255,255,255,.22);
+  letter-spacing: .2vw;
+}
+.footer-brand span { color: #66BB6A; }
+.footer-dot {
+  width: .25vw; height: .25vw;
+  border-radius: 50%;
+  background: rgba(76,175,80,.32);
+}
+.footer-tag {
+  font-size: .9vw;
+  color: rgba(255,255,255,.15);
+  letter-spacing: .35vw;
+  text-transform: uppercase;
+}
+
+/* ── Barra de progresso ── */
+.progress-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: .4vh;
+  background: linear-gradient(90deg, #2E7D32, #66BB6A, #AED581);
+  width: 0%;
+  z-index: 30;
+  transition: none;
+}
+
+/* ═══════════════════════════════════════════
+   COMPONENTES REUTILIZÁVEIS
+═══════════════════════════════════════════ */
+.eyebrow {
+  font-size: 1.05vw;
+  font-weight: 600;
+  color: #66BB6A;
+  letter-spacing: .55vw;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(.8vh);
+  transition: opacity .5s ease .1s, transform .5s ease .1s;
+  align-self: flex-start;
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); }
+
+.big-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  clip-path: inset(0 0 100% 0);
+  align-self: flex-start;
+  transition: clip-path .7s cubic-bezier(.4,0,.2,1) .25s;
+}
+.slide.active .big-title { clip-path: inset(0 0 0% 0); }
+
+.h-rule {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102,187,106,.5), transparent);
+  transition: width .7s cubic-bezier(.4,0,.2,1) .8s;
+}
+.slide.active .h-rule { width: 22vw; }
+
+/* ═══════════════════════════════════════════
+   SLIDE 1 — LOGO
+═══════════════════════════════════════════ */
+#s-logo { gap: 0; text-align: center; }
+
+#s-logo .logo-mark {
+  width: 10vw; height: 10vw;
+  background: linear-gradient(145deg, #388E3C, #2E7D32);
+  border-radius: 2.2vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5vw; color: #fff;
+  margin-bottom: 3vh;
+  box-shadow:
+    0 0 0 .05vw rgba(76,175,80,.3),
+    0 0 3vw rgba(76,175,80,.4),
+    0 0 7vw rgba(76,175,80,.15),
+    0 2vh 4vw rgba(0,0,0,.55);
+  opacity: 0;
+  transform: scale(.45) translateY(2vh);
+  transition: opacity .75s cubic-bezier(.34,1.4,.64,1), transform .75s cubic-bezier(.34,1.4,.64,1);
+}
+#s-logo.active .logo-mark { opacity: 1; transform: scale(1) translateY(0); }
+
+#s-logo .logo-wordmark {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 7.5vw;
+  letter-spacing: -.15vw;
+  color: rgba(255,255,255,.28);
+  line-height: 1;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .8s cubic-bezier(.4,0,.2,1) .45s;
+}
+#s-logo .logo-wordmark span { color: #66BB6A; }
+#s-logo.active .logo-wordmark { clip-path: inset(0 0% 0 0); }
+
+#s-logo .logo-tag {
+  font-size: 1.35vw;
+  color: rgba(255,255,255,.28);
+  letter-spacing: .5vw;
+  text-transform: uppercase;
+  margin-top: 1.5vh;
+  opacity: 0;
+  transition: opacity .6s ease 1.05s;
+}
+#s-logo.active .logo-tag { opacity: 1; }
+
+#s-logo .logo-rule {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(102,187,106,.6), transparent);
+  margin-top: 3.5vh;
+  transition: width .85s cubic-bezier(.4,0,.2,1) 1.15s;
+}
+#s-logo.active .logo-rule { width: 26vw; }
+
+/* ═══════════════════════════════════════════
+   SLIDE 2 — QUEM SOMOS
+═══════════════════════════════════════════ */
+#s-quem { text-align: center; gap: 0; }
+
+#s-quem .big-title {
+  font-size: 5.5vw;
+  align-self: center;
+  margin-top: 1.5vh;
+  margin-bottom: 3vh;
+}
+
+.quem-desc {
+  font-size: 1.6vw;
+  color: rgba(255,255,255,.6);
+  line-height: 1.65;
+  max-width: 62vw;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(1.5vh);
+  transition: opacity .6s ease .6s, transform .6s ease .6s;
+}
+#s-quem.active .quem-desc { opacity: 1; transform: translateY(0); }
+.quem-desc em { font-style: normal; color: rgba(255,255,255,.88); font-weight: 600; }
+
+.quem-badges {
+  display: flex;
+  gap: 2vw;
+  margin-top: 4vh;
+  opacity: 0;
+  transform: translateY(1.5vh);
+  transition: opacity .6s ease .95s, transform .6s ease .95s;
+}
+#s-quem.active .quem-badges { opacity: 1; transform: translateY(0); }
+
+.quem-badge {
+  display: flex;
+  align-items: center;
+  gap: .8vw;
+  background: rgba(76,175,80,.1);
+  border: 1px solid rgba(76,175,80,.22);
+  border-radius: .8vw;
+  padding: 1.2vh 1.8vw;
+}
+.quem-badge i { font-size: 1.4vw; color: #66BB6A; }
+.quem-badge span { font-size: 1.15vw; color: rgba(255,255,255,.75); font-weight: 500; }
+
+.quem-unemat {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5vw;
+  background: rgba(255,255,255,.9);
+  border-radius: 1.2vw;
+  padding: 1.2vh 2.5vw;
+  margin-top: 3.5vh;
+  opacity: 0;
+  transform: translateY(1.5vh);
+  transition: opacity .6s ease 1.25s, transform .6s ease 1.25s;
+}
+#s-quem.active .quem-unemat { opacity: 1; transform: translateY(0); }
+.quem-unemat img.brasao { height: 5.5vh; width: auto; }
+.quem-unemat .udiv { width: 1px; height: 4vh; background: rgba(0,0,0,.12); }
+.quem-unemat img.utxt { height: 3.5vh; width: auto; }
+
+/* ═══════════════════════════════════════════
+   SLIDE 3 — O PROBLEMA
+═══════════════════════════════════════════ */
+#s-problema {
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
+}
+
+.prob-left {
+  flex: 0 0 38vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-right: 4vw;
+}
+
+.prob-question {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 3.2vw;
+  color: #fff;
+  line-height: 1.2;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path .7s cubic-bezier(.4,0,.2,1) .28s;
+  margin-top: 1.5vh;
+}
+#s-problema.active .prob-question { clip-path: inset(0 0 0% 0); }
+.prob-question em { font-style: normal; color: #66BB6A; }
+
+.prob-sub {
+  font-size: 1.4vw;
+  color: rgba(255,255,255,.42);
+  line-height: 1.6;
+  margin-top: 2.5vh;
+  opacity: 0;
+  transition: opacity .55s ease .75s;
+}
+#s-problema.active .prob-sub { opacity: 1; }
+
+.prob-divider {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(180deg, transparent, rgba(76,175,80,.35), transparent);
+  flex-shrink: 0;
+  transition: height .7s ease .45s;
+}
+#s-problema.active .prob-divider { height: 55vh; }
+
+.prob-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  padding-left: 4vw;
+}
+
+.prob-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5vw;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(200,80,60,.18);
+  border-radius: 1vw;
+  padding: 2.2vh 2vw;
+  opacity: 0;
+  transform: translateX(2vw);
+}
+.prob-card:nth-child(1) { transition: opacity .5s ease .5s, transform .5s ease .5s; }
+.prob-card:nth-child(2) { transition: opacity .5s ease .7s, transform .5s ease .7s; }
+.prob-card:nth-child(3) { transition: opacity .5s ease .9s, transform .5s ease .9s; }
+#s-problema.active .prob-card { opacity: 1; transform: translateX(0); }
+
+.prob-card-icon {
+  width: 3.5vw; height: 3.5vw;
+  background: rgba(200,80,60,.12);
+  border: 1px solid rgba(200,80,60,.25);
+  border-radius: .7vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6vw; color: #ef9a9a;
+  flex-shrink: 0;
+}
+.prob-card-text {}
+.prob-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.4vw;
+  color: #fff;
+  margin-bottom: .6vh;
+}
+.prob-card-desc {
+  font-size: 1.15vw;
+  color: rgba(255,255,255,.48);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 4 — NOSSA SOLUÇÃO
+═══════════════════════════════════════════ */
+#s-solucao {
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
+}
+
+.sol-left {
+  flex: 0 0 48vw;
+  padding-right: 5vw;
+}
+
+.sol-headline {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 3.4vw;
+  color: #fff;
+  line-height: 1.15;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path .7s cubic-bezier(.4,0,.2,1) .28s;
+  margin-top: 1.5vh;
+}
+#s-solucao.active .sol-headline { clip-path: inset(0 0 0% 0); }
+.sol-headline em { font-style: normal; color: #66BB6A; }
+
+.sol-sub {
+  font-size: 1.4vw;
+  color: rgba(255,255,255,.48);
+  line-height: 1.65;
+  margin-top: 2.5vh;
+  opacity: 0;
+  transition: opacity .55s ease .75s;
+}
+#s-solucao.active .sol-sub { opacity: 1; }
+
+.sol-divider {
+  width: 1px;
+  height: 0;
+  background: linear-gradient(180deg, transparent, rgba(76,175,80,.35), transparent);
+  flex-shrink: 0;
+  transition: height .7s ease .4s;
+}
+#s-solucao.active .sol-divider { height: 55vh; }
+
+.sol-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  padding-left: 4.5vw;
+}
+
+.sol-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5vw;
+  background: rgba(76,175,80,.06);
+  border: 1px solid rgba(76,175,80,.18);
+  border-radius: 1vw;
+  padding: 2.2vh 2vw;
+  opacity: 0;
+  transform: translateX(2vw);
+}
+.sol-card:nth-child(1) { transition: opacity .5s ease .5s, transform .5s ease .5s; }
+.sol-card:nth-child(2) { transition: opacity .5s ease .7s, transform .5s ease .7s; }
+.sol-card:nth-child(3) { transition: opacity .5s ease .9s, transform .5s ease .9s; }
+#s-solucao.active .sol-card { opacity: 1; transform: translateX(0); }
+
+.sol-card-icon {
+  width: 3.5vw; height: 3.5vw;
+  background: rgba(76,175,80,.14);
+  border: 1px solid rgba(76,175,80,.28);
+  border-radius: .7vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6vw; color: #66BB6A;
+  flex-shrink: 0;
+}
+.sol-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.4vw;
+  color: #fff;
+  margin-bottom: .5vh;
+}
+.sol-card-desc {
+  font-size: 1.15vw;
+  color: rgba(255,255,255,.48);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 5 — CATEGORIAS
+═══════════════════════════════════════════ */
+#s-categorias { gap: 0; align-items: flex-start; }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5vh 1.5vw;
+  width: 100%;
+  margin-top: 2.5vh;
+}
+
+.cat-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(76,175,80,.13);
+  border-radius: 1vw;
+  padding: 2.5vh 1.8vw;
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  opacity: 0;
+  transform: translateY(1.5vh);
+}
+.cat-card:nth-child(1) { transition: opacity .4s ease .35s, transform .4s ease .35s; }
+.cat-card:nth-child(2) { transition: opacity .4s ease .47s, transform .4s ease .47s; }
+.cat-card:nth-child(3) { transition: opacity .4s ease .59s, transform .4s ease .59s; }
+.cat-card:nth-child(4) { transition: opacity .4s ease .71s, transform .4s ease .71s; }
+.cat-card:nth-child(5) { transition: opacity .4s ease .83s, transform .4s ease .83s; }
+.cat-card:nth-child(6) { transition: opacity .4s ease .95s, transform .4s ease .95s; }
+.slide.active .cat-card { opacity: 1; transform: translateY(0); }
+
+.cat-icon {
+  width: 4vw; height: 4vw;
+  background: rgba(76,175,80,.12);
+  border-radius: .8vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8vw; color: #66BB6A;
+  flex-shrink: 0;
+}
+.cat-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.4vw;
+  color: rgba(255,255,255,.88);
+  line-height: 1.2;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 6 — COMO FUNCIONA
+═══════════════════════════════════════════ */
+#s-como { gap: 0; align-items: flex-start; }
+
+.steps-row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  margin-top: 3vh;
+  gap: 0;
+}
+
+.step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.8vw;
+  opacity: 0;
+  transform: translateY(2vh);
+}
+.step:nth-child(1) { transition: opacity .5s ease .35s, transform .5s ease .35s; }
+.step:nth-child(3) { transition: opacity .5s ease .58s, transform .5s ease .58s; }
+.step:nth-child(5) { transition: opacity .5s ease .81s, transform .5s ease .81s; }
+.slide.active .step { opacity: 1; transform: translateY(0); }
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2vw; height: 2.2vw;
+  background: rgba(76,175,80,.18);
+  border: 1px solid rgba(76,175,80,.35);
+  border-radius: 50%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: .9vw;
+  color: #66BB6A;
+  margin-bottom: 2vh;
+  flex-shrink: 0;
+}
+
+.step-icon {
+  width: 7vw; height: 7vw;
+  background: linear-gradient(145deg, rgba(56,142,60,.26), rgba(46,125,50,.1));
+  border: 1px solid rgba(76,175,80,.26);
+  border-radius: 1.6vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3vw; color: #66BB6A;
+  margin-bottom: 2.5vh;
+  box-shadow: 0 0 2.5vw rgba(76,175,80,.12);
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.65vw;
+  color: #fff;
+  margin-bottom: 1.2vh;
+  line-height: 1.2;
+}
+.step-desc {
+  font-size: 1.2vw;
+  color: rgba(255,255,255,.48);
+  line-height: 1.6;
+}
+
+.steps-connector {
+  flex: 0 0 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10vh;
+  opacity: 0;
+  transition: opacity .5s ease .5s;
+}
+.slide.active .steps-connector { opacity: 1; }
+.steps-connector i { font-size: 1.4vw; color: rgba(76,175,80,.35); }
+
+/* ═══════════════════════════════════════════
+   SLIDE 7 — DIFERENCIAIS
+═══════════════════════════════════════════ */
+#s-diferenciais { gap: 0; align-items: flex-start; }
+
+.dif-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5vh 1.5vw;
+  width: 100%;
+  margin-top: 2.5vh;
+}
+
+.dif-card {
+  background: rgba(76,175,80,.05);
+  border: 1px solid rgba(76,175,80,.15);
+  border-radius: 1vw;
+  padding: 2.8vh 2vw;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2vw;
+  opacity: 0;
+  transform: translateY(1.5vh);
+}
+.dif-card:nth-child(1) { transition: opacity .4s ease .3s, transform .4s ease .3s; }
+.dif-card:nth-child(2) { transition: opacity .4s ease .42s, transform .4s ease .42s; }
+.dif-card:nth-child(3) { transition: opacity .4s ease .54s, transform .4s ease .54s; }
+.dif-card:nth-child(4) { transition: opacity .4s ease .66s, transform .4s ease .66s; }
+.dif-card:nth-child(5) { transition: opacity .4s ease .78s, transform .4s ease .78s; }
+.dif-card:nth-child(6) { transition: opacity .4s ease .90s, transform .4s ease .90s; }
+.slide.active .dif-card { opacity: 1; transform: translateY(0); }
+
+.dif-icon {
+  width: 3.2vw; height: 3.2vw;
+  background: rgba(76,175,80,.14);
+  border-radius: .65vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.45vw; color: #66BB6A;
+  flex-shrink: 0;
+  margin-top: .3vh;
+}
+.dif-text {}
+.dif-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.35vw;
+  color: #fff;
+  margin-bottom: .6vh;
+}
+.dif-desc {
+  font-size: 1.1vw;
+  color: rgba(255,255,255,.45);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE 8 — MERCADO
+═══════════════════════════════════════════ */
+#s-mercado { gap: 0; align-items: flex-start; }
+
+.mkt-row {
+  display: flex;
+  gap: 1.5vw;
+  width: 100%;
+  margin-top: 2.5vh;
+}
+
+.mkt-stat {
+  flex: 1;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(76,175,80,.14);
+  border-radius: 1vw;
+  padding: 3vh 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1vh;
+  opacity: 0;
+  transform: translateY(1.5vh);
+}
+.mkt-stat:nth-child(1) { transition: opacity .45s ease .3s, transform .45s ease .3s; }
+.mkt-stat:nth-child(2) { transition: opacity .45s ease .5s, transform .45s ease .5s; }
+.mkt-stat:nth-child(3) { transition: opacity .45s ease .7s, transform .45s ease .7s; }
+.slide.active .mkt-stat { opacity: 1; transform: translateY(0); }
+
+.mkt-stat-icon {
+  width: 3.5vw; height: 3.5vw;
+  background: rgba(76,175,80,.12);
+  border-radius: .7vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6vw; color: #66BB6A;
+}
+.mkt-stat-label {
+  font-size: 1vw;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .15vw;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.mkt-stat-value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 3.2vw;
+  color: #66BB6A;
+  line-height: 1;
+}
+.mkt-stat-desc {
+  font-size: 1.1vw;
+  color: rgba(255,255,255,.5);
+  line-height: 1.5;
+}
+
+.mkt-note {
+  font-size: 1vw;
+  color: rgba(255,255,255,.28);
+  margin-top: 1.5vh;
+  text-align: center;
+  width: 100%;
+  opacity: 0;
+  transition: opacity .5s ease 1.1s;
+}
+.slide.active .mkt-note { opacity: 1; }
+
+/* ═══════════════════════════════════════════
+   SLIDE 9 — CTA
+═══════════════════════════════════════════ */
+#s-cta { text-align: center; gap: 0; }
+
+.c-mark {
+  width: 6.5vw; height: 6.5vw;
+  background: linear-gradient(145deg, #388E3C, #2E7D32);
+  border-radius: 1.5vw;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.2vw; color: #fff;
+  margin: 0 auto 2.5vh;
+  box-shadow: 0 0 3.5vw rgba(76,175,80,.32), 0 1.5vh 3vw rgba(0,0,0,.5);
+  opacity: 0;
+  transform: scale(.65);
+  transition: opacity .55s cubic-bezier(.34,1.4,.64,1) .1s,
+              transform .55s cubic-bezier(.34,1.4,.64,1) .1s;
+}
+#s-cta.active .c-mark { opacity: 1; transform: scale(1); }
+
+.c-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 4.2vw;
+  line-height: 1.15;
+  color: #fff;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path .7s cubic-bezier(.4,0,.2,1) .32s;
+}
+.c-title em { font-style: normal; color: #66BB6A; }
+#s-cta.active .c-title { clip-path: inset(0 0 0% 0); }
+
+#s-cta .h-rule { margin: 3vh auto; }
+
+.c-unemat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1vw;
+  font-weight: 700;
+  color: rgba(255,255,255,.38);
+  letter-spacing: .35vw;
+  text-transform: uppercase;
+  margin-bottom: 1.5vh;
+  opacity: 0;
+  transition: opacity .5s ease 1s;
+}
+#s-cta.active .c-unemat-label { opacity: 1; }
+
+.c-unemat {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.8vw;
+  background: rgba(255,255,255,.92);
+  border-radius: 1.2vw;
+  padding: 1.5vh 3vw;
+  opacity: 0;
+  transform: translateY(1.5vh);
+  transition: opacity .6s ease 1.15s, transform .6s ease 1.15s;
+}
+#s-cta.active .c-unemat { opacity: 1; transform: translateY(0); }
+.c-brasao { height: 7vh; width: auto; }
+.c-udiv { width: 1px; height: 5.5vh; background: rgba(0,0,0,.12); }
+.c-utxt { height: 4vh; width: auto; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- ── SLIDE 1: LOGO ── -->
+  <div class="slide" id="s-logo">
+    <div class="logo-mark"><i class="fa-solid fa-seedling"></i></div>
+    <div class="logo-wordmark">AGRO<span>COMMERCE</span></div>
+    <div class="logo-tag">Marketplace do Agronegócio</div>
+    <div class="logo-rule"></div>
+  </div>
+
+  <!-- ── SLIDE 2: QUEM SOMOS ── -->
+  <div class="slide" id="s-quem">
+    <div class="eyebrow">Quem somos</div>
+    <div class="big-title" style="font-size:5.5vw;align-self:center;margin-top:1.5vh;margin-bottom:3vh;">AgroCommerce</div>
+    <p class="quem-desc">
+      Uma <em>startup de agronegócio</em> desenvolvida na UNEMAT, campus Lucas do Rio Verde/MT.<br>
+      Conectamos pequenos e médios <em>produtores rurais</em> a lojas e distribuidores locais<br>
+      por meio de um <em>marketplace digital de insumos agropecuários.</em>
+    </p>
+    <div class="quem-badges">
+      <div class="quem-badge">
+        <i class="fa-solid fa-map-marker-alt"></i>
+        <span>Lucas do Rio Verde — MT</span>
+      </div>
+      <div class="quem-badge">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Projeto UNEMAT</span>
+      </div>
+      <div class="quem-badge">
+        <i class="fa-solid fa-rocket"></i>
+        <span>Startup de Agronegócio</span>
+      </div>
+    </div>
+    <div class="quem-unemat">
+      <img class="brasao" src="banners_img/unemat.png" alt="Brasão UNEMAT">
+      <div class="udiv"></div>
+      <img class="utxt" src="banners_img/unemat_texto.png" alt="UNEMAT">
+    </div>
+  </div>
+
+  <!-- ── SLIDE 3: O PROBLEMA ── -->
+  <div class="slide" id="s-problema">
+    <div class="prob-left">
+      <div class="eyebrow">O problema que resolvemos</div>
+      <div class="prob-question">
+        Como o produtor rural<br>
+        compra <em>insumos hoje?</em>
+      </div>
+      <p class="prob-sub">
+        Milhares de produtores ainda dependem<br>
+        de deslocamentos e ligações telefônicas<br>
+        para adquirir insumos básicos.
+      </p>
+    </div>
+    <div class="prob-divider"></div>
+    <div class="prob-right">
+      <div class="prob-card">
+        <div class="prob-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="prob-card-text">
+          <div class="prob-card-title">Loja distante</div>
+          <div class="prob-card-desc">O produtor gasta horas de deslocamento até a cidade para comprar insumos básicos</div>
+        </div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-icon"><i class="fa-solid fa-eye-slash"></i></div>
+        <div class="prob-card-text">
+          <div class="prob-card-title">Sem transparência de preços</div>
+          <div class="prob-card-desc">Impossível comparar ofertas entre diferentes lojas sem visitá-las uma a uma</div>
+        </div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-card-icon"><i class="fa-solid fa-phone-slash"></i></div>
+        <div class="prob-card-text">
+          <div class="prob-card-title">Processo manual e inseguro</div>
+          <div class="prob-card-desc">Pedidos feitos por telefone, sem histórico, sem comprovante e sem garantias</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 4: NOSSA SOLUÇÃO ── -->
+  <div class="slide" id="s-solucao">
+    <div class="sol-left">
+      <div class="eyebrow">Nossa solução</div>
+      <div class="sol-headline">
+        Conectamos<br>
+        <em>lojas rurais</em><br>
+        a produtores<br>
+        de todo o Brasil.
+      </div>
+      <p class="sol-sub">
+        Um marketplace digital de insumos agropecuários<br>
+        acessível de qualquer dispositivo, a qualquer hora.
+      </p>
+    </div>
+    <div class="sol-divider"></div>
+    <div class="sol-right">
+      <div class="sol-card">
+        <div class="sol-card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <div>
+          <div class="sol-card-title">Compre online, de onde estiver</div>
+          <div class="sol-card-desc">Acesse pelo celular, tablet ou computador e faça pedidos sem sair da propriedade</div>
+        </div>
+      </div>
+      <div class="sol-card">
+        <div class="sol-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <div class="sol-card-title">Lojas verificadas e produtos garantidos</div>
+          <div class="sol-card-desc">Todos os lojistas passam por verificação antes de anunciar na plataforma</div>
+        </div>
+      </div>
+      <div class="sol-card">
+        <div class="sol-card-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div>
+          <div class="sol-card-title">Frete próprio, sem intermediários</div>
+          <div class="sol-card-desc">Cada loja define e gerencia sua própria entrega diretamente ao produtor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 5: CATEGORIAS ── -->
+  <div class="slide" id="s-categorias">
+    <div class="eyebrow">O que tem na plataforma</div>
+    <div class="big-title" style="font-size:4.2vw;margin-top:1.2vh;">Tudo o que o agro precisa.</div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon"><i class="fa-solid fa-flask"></i></div>
+        <div class="cat-name">Adubos & Fertilizantes</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="cat-name">Defensivos Agrícolas</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><i class="fa-solid fa-seedling"></i></div>
+        <div class="cat-name">Sementes</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><i class="fa-solid fa-cow"></i></div>
+        <div class="cat-name">Ração Animal</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><i class="fa-solid fa-syringe"></i></div>
+        <div class="cat-name">Medicamentos Veterinários</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><i class="fa-solid fa-box-open"></i></div>
+        <div class="cat-name">E muito mais...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 6: COMO FUNCIONA ── -->
+  <div class="slide" id="s-como">
+    <div class="eyebrow">Como funciona</div>
+    <div class="big-title" style="font-size:4.2vw;margin-top:1.2vh;">Simples. Rápido. Confiável.</div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-badge">01</div>
+        <div class="step-icon"><i class="fa-solid fa-store"></i></div>
+        <div class="step-title">Lojista anuncia</div>
+        <div class="step-desc">Lojas rurais cadastram seus produtos e definem o próprio prazo e frete de entrega</div>
+      </div>
+      <div class="steps-connector"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="step">
+        <div class="step-badge">02</div>
+        <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="step-title">Produtor encontra</div>
+        <div class="step-desc">Compare preços, avalie lojas e escolha a melhor oferta direto do celular</div>
+      </div>
+      <div class="steps-connector"><i class="fa-solid fa-arrow-right"></i></div>
+      <div class="step">
+        <div class="step-badge">03</div>
+        <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="step-title">Entrega garantida</div>
+        <div class="step-desc">Frete próprio da loja direto ao produtor, sem depender de intermediários</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 7: DIFERENCIAIS ── -->
+  <div class="slide" id="s-diferenciais">
+    <div class="eyebrow">Por que AgroCommerce?</div>
+    <div class="big-title" style="font-size:4.2vw;margin-top:1.2vh;">Nossos diferenciais.</div>
+    <div class="dif-grid">
+      <div class="dif-card">
+        <div class="dif-icon"><i class="fa-solid fa-badge-check"></i></div>
+        <div class="dif-text">
+          <div class="dif-title">Lojas Verificadas</div>
+          <div class="dif-desc">Cada lojista é verificado antes de anunciar, garantindo credibilidade</div>
+        </div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="dif-text">
+          <div class="dif-title">Frete Próprio da Loja</div>
+          <div class="dif-desc">Entrega direta, sem terceiros, com controle total do lojista</div>
+        </div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><i class="fa-solid fa-tags"></i></div>
+        <div class="dif-text">
+          <div class="dif-title">Preços Competitivos</div>
+          <div class="dif-desc">Compare ofertas de diferentes lojas e escolha o melhor custo-benefício</div>
+        </div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <div class="dif-text">
+          <div class="dif-title">Acesso de Qualquer Lugar</div>
+          <div class="dif-desc">Plataforma responsiva — funciona no celular, tablet ou computador</div>
+        </div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><i class="fa-solid fa-lock"></i></div>
+        <div class="dif-text">
+          <div class="dif-title">Compra Segura</div>
+          <div class="dif-desc">Histórico de pedidos, comprovantes e rastreamento em um só lugar</div>
+        </div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"><i class="fa-solid fa-handshake"></i></div>
+        <div class="dif-text">
+          <div class="dif-title">Sem Intermediários</div>
+          <div class="dif-desc">Relação direta entre produtor e lojista, com mais margem para os dois</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 8: MERCADO ── -->
+  <div class="slide" id="s-mercado">
+    <div class="eyebrow">Contexto & Oportunidade</div>
+    <div class="big-title" style="font-size:4vw;margin-top:1.2vh;">O agronegócio brasileiro<br>é <span style="color:#66BB6A">gigante.</span></div>
+    <div class="mkt-row">
+      <div class="mkt-stat">
+        <div class="mkt-stat-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+        <div class="mkt-stat-label">Participação no PIB</div>
+        <div class="mkt-stat-value">24,8%</div>
+        <div class="mkt-stat-desc">O agro representa quase ¼ da economia brasileira — e a demanda por insumos cresce todo ano</div>
+      </div>
+      <div class="mkt-stat">
+        <div class="mkt-stat-icon"><i class="fa-solid fa-tractor"></i></div>
+        <div class="mkt-stat-label">Produtores no Brasil</div>
+        <div class="mkt-stat-value">+5 mi</div>
+        <div class="mkt-stat-desc">Mais de 5 milhões de produtores rurais, grande parte ainda comprando insumos de forma presencial</div>
+      </div>
+      <div class="mkt-stat">
+        <div class="mkt-stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="mkt-stat-label">Mercado de insumos</div>
+        <div class="mkt-stat-value">R$ 200 bi+</div>
+        <div class="mkt-stat-desc">Mercado de insumos agrícolas em crescimento acelerado, com alta demanda por digitalização</div>
+      </div>
+    </div>
+    <div class="mkt-note">Fontes: CEPEA/USP · IBGE Censo Agropecuário · CNA Brasil</div>
+  </div>
+
+  <!-- ── SLIDE 9: CTA ── -->
+  <div class="slide" id="s-cta">
+    <div class="c-mark"><i class="fa-solid fa-seedling"></i></div>
+    <div class="c-title">O marketplace do <em>agronegócio</em> brasileiro.</div>
+    <div class="h-rule"></div>
+    <div class="c-unemat-label">Um projeto</div>
+    <div class="c-unemat">
+      <img class="c-brasao" src="banners_img/unemat.png" alt="Brasão UNEMAT">
+      <div class="c-udiv"></div>
+      <img class="c-utxt" src="banners_img/unemat_texto.png" alt="UNEMAT">
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="footer-bar">
+    <span class="footer-brand">AGRO<span>COMMERCE</span></span>
+    <div class="footer-dot"></div>
+    <span class="footer-tag">Marketplace do Agronegócio</span>
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<script>
+(function () {
+
+  /* ── Fullscreen automático ── */
+  function goFullscreen() {
+    var el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen().catch(function(){});
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }
+  document.addEventListener('click', goFullscreen, { once: true });
+  setTimeout(goFullscreen, 500);
+
+  /* ── Timeline (~72s de loop) ── */
+  var seq = [
+    { at: 0,     show: 's-logo' },
+    { at: 5000,  show: 's-quem',        hide: 's-logo' },
+    { at: 13000, show: 's-problema',    hide: 's-quem' },
+    { at: 21000, show: 's-solucao',     hide: 's-problema' },
+    { at: 29000, show: 's-categorias',  hide: 's-solucao' },
+    { at: 37000, show: 's-como',        hide: 's-categorias' },
+    { at: 46000, show: 's-diferenciais',hide: 's-como' },
+    { at: 55000, show: 's-mercado',     hide: 's-diferenciais' },
+    { at: 64000, show: 's-cta',         hide: 's-mercado' },
+  ];
+
+  var TOTAL = 72000;
+  var timers = [];
+
+  function clearAll() {
+    document.querySelectorAll('.slide').forEach(function (el) {
+      el.classList.remove('active');
+    });
+  }
+
+  function runSequence() {
+    clearAll();
+    timers.forEach(clearTimeout);
+    timers = [];
+
+    var bar = document.getElementById('progressBar');
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+
+    var start = Date.now();
+
+    seq.forEach(function (step) {
+      timers.push(setTimeout(function () {
+        var showEl = document.getElementById(step.show);
+        if (showEl) showEl.classList.add('active');
+        if (step.hide) {
+          var hideEl = document.getElementById(step.hide);
+          if (hideEl) hideEl.classList.remove('active');
+        }
+      }, step.at));
+    });
+
+    /* Barra de progresso */
+    function tick() {
+      var elapsed = Date.now() - start;
+      var pct = Math.min(elapsed / TOTAL * 100, 100);
+      bar.style.width = pct + '%';
+      if (elapsed < TOTAL) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    /* Loop automático */
+    timers.push(setTimeout(runSequence, TOTAL));
+  }
+
+  runSequence();
+
+})();
+</script>
+</body>
+</html>
