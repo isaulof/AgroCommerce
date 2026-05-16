@@ -5,7 +5,7 @@
 
 /* ── Chaves do localStorage ───────────────────────────────── */
 const STORE = {
-  INIT:            'agroB2C_v1_init',
+  INIT:            'agroB2C_v2_init',
   USERS:           'agroB2C_v1_users',
   STORES:          'agroB2C_v1_stores',
   PRODUCTS:        'agroB2C_v1_products',
@@ -29,6 +29,9 @@ const SEED = {
     { id:5, name:'DefenAgro Distribuidora', type:'lojista', email:'defensivos@defenagro.com.br', phone:'(65) 3612-9900', cpfCnpj:'45.678.901/0001-22', verified:true, storeId:3, address:'Av. das Indústrias, 350', city:'Sorriso', state:'MT', rating:4.6, totalReviews:29, bio:'Distribuidora homologada de defensivos agrícolas. Todos os produtos com NF e receituário agronômico.', createdAt:'2026-02-01', initials:'DA', color:'#E65100' },
     { id:6, name:'VetPrime Saúde Animal', type:'lojista', email:'vet@vetprime.com.br', phone:'(65) 3711-5500', cpfCnpj:'67.890.123/0001-33', verified:true, storeId:4, address:'Rua do Comércio, 85', city:'Sinop', state:'MT', rating:4.8, totalReviews:21, bio:'Especialistas em saúde animal. Medicamentos veterinários, vitaminas e suplementos para rebanhos bovinos.', createdAt:'2026-02-10', initials:'VP', color:'#C62828' },
     { id:7, name:'Sementes CampoMT', type:'lojista', email:'sementes@campomt.com.br', phone:'(66) 3420-7700', cpfCnpj:'89.012.345/0001-44', verified:true, storeId:5, address:'Rod. MT-208, km 22', city:'Sorriso', state:'MT', rating:4.9, totalReviews:31, bio:'Sementes certificadas para o Cerrado. Soja, milho e pastagens de alta performance adaptadas à região.', createdAt:'2026-01-15', initials:'SC', color:'#00695C' },
+    { id:8, name:'AgroCentro Insumos', type:'lojista', email:'contato@agrocentro.com.br', phone:'(65) 3512-4400', cpfCnpj:'11.222.333/0001-55', verified:true, storeId:6, address:'Av. das Flores, 890', city:'Lucas do Rio Verde', state:'MT', rating:4.6, totalReviews:19, bio:'Revenda de sementes certificadas e insumos para safra. Soja, milho e pastagens com atendimento técnico.', createdAt:'2026-02-18', initials:'AC', color:'#558B2F' },
+    { id:9, name:'FertiAgro MT Distribuidora', type:'lojista', email:'vendas@fertiagromt.com.br', phone:'(65) 3411-6600', cpfCnpj:'22.333.444/0001-66', verified:true, storeId:7, address:'Rod. BR-163, km 798', city:'Lucas do Rio Verde', state:'MT', rating:4.5, totalReviews:23, bio:'Distribuidor de fertilizantes e defensivos com preços de atacado. Frota própria para entrega na lavoura.', createdAt:'2026-02-25', initials:'FM', color:'#0277BD' },
+    { id:10, name:'NutriCampo Pecuária', type:'lojista', email:'nutricampo@nutrimt.com.br', phone:'(66) 3524-8800', cpfCnpj:'33.444.555/0001-77', verified:true, storeId:8, address:'Rua Pioneiros, 415', city:'Sorriso', state:'MT', rating:4.7, totalReviews:27, bio:'Nutrição animal e saúde do rebanho. Rações de alta performance e medicamentos veterinários com NF.', createdAt:'2026-03-05', initials:'NC', color:'#6A1B9A' },
   ],
 
   stores: [
@@ -37,6 +40,9 @@ const SEED = {
     { id:3, ownerId:5, name:'DefenAgro', segmento:'defensivo', description:'Defensivos agrícolas regularizados com nota fiscal. Herbicidas, inseticidas e fungicidas das principais marcas. Atendimento técnico incluso para aplicação segura.', rating:4.6, totalReviews:29, verified:true, createdAt:'2026-02-01' },
     { id:4, ownerId:6, name:'VetPrime', segmento:'medicamento', description:'Saúde animal com qualidade e confiança. Medicamentos veterinários de venda livre, vitaminas e suplementos para seu rebanho. Registro no MAPA em todos os produtos.', rating:4.8, totalReviews:21, verified:true, createdAt:'2026-02-10' },
     { id:5, ownerId:7, name:'Sementes CampoMT', segmento:'sementes', description:'Sementes certificadas para a próxima safra. Variedades de soja, milho e pastagem selecionadas para o Cerrado mato-grossense. Germinação garantida acima de 90%.', rating:4.9, totalReviews:31, verified:true, createdAt:'2026-01-15' },
+    { id:6, ownerId:8, name:'AgroCentro Insumos', segmento:'sementes', description:'Sementes certificadas com laudo de germinação e suporte técnico incluso. Cultivares de soja, milho híbrido e pastagens para o Cerrado. Entrega em Lucas do Rio Verde e região.', rating:4.6, totalReviews:19, verified:true, createdAt:'2026-02-18' },
+    { id:7, ownerId:9, name:'FertiAgro MT', segmento:'adubo', description:'Fertilizantes e defensivos com preço de atacado para produtores rurais. Entrega com frota própria direto na lavoura. Parceiro de grandes distribuidores nacionais.', rating:4.5, totalReviews:23, verified:true, createdAt:'2026-02-25' },
+    { id:8, ownerId:10, name:'NutriCampo', segmento:'racao', description:'Rações de alto desempenho e medicamentos veterinários para bovinos, aves e suínos. Produtos com registro MAPA e nota fiscal em todos os pedidos. Atendimento em Sorriso e arredores.', rating:4.7, totalReviews:27, verified:true, createdAt:'2026-03-05' },
   ],
 
   products: [
@@ -164,6 +170,81 @@ const SEED = {
       price:145.00, unit:'saco 10kg', stock:420,
       images:['itens/brachiaria.jpg','https://placehold.co/700x500/e0f2f1/00695C?text=Certificado+RENASEM'],
       rating:4.7, totalReviews:11, active:true, createdAt:'2026-02-01'
+    },
+    /* ─── AgroCentro Insumos (storeId: 6) — concorre com loja 5 ─ */
+    {
+      id:16, storeId:6, category:'sementes', featured:true,
+      title:'Semente Soja P98Y30 RR',
+      description:'Cultivar de soja convencional RR (Roundup Ready) com GMR 8.0, excelente adaptação ao Cerrado mato-grossense. Alta produtividade em solos de média e alta fertilidade, com boa tolerância ao acamamento.\n\nCaracterísticas agronômicas:\n• GMR: 8.0 | Ciclo: Médio (~115 dias)\n• Crescimento: Indeterminado\n• Tolerância ao herbicida glifosato\n• Boa resistência à Ferrugem-asiática\n\nTratamento de sementes incluso: Fungicida + Inseticida.\nGerminação mínima garantida: 88%\nCertificação MAPA | RENASEM.',
+      price:395.00, unit:'saco 50kg', stock:380,
+      images:['itens/semente-soja.jpg','https://placehold.co/700x500/e0f2f1/558B2F?text=P98Y30+RR+Cerrado'],
+      rating:4.6, totalReviews:14, active:true, createdAt:'2026-02-20'
+    },
+    {
+      id:17, storeId:6, category:'sementes', featured:false,
+      title:'Semente Milho DKB390 PRO3',
+      description:'Híbrido simples de milho da Dekalb (Bayer), com tecnologia PRO3 — stack que combina três eventos Bt para controle de lagarta-do-cartucho, lagarta-da-espiga e tolerância a herbicidas glifosato e glufosinato.\n\nDestaques agronômicos:\n• Ciclo: Precoce | Tipo de grão: Semiduro alaranjado\n• Excelente aptidão para silagem e grão\n• Tolerância a doenças foliares e boa estabilidade\n• Pop. recomendada: 55.000 a 62.000 plantas/ha\n• Potencial produtivo: acima de 200 sc/ha em boas condições\n\nEmbalagem: 60.000 sementes/saco\nCertificação MAPA | Germinação garantida acima de 90%.',
+      price:410.00, unit:'60.000 sementes', stock:250,
+      images:['itens/milho-2b710.jpg','https://placehold.co/700x500/e0f2f1/558B2F?text=DKB390+PRO3'],
+      rating:4.5, totalReviews:9, active:true, createdAt:'2026-03-01'
+    },
+    {
+      id:18, storeId:6, category:'sementes', featured:false,
+      title:'Brachiaria Marandu VC 55%',
+      description:'O capim-marandu (Brachiaria brizantha cv. Marandu) é a forrageira mais cultivada no Brasil — escolha consolidada para pastagens de bovinos de corte e leite no Cerrado.\n\nVantagens:\n• Alta produção de biomassa: 8 a 15 t MS/ha/ano.\n• Boa resistência à seca — mantém valor nutritivo no período seco.\n• Compatível com diferentes sistemas: pastejo contínuo, rotacionado e integração lavoura-pecuária.\n• Menor custo por hectare vs. cultivares mais novas.\n\nEspecificações:\n• VC: 55% • Germinação mín.: 45% • Pureza mín.: 80%\nTaxa de semeadura: 8 a 10 kg/ha SPV\nCertificado RENASEM | Procedência garantida.',
+      price:128.00, unit:'saco 10kg', stock:350,
+      images:['itens/brachiaria.jpg','https://placehold.co/700x500/e0f2f1/558B2F?text=Marandu+VC+55%25'],
+      rating:4.4, totalReviews:8, active:true, createdAt:'2026-03-10'
+    },
+    /* ─── FertiAgro MT (storeId: 7) — concorre com lojas 2 e 3 ─ */
+    {
+      id:19, storeId:7, category:'adubo', featured:true,
+      title:'Fertilizante NPK 10-10-10',
+      description:'Formulação granulada equilibrada NPK 10-10-10 para adubação de manutenção em pastagens, culturas anuais e horticultura. Granulometria uniforme compatível com distribuidoras e plantadeiras.\n\nGarantias:\n• N total: 10% • P₂O₅ solúvel CNA+H₂O: 10% • K₂O total: 10%\n\nVenda direta ao produtor com preço de atacado. Disponível em pallets de 40 sacos. Entrega com frota própria na lavoura.',
+      price:158.00, unit:'saco 50kg', stock:500,
+      images:['itens/npk-10-10-10.jpeg','https://placehold.co/700x500/e3f0ff/0277BD?text=NPK+10-10-10+Atacado'],
+      rating:4.5, totalReviews:17, active:true, createdAt:'2026-02-28'
+    },
+    {
+      id:20, storeId:7, category:'adubo', featured:false,
+      title:'Ureia 46% Nitrogênio Granulada',
+      description:'Fertilizante nitrogenado de alta concentração (46% N) — levemente superior à ureia padrão 45%, com menor custo por kg de nitrogênio aplicado. Ideal para cobertura em pastagens, milho e cana-de-açúcar.\n\nAplicação: Em cobertura com solo úmido para minimizar a volatilização.\nGranulometria: 2 a 4 mm, livre de pó, ideal para distribuidoras centrífugas.\n\nGarantias:\n• N total: 46% • N-Amídico: 46% • Umidade máx.: 0,5%\nNota fiscal emitida. Disponível em sacos de 50 kg.',
+      price:185.00, unit:'saco 50kg', stock:300,
+      images:['itens/ureia.jpg','https://placehold.co/700x500/e3f0ff/0277BD?text=Ureia+46%25+N'],
+      rating:4.6, totalReviews:11, active:true, createdAt:'2026-03-05'
+    },
+    {
+      id:21, storeId:7, category:'defensivo', featured:false,
+      title:'Herbicida Glifosato 480g/L',
+      description:'Herbicida sistêmico não seletivo para controle pré e pós-emergente de plantas daninhas em lavouras de soja, milho e algodão RR. Absorção foliar com translocação até as raízes.\n\nConcentração: 480 g/L de Glifosato.\nUso: Dessecação pré-plantio e manejo de áreas improdutivas.\nDPI: 7 dias | Registro MAPA\n\nVenda direta ao produtor com nota fiscal e preço competitivo. Receituário agronômico obrigatório.',
+      price:138.50, unit:'galão 20L', stock:180,
+      images:['itens/glifosato.jpg','https://placehold.co/700x500/fff3e0/0277BD?text=Glifosato+Preço+Atacado'],
+      rating:4.4, totalReviews:13, active:true, createdAt:'2026-03-08'
+    },
+    /* ─── NutriCampo (storeId: 8) — concorre com lojas 1 e 4 ── */
+    {
+      id:22, storeId:8, category:'racao', featured:true,
+      title:'Ração Bovinos Confinamento 32% PB',
+      description:'Ração concentrada premium com 32% de Proteína Bruta — formulação de alto desempenho para bovinos de corte em confinamento intensivo. Minerais quelatados, vitaminas lipossolúveis e aditivos de performance.\n\nAnálise Garantida:\n• PB mínimo: 32% • EE mínimo: 5% • MM máximo: 12% • Umidade máxima: 12%\n\nIndicado para animais na fase de terminação com alvo de peso acima de 550 kg. Maior aporte proteico reduz dias de confinamento e antecipa o abate.\nRegistro MAPA.',
+      price:198.00, unit:'saco 40kg', stock:320,
+      images:['itens/racao-bovino-30pb.png','https://placehold.co/700x500/e8f5e9/6A1B9A?text=32%25+PB+Confinamento'],
+      rating:4.7, totalReviews:16, active:true, createdAt:'2026-03-10'
+    },
+    {
+      id:23, storeId:8, category:'racao', featured:false,
+      title:'Ração Aves Postura 17% PB',
+      description:'Ração completa para galinhas poedeiras em fase de produção. Formulação balanceada com cálcio reforçado para maior qualidade e espessura da casca do ovo.\n\nComposição: Milho, farelo de soja, calcário, fosfato bicálcico, premix vitamínico e mineral.\nForma física: Farelada ou peletizada.\n\nAnálise Garantida:\n• PB mínimo: 17% • Ca: 3,5% • P disponível: 0,35% • EM: 2.850 kcal/kg\n\nIdeal para criação caipira e granjas de pequeno porte. Disponível em sacos de 20 kg e 40 kg.',
+      price:98.00, unit:'saco 40kg', stock:260,
+      images:['itens/racao-frango.png','https://placehold.co/700x500/e8f5e9/6A1B9A?text=Postura+17%25+PB'],
+      rating:4.6, totalReviews:12, active:true, createdAt:'2026-03-15'
+    },
+    {
+      id:24, storeId:8, category:'medicamento', featured:false,
+      title:'Ivermectina 1% Injetável Bovinos',
+      description:'Endectocida injetável de amplo espectro para controle de endo e ectoparasitas em bovinos. Elimina vermes gastrintestinais, pulmonares, bernes, carrapatos, piolhos e sarnas com aplicação subcutânea única.\n\nDosagem: 1 mL / 50 kg de peso vivo.\nRendimento: Frasco 500 mL trata até 1.000 kg PV.\n\nComposição: Ivermectina 10 mg/mL (1%)\nCarência: 49 dias (carne) | 28 dias (leite)\nRegistro MAPA | Nota fiscal em todos os pedidos.',
+      price:82.50, unit:'frasco 500mL', stock:220,
+      images:['itens/ivermectina.jpeg','https://placehold.co/700x500/fce4ec/6A1B9A?text=Ivermectina+1%25'],
+      rating:4.6, totalReviews:10, active:true, createdAt:'2026-03-18'
     },
   ],
 
