@@ -160,7 +160,7 @@ Ou acesse o deploy: **[https://isaulof.github.io/AgroCommerce/](https://isaulof.
 
 ## Contexto Acadêmico
 
-Projeto desenvolvido no curso de **Agrocomputação** da **UNEMAT** (Universidade do Estado de Mato Grosso) para a feira de empreendedorismo. O escopo cobre insumos do dia a dia do campo — ração, adubos, defensivos, medicamentos veterinários, arames e sementes — excluindo intencionalmente peças e maquinário agrícola pesado.
+Projeto desenvolvido no curso de **Agrocomputação** da **UNEMAT** (Universidade do Estado de Mato Grosso) para a feira de empreendedorismo. O escopo cobre insumos do dia a dia do campo — ração, adubos, defensivos, medicamentos veterinários e sementes.
 
 ---
 
