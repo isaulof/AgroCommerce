@@ -5,7 +5,7 @@
 
   **Marketplace B2C multi-loja para o agronegócio**
 
-  [![Demo ao vivo](https://img.shields.io/badge/demo-ao%20vivo-%232E7D32?logo=github)](https://isaulof.github.io/agrocommerce/)
+  [![Demo ao vivo](https://img.shields.io/badge/demo-ao%20vivo-%232E7D32?logo=github)](https://isaulof.github.io/AgroCommerce/)
   [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/docs/Web/HTML)
   [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/docs/Web/CSS)
   [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
@@ -13,7 +13,7 @@
 
   *"Antes da porteira, a AgroCommerce resolve."*
 
-  **[🌐 Ver Demo ao Vivo](https://isaulof.github.io/agrocommerce/)**
+  **[🌐 Ver Demo ao Vivo](https://isaulof.github.io/AgroCommerce/)**
 </div>
 
 ---
@@ -32,7 +32,7 @@ Projeto acadêmico desenvolvido para a feira de empreendedorismo do curso de **A
 
 | Landing Page | Marketplace | Detalhes do Produto |
 |:---:|:---:|:---:|
-| [![Banner 1](banners_img/banner_1.png)](https://isaulof.github.io/agrocommerce/) | [![Banner 2](banners_img/banner_2.png)](https://isaulof.github.io/agrocommerce/marketplace.html) | [![Banner 3](banners_img/banner_3.png)](https://isaulof.github.io/agrocommerce/anuncio.html) |
+| [![Banner 1](banners_img/banner_1.png)](https://isaulof.github.io/AgroCommerce/) | [![Banner 2](banners_img/banner_2.png)](https://isaulof.github.io/AgroCommerce/marketplace.html) | [![Banner 3](banners_img/banner_3.png)](https://isaulof.github.io/AgroCommerce/anuncio.html) |
 
 ---
 
@@ -131,7 +131,7 @@ npx serve .
 # acesse → http://localhost:3000
 ```
 
-Ou acesse o deploy: **[https://isaulof.github.io/agrocommerce/](https://isaulof.github.io/agrocommerce/)**
+Ou acesse o deploy: **[https://isaulof.github.io/AgroCommerce/](https://isaulof.github.io/AgroCommerce/)**
 
 ---
 
