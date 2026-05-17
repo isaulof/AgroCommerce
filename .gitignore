@@ -1,0 +1,19 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Configuração de ferramentas locais
+.claude/
+
+# Documentos internos (não publicar)
+perguntas-investidor.md
+implementação/
+levi-analista-gemini.jpeg
+apresentacao.mp4
+"banners_img/AgroCommerce — Folheto A5.pdf"
+
+# Páginas de uso interno (mantidas localmente)
+pitch.html
+canvas.html
+folheto.html
+folheto-screenshot.png
